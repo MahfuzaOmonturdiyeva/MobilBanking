@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_16sdp"
+    android:background="@color/white"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_24sdp"
+    tools:context=".ui.screenSetting.screen.PersonalScreen">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/app_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingBottom="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <ImageButton
+                            android:id="@+id/img_btnClose"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_back" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:text="Personal information"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/grey_700"
+                        app:layout_constraintTop_toBottomOf="@id/app_b" />
+
+
+                    <EditText
+                        android:id="@+id/e_t_edit_firstname_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:hint="@string/name"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/app_b"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/app_b" />
+
+                    <TextView
+                        android:id="@+id/t_v_error_firstname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_firstname_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_firstname_user"
+                        tools:ignore="SmallSp" />
+
+
+                    <EditText
+                        android:id="@+id/e_t_edit_lastname_user"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:hint="@string/lastname"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_firstname_user"
+                        app:layout_constraintRight_toRightOf="@id/e_t_edit_firstname_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_firstname_user" />
+
+
+                    <TextView
+                        android:id="@+id/t_v_error_lastname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_lastname_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_lastname_user" />
+
+                    <EditText
+                        android:id="@+id/e_t_edit_old_password_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:hint="@string/old_password"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_lastname_user"
+                        app:layout_constraintRight_toRightOf="@id/e_t_edit_lastname_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_lastname_user"
+                        tools:ignore="TextFields" />
+
+                    <TextView
+                        android:id="@+id/t_v_old_error_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_old_password_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_old_password_user"
+                        tools:ignore="SmallSp" />
+
+                    <EditText
+                        android:id="@+id/e_t_edit_new_password_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:hint="@string/new_password"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_old_password_user"
+                        app:layout_constraintRight_toRightOf="@id/e_t_edit_old_password_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_old_password_user"
+                        tools:ignore="TextFields" />
+
+                    <TextView
+                        android:id="@+id/t_v_new_error_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_new_password_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_new_password_user"
+                        tools:ignore="SmallSp" />
+
+                    <EditText
+                        android:id="@+id/e_t_edit_confirm_password_user"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:hint="@string/confirm_password"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_new_password_user"
+                        app:layout_constraintRight_toRightOf="@id/e_t_edit_new_password_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_new_password_user"
+                        tools:ignore="TextFields" />
+
+                    <TextView
+                        android:id="@+id/t_v_error_confirm_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/e_t_edit_confirm_password_user"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_confirm_password_user" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/c_img_profile_image"
+                        android:layout_width="@dimen/_72sdp"
+                        android:layout_height="@dimen/_72sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:src="@drawable/ic_perm_identity"
+                        app:civ_border_color="@color/grey_200"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/e_t_edit_confirm_password_user"
+                        tools:ignore="RedundantNamespace" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/upload_your_picture"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/c_img_profile_image" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/click_effect_custom_button"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/save"
+                app:backgroundTint="@null" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>

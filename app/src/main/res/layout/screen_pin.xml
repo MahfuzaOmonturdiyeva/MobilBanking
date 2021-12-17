@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screenOnCreated.screen.PinScreen">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/enter_the_pin_code"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/line_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <ImageView
+            android:id="@+id/imgv_pin1"
+            style="@style/pinCircleStyle"
+            android:src="@drawable/ic_circle_line" />
+
+        <ImageView
+            android:id="@+id/imgv_pin2"
+            style="@style/pinCircleStyle"
+            android:src="@drawable/ic_circle_line" />
+
+        <ImageView
+            android:id="@+id/imgv_pin3"
+            style="@style/pinCircleStyle"
+            android:src="@drawable/ic_circle_line" />
+
+        <ImageView
+            android:id="@+id/imgv_pin4"
+            style="@style/pinCircleStyle"
+            android:src="@drawable/ic_circle_line" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/line_1"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_2">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_1"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="1"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_2"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_6"
+        app:layout_constraintLeft_toRightOf="@id/line_1"
+        app:layout_constraintRight_toLeftOf="@id/line_3">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_2"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="2"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_3"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_6"
+        app:layout_constraintLeft_toRightOf="@id/line_2"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_3"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="3"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_4"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_5">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_4"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="4"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_5"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_9"
+        app:layout_constraintLeft_toRightOf="@id/line_4"
+        app:layout_constraintRight_toLeftOf="@id/line_6">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_5"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="5"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_6"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_9"
+        app:layout_constraintLeft_toRightOf="@id/line_5"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_6"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="6"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_7"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_remove"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_8">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_7"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="7"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_8"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_remove"
+        app:layout_constraintLeft_toRightOf="@id/line_finger"
+        app:layout_constraintRight_toLeftOf="@id/line_remove">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_8"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="8"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_9"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/line_remove"
+        app:layout_constraintLeft_toRightOf="@id/line_8"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_9"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="9"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_finger"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/btn_change_pin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/line_0">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_finger"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            android:src="@drawable/ic_fingerprint"
+            app:backgroundTint="@color/color_cream_100"
+            app:fabCustomSize="@dimen/_56sdp"
+            app:rippleColor="@color/teal_100"
+            app:tint="@color/teal_300"
+            tools:ignore="UnusedAttribute" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_0"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintLeft_toRightOf="@id/line_finger"
+        app:layout_constraintRight_toLeftOf="@id/line_remove">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_0"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            app:backgroundTint="@color/color_cream_100"
+            app:rippleColor="@color/teal_100"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:elevation="@dimen/_32sdp"
+            android:focusable="true"
+            android:text="0"
+            android:textColor="@color/teal_500"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/line_remove"
+        style="@style/pinLineNumbersStyle"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintLeft_toRightOf="@id/line_0"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faBtn_remove"
+            style="@style/floatActionButtonStyle"
+            android:outlineSpotShadowColor="@color/teal_300"
+            android:src="@drawable/ic_back"
+            app:backgroundTint="@color/color_cream_100"
+            app:fabCustomSize="@dimen/_56sdp"
+            app:rippleColor="@color/teal_100"
+            app:tint="@color/teal_300"
+            tools:ignore="UnusedAttribute" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_change_pin"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:text="Change PIN"
+        android:textColor="@color/teal_300"
+        android:textSize="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/line_finger" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:text="Logout"
+        android:textColor="@color/teal_300"
+        android:textSize="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/line_remove" />
+    <FrameLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
