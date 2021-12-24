@@ -9,7 +9,7 @@
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
-    tools:context=".ui.screenAuth.screen.ResetScreen">
+    tools:context=".ui.screen.auth.ResetScreen">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -248,18 +248,13 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone">
+            android:focusable="true">
 
             <androidx.core.widget.ContentLoadingProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_gravity="center"/>
         </FrameLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>

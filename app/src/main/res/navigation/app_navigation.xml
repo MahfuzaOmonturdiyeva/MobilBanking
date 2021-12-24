@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.LoginScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.LoginScreen"
         android:label="screen_login"
         tools:layout="@layout/screen_auth_login" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.RegisterScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.RegisterScreen"
         android:label="screen_register"
         tools:layout="@layout/screen_auth_register" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/resetScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.ResetScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.ResetScreen"
         android:label="screen_reset"
         tools:layout="@layout/screen_auth_reset" >
         <action
@@ -46,16 +46,12 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
-        android:name="uz.gita.mobilbanking.ui.screenMain.screen.MainScreen"
+        android:name="uz.gita.mobilbanking.ui.screenMainIshlatilmagani.screen.MainClickVersionCardScreen"
         android:label="screen_main"
-        tools:layout="@layout/screen_main" >
-        <action
-            android:id="@+id/action_mainScreen_to_settingsScreen"
-            app:destination="@id/settingsScreen" />
-    </fragment>
+        tools:layout="@layout/screen_main_click_version_card" />
     <fragment
         android:id="@+id/verifyScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.VerifyScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.VerifyScreen"
         android:label="screen_verify"
         tools:layout="@layout/screen_auth_verify" >
         <argument android:name="phone"
@@ -70,26 +66,23 @@
     </fragment>
     <fragment
         android:id="@+id/pinScreen"
-        android:name="uz.gita.mobilbanking.ui.screenOnCreated.screen.PinScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.onCreated.PinScreen"
         android:label="screen_pin"
         tools:layout="@layout/screen_pin" >
-        <action
-            android:id="@+id/action_pinScreen_to_mainScreen"
-            app:destination="@id/mainScreen"
-            app:popUpTo="@id/app_navigation"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_pinScreen_to_newPinScreen"
-            app:destination="@id/newPinScreen" />
         <action
             android:id="@+id/action_pinScreen_to_loginScreen"
             app:destination="@id/loginScreen"
             app:popUpTo="@id/app_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_pinScreen_to_mainScreen2"
+            app:destination="@id/mainScreen2"
+            app:popUpTo="@id/app_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/settingsScreen"
-        android:name="uz.gita.mobilbanking.ui.screenSetting.screen.SettingsScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.setting.SettingsScreen"
         android:label="screen_settings"
         tools:layout="@layout/screen_settings" >
         <action
@@ -109,17 +102,17 @@
     </fragment>
     <fragment
         android:id="@+id/personalScreen"
-        android:name="uz.gita.mobilbanking.ui.screenSetting.screen.PersonalScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.setting.PersonalScreen"
         android:label="screen_settings_personal"
         tools:layout="@layout/screen_settings_personal" />
     <fragment
         android:id="@+id/securityScreen"
-        android:name="uz.gita.mobilbanking.ui.screenSetting.screen.SecurityScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.setting.SecurityScreen"
         android:label="screen_settings_security"
         tools:layout="@layout/screen_settings_security" />
     <fragment
         android:id="@+id/splashScreen"
-        android:name="uz.gita.mobilbanking.ui.screenOnCreated.screen.SplashScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.onCreated.SplashScreen"
         android:label="screen_splash"
         tools:layout="@layout/screen_splash" >
         <action
@@ -135,17 +128,20 @@
     </fragment>
     <fragment
         android:id="@+id/conFirmPinScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.ConFirmPinScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.ConFirmPinScreen"
         android:label="ConFirmPinScreen" >
+        <argument
+            android:name="pin"
+            app:argType="string" />
         <action
-            android:id="@+id/action_conFirmPinScreen_to_mainScreen"
-            app:destination="@id/mainScreen"
+            android:id="@+id/action_conFirmPinScreen_to_mainScreen2"
+            app:destination="@id/mainScreen2"
             app:popUpTo="@id/app_navigation"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newPinScreen"
-        android:name="uz.gita.mobilbanking.ui.screenAuth.screen.NewPinScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.auth.NewPinScreen"
         android:label="NewPinScreen" >
         <action
             android:id="@+id/action_newPinScreen_to_conFirmPinScreen"
@@ -153,8 +149,22 @@
     </fragment>
     <fragment
         android:id="@+id/supportScreen2"
-        android:name="uz.gita.mobilbanking.ui.screenSetting.screen.SupportScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.setting.SupportScreen"
         android:label="screen_settings_support"
         tools:layout="@layout/screen_settings_support" />
+    <fragment
+        android:id="@+id/mainPeyMeVersionScreen"
+        android:name="uz.gita.mobilbanking.ui.screenMainIshlatilmagani.screen.MainPeyMeVersionScreen"
+        android:label="screen_main_peyme_version"
+        tools:layout="@layout/screen_main_peyme_version" />
+    <fragment
+        android:id="@+id/mainScreen2"
+        android:name="uz.gita.mobilbanking.ui.screen.MainScreen"
+        android:label="screen_main"
+        tools:layout="@layout/screen_main" >
+        <action
+            android:id="@+id/action_mainScreen2_to_settingsScreen"
+            app:destination="@id/settingsScreen" />
+    </fragment>
 
 </navigation>

@@ -8,7 +8,7 @@
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
-    tools:context=".ui.screenSetting.screen.SecurityScreen">
+    tools:context=".ui.screen.setting.SecurityScreen">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,8 +40,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/security"
                     android:layout_marginStart="@dimen/_8sdp"
+                    android:text="@string/security"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
@@ -56,18 +56,19 @@
                 app:layout_constraintTop_toBottomOf="@id/app_b" />
 
 
-                <TextView
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginStart="@dimen/_32sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/easy_access"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/easy_access" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_32sdp"
                 android:background="@color/grey_700"
-                app:layout_constraintTop_toBottomOf="@id/app_b"
-                android:layout_marginStart="@dimen/_32sdp"/>
+                app:layout_constraintTop_toBottomOf="@id/app_b" />
 
             <LinearLayout
                 android:id="@+id/line_personal_information"
@@ -82,16 +83,17 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@color/white"
+                    android:clickable="false"
                     android:src="@drawable/ic_fingerprint" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:layout_height="wrap_content"
-                        android:text="@string/face_unlock_fingerprint_login"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_gravity="center_vertical"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_weight="3"
+                    android:text="@string/face_unlock_fingerprint_login"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_fingerprint"
@@ -99,11 +101,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_34sdp"
-                android:text="@string/face_or_fingerprint_identification_allows_easy_login_and_other_operations"/>
+                android:text="@string/face_or_fingerprint_identification_allows_easy_login_and_other_operations" />
 
             <LinearLayout
                 android:id="@+id/line_trust_device"
@@ -118,49 +121,21 @@
                 android:paddingBottom="@dimen/_12sdp">
 
                 <ImageButton
-                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_16sdp"
                     android:background="@drawable/background_custom_edittext"
+                    android:clickable="false"
                     android:src="@drawable/ic_perm_device" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_16sdp"
                     android:text="@string/trusted_device"
                     android:textSize="20sp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/line_change_pin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_56sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingBottom="@dimen/_12sdp">
-
-                <ImageButton
-                    android:layout_width="38dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:background="@drawable/background_custom_edittext"
-                    android:src="@drawable/ic_lock" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_password"
-                    android:textSize="20sp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_gravity="center_vertical"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

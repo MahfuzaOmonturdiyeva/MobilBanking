@@ -9,7 +9,7 @@
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
-    tools:context=".ui.screenAuth.screen.LoginScreen">
+    tools:context="ui.screen.auth.LoginScreen">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -168,21 +168,21 @@
                         app:layout_constraintRight_toRightOf="@id/e_t_edit_password_user"
                         app:layout_constraintTop_toBottomOf="@id/e_t_edit_password_user"
                         tools:ignore="SmallSp" />
-<!--                    <EditText-->
-<!--                        android:id="@+id/e_t"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="@dimen/_8sdp"-->
-<!--                        android:background="@drawable/background_custom_edittext"-->
-<!--                        android:inputType="textPassword"-->
-<!--                        android:lines="1"-->
-<!--                        android:maxLength="20"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:textColor="@color/teal_500"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintRight_toRightOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/btn_register" />-->
+                    <!--                    <EditText-->
+                    <!--                        android:id="@+id/e_t"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_8sdp"-->
+                    <!--                        android:background="@drawable/background_custom_edittext"-->
+                    <!--                        android:inputType="textPassword"-->
+                    <!--                        android:lines="1"-->
+                    <!--                        android:maxLength="20"-->
+                    <!--                        android:maxLines="1"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:textColor="@color/teal_500"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/btn_register" />-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>

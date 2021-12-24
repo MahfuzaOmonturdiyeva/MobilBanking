@@ -9,7 +9,7 @@
     android:background="@color/white"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
-    tools:context=".ui.screenAuth.screen.RegisterScreen">
+    tools:context=".ui.screen.auth.RegisterScreen">
 
     <FrameLayout
         android:layout_width="match_parent"

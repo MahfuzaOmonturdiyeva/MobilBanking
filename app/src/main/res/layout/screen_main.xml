@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screenMain.screen.MainScreen">
+    tools:context=".ui.screen.MainScreen">
     <ImageButton
         android:id="@+id/img_btn_settings"
         android:layout_width="wrap_content"
@@ -16,17 +16,6 @@
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-
-   <StackView
-       android:id="@+id/stack_v_container_cards"
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/_200sdp"
-       app:layout_constraintTop_toBottomOf="@id/img_btn_settings"
-       app:layout_constraintLeft_toLeftOf="parent"
-       app:layout_constraintRight_toRightOf="parent"
-       tools:listitem="@layout/item_stack_view_card"
-       />
 
     <FrameLayout
         android:id="@+id/progress"

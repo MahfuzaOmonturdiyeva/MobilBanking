@@ -6,10 +6,10 @@
     android:layout_height="@dimen/_150sdp"
     android:layout_margin="@dimen/_32sdp"
     android:background="@color/white"
-    app:cardCornerRadius="@dimen/_16sdp"
-    app:cardElevation="@dimen/_8sdp"
     android:outlineSpotShadowColor="@color/teal_100"
     app:cardBackgroundColor="@color/teal_100"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_8sdp"
     tools:ignore="UnusedAttribute">
 
     <androidx.constraintlayout.widget.ConstraintLayout

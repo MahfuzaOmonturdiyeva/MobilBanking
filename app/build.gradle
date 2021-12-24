@@ -1,11 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     /**
      * nav args
      */
     id 'androidx.navigation.safeargs.kotlin'
-//    id("androidx.navigation.safeargs.kotlin")
+
+    /**
+     * dagger hilt
+     */
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -19,6 +24,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //BASE URL
+        buildConfigField('String', 'BASE_URL', '"http://d467-185-163-27-86.ngrok.io"')
     }
 
     buildTypes {
@@ -90,6 +98,7 @@ dependencies {
      */
     debugImplementation('com.readystatesoftware.chuck:library:1.1.0')
 
+
     /**
      * MaskEdittext
      */
@@ -117,7 +126,16 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     /**
-     * stack view
+     * custom progress bar
      */
-//    implementation 'com.github.MostafaGazar:StackView:1.0.0'
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+
+    /**
+     * dagger hilt
+     */
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-fragment:$hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
+
 }

@@ -45,21 +45,23 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:backgroundTint="@null"
+                android:background="@drawable/click_effect_text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="cancel"
-                android:textColor="@color/teal_500" />
+                android:textColor="@color/black"
+                android:text="cancel"/>
 
             <Button
                 android:id="@+id/btn_ok"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:backgroundTint="@null"
+               android:background="@drawable/click_effect_text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ok"
-                android:textColor="@color/red_400" />
+                android:textColor="@color/black"
+                android:text="Ok" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -2,10 +2,12 @@ package uz.gita.mobilbanking.app
 
 import android.app.Application
 import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 import nl.qbusict.cupboard.BuildConfig
 import timber.log.Timber
-import uz.gita.mobilbanking.data.local.MyPref
+import uz.gita.mobilbanking.data.source.local.LocalStorage
 
+@HiltAndroidApp
 class App : Application() {
     companion object {
         lateinit var instance: Context
@@ -16,7 +18,6 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        MyPref.init(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
