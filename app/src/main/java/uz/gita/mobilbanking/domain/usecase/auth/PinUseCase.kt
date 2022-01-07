@@ -5,5 +5,5 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.LoginRequest
 
 interface PinUseCase {
-    fun pin(pin:String):LiveData<Boolean>
+    fun pin(pin: String): LiveData<Boolean>
 }

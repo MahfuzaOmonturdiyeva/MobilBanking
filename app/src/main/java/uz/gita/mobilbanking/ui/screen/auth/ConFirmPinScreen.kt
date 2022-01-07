@@ -1,18 +1,24 @@
 package uz.gita.mobilbanking.ui.screen.auth
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
+import uz.gita.mobilbanking.viewmodel.auth.impl.ConfirmPinViewModel1Impl
 
 @AndroidEntryPoint
 class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
     private val binding by viewBinding(ScreenPinBinding::bind)
+    private val viewModel: ConfirmPinViewModel1Impl by viewModels()
     private var pin = ""
     private val navArgs: ConFirmPinScreenArgs by navArgs<ConFirmPinScreenArgs>()
 
@@ -74,15 +80,19 @@ class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
                 pin += digit
                 binding.imgvPin4.setImageResource(R.drawable.ic_circle)
                 if (navArgs.pin == pin) {
+                    Timber.d(pin)
+                    viewModel.setPinLocal(pin)
                     findNavController().navigate(ConFirmPinScreenDirections.actionConFirmPinScreenToMainScreen2())
                 }
-            }
-            else -> {
-                binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
-                pin = ""
+                else {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
+                        pin = ""
+                    }, 100)
+                }
             }
         }
     }

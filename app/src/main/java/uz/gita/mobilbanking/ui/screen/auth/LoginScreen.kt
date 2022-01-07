@@ -15,12 +15,12 @@ import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.data.request.LoginRequest
 import uz.gita.mobilbanking.databinding.ScreenAuthLoginBinding
 import uz.gita.mobilbanking.utils.showToast
-import uz.gita.mobilbanking.viewmodel.auth.LoginViewModel1
+import uz.gita.mobilbanking.viewmodel.auth.impl.LoginViewModel1Impl
 
 @AndroidEntryPoint
 class LoginScreen : Fragment(R.layout.screen_auth_login), View.OnKeyListener {
     private val binding by viewBinding(ScreenAuthLoginBinding::bind)
-    private val viewModel: LoginViewModel1 by viewModels()
+    private val viewModel: LoginViewModel1Impl by viewModels()
     private var phone = ""
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -41,7 +41,6 @@ class LoginScreen : Fragment(R.layout.screen_auth_login), View.OnKeyListener {
         binding.btnLogin.setOnClickListener {
             onClickLogin()
         }
-
 
         binding.eTEditPasswordUser.doOnTextChanged { text, start, before, count ->
             binding.eTEditPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)

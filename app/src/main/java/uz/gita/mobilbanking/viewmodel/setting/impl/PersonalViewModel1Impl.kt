@@ -22,6 +22,7 @@ class PersonalViewModel1Impl @Inject constructor(
     override val successSetAvatarLiveData = MediatorLiveData<Unit>()
     override val joinInfoLiveData = MediatorLiveData<ProfileInfoResponse>()
     override val errorLiveData = MediatorLiveData<String>()
+    override val messageLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
 
@@ -35,7 +36,7 @@ class PersonalViewModel1Impl @Inject constructor(
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> joinAvatarLiveData.value = Unit
-                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Message ->errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
@@ -52,7 +53,7 @@ class PersonalViewModel1Impl @Inject constructor(
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> successSetAvatarLiveData.value = Unit
-                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
@@ -86,7 +87,7 @@ class PersonalViewModel1Impl @Inject constructor(
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> joinInfoLiveData.value = it.data!!
-                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }

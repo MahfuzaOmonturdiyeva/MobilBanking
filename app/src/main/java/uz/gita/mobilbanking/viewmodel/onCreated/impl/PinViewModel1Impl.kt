@@ -15,29 +15,29 @@ import javax.inject.Inject
 @HiltViewModel
 class PinViewModel1Impl @Inject constructor(
     private val pinUseCase: PinUseCase
-): PinViewModel1, ViewModel() {
+) : PinViewModel1, ViewModel() {
 
-    override val openLoginLiveData= MediatorLiveData<Unit>()
-    override val errorLiveData= MediatorLiveData<String>()
-    override val notConnectionLiveData= MediatorLiveData<String>()
-    override val progressLiveData= MediatorLiveData<Boolean>()
+    override val openLoginLiveData = MediatorLiveData<Unit>()
+    override val errorLiveData = MediatorLiveData<String>()
+    override val notConnectionLiveData = MediatorLiveData<String>()
+    override val progressLiveData = MediatorLiveData<Boolean>()
 
     override fun logout() {
         viewModelScope.launch {
-            if (!isConnected()){
-                notConnectionLiveData.value="Internet not connection"
+            if (!isConnected()) {
+                notConnectionLiveData.value = "Internet not connection"
             }
-            progressLiveData.value=true
-            openLoginLiveData.addSource(pinUseCase.logout()){
-                when(it){
-                    is MyResult.Success -> openLoginLiveData.value=Unit
-                    is MyResult.Message -> errorLiveData.value=it.data
-                    is MyResult.Error -> errorLiveData.value=it.error.toString()
+            progressLiveData.value = true
+            openLoginLiveData.addSource(pinUseCase.logout()) {
+                when (it) {
+                    is MyResult.Success -> openLoginLiveData.value = Unit
+                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
         }
     }
 
-    override fun isCorrectPin(pin: String): Boolean =pinUseCase.isCorrectPin(pin)
+    override fun isCorrectPin(pin: String): Boolean = pinUseCase.isCorrectPin(pin)
 
 }

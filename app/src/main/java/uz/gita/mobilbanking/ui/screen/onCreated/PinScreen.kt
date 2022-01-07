@@ -2,6 +2,8 @@ package uz.gita.mobilbanking.ui.screen.onCreated
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,10 +12,8 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
-import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
 import uz.gita.mobilbanking.ui.dialog.CustomDialog
-import uz.gita.mobilbanking.viewmodel.onCreated.PinViewModel
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.onCreated.impl.PinViewModel1Impl
 
@@ -99,14 +99,15 @@ class PinScreen : Fragment(R.layout.screen_pin) {
                 binding.imgvPin4.setImageResource(R.drawable.ic_circle)
                 if (viewModel.isCorrectPin(pin)) {
                     findNavController().navigate(PinScreenDirections.actionPinScreenToMainScreen2())
+                }else {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
+                        binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
+                        pin = ""
+                    }, 100)
                 }
-            }
-            else -> {
-                binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
-                binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
-                pin = ""
             }
         }
     }

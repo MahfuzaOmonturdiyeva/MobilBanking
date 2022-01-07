@@ -14,9 +14,9 @@ import javax.inject.Singleton
 class ApiModule {
 
     @[Provides Singleton]
-    fun getAuthApi(retrofit: Retrofit):AuthApi=retrofit.create(AuthApi::class.java)
+    fun getAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
 
     @[Provides Singleton]
-    fun getProfileApi(retrofit: Retrofit):ProfileApi=retrofit.create(ProfileApi::class.java)
+    fun getProfileApi(retrofit: Retrofit): ProfileApi = retrofit.create(ProfileApi::class.java)
 
 }

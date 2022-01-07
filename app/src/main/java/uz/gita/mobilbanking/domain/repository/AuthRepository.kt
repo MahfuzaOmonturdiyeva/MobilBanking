@@ -6,9 +6,11 @@ import uz.gita.mobilbanking.data.request.*
 
 interface AuthRepository {
 
-    val getPin:String
+    val getPin: String
 
-    val getPhoneNumber:String
+    fun setPin(pin:String)
+
+    val getPhoneNumber: String
 
     fun userRegister(data: RegisterRequest): LiveData<MyResult<Unit>>
 

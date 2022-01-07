@@ -69,6 +69,7 @@
                     android:id="@+id/tv_user_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:text="+99897535"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -45,11 +45,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/mainScreen"
-        android:name="uz.gita.mobilbanking.ui.screenMainIshlatilmagani.screen.MainClickVersionCardScreen"
-        android:label="screen_main"
-        tools:layout="@layout/screen_main_click_version_card" />
-    <fragment
         android:id="@+id/verifyScreen"
         android:name="uz.gita.mobilbanking.ui.screen.auth.VerifyScreen"
         android:label="screen_verify"
@@ -152,11 +147,6 @@
         android:name="uz.gita.mobilbanking.ui.screen.setting.SupportScreen"
         android:label="screen_settings_support"
         tools:layout="@layout/screen_settings_support" />
-    <fragment
-        android:id="@+id/mainPeyMeVersionScreen"
-        android:name="uz.gita.mobilbanking.ui.screenMainIshlatilmagani.screen.MainPeyMeVersionScreen"
-        android:label="screen_main_peyme_version"
-        tools:layout="@layout/screen_main_peyme_version" />
     <fragment
         android:id="@+id/mainScreen2"
         android:name="uz.gita.mobilbanking.ui.screen.MainScreen"

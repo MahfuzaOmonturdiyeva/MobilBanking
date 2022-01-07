@@ -2,6 +2,8 @@ package uz.gita.mobilbanking.ui.screen.setting
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -24,14 +26,25 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.getInfo()
         viewModel.errorLiveData.observe(this, errorObserver)
+        viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.joinInfoLiveData.observe(this, joinInfoObserver)
         viewModel.joinAvatarLiveData.observe(this, joinAvatarObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.successSetAvatarLiveData.observe(this, successSetAvatarObserver)
+
         binding.btnSave.setOnClickListener {
             onSave()
+        }
+        binding.imgBtnClose.setOnClickListener {
+            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
+            if (count == 0) {
+                requireActivity().onBackPressed()
+            } else {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
 
         binding.eTEditFirstnameUser.doOnTextChanged { text, start, before, count ->
@@ -60,19 +73,28 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
 
     private val joinAvatarObserver = Observer<Unit> { }
 
+    private val messageObserver= Observer<String> {
+        showToast(it)
+    }
     private val errorObserver = Observer<String> {
         showToast(it)
+        Handler(Looper.getMainLooper()).postDelayed({
+            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
+            if (count == 0) {
+                requireActivity().onBackPressed()
+            } else {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }, 100)
+
     }
     private val joinInfoObserver = Observer<ProfileInfoResponse> {
         binding.eTEditFirstnameUser.setText(it.firstName)
         binding.eTEditLastnameUser.setText(it.lastName)
         password = it.password
-        val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            requireActivity().onBackPressed()
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
+        binding.eTEditConfirmPasswordUser.setText("")
+        binding.eTEditNewPasswordUser.setText("")
+        binding.eTEditOldPasswordUser.setText("")
     }
     private val notConnectionObserver = Observer<String> {
         showToast(it)
@@ -90,7 +112,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         val newPassword = binding.eTEditNewPasswordUser.text.toString()
         val confirmPassword = binding.eTEditConfirmPasswordUser.text.toString()
 
-        if (firstname.length >= 3 && lastname.length >= 3 && oldPassword == password && confirmPassword == newPassword) {
+        if (firstname.length >= 3 && lastname.length >= 3 && oldPassword == password && confirmPassword.isNotEmpty() && confirmPassword == newPassword) {
             val data = ProfileRequest(firstname, lastname, newPassword)
             viewModel.setInfo(data)
         } else {
@@ -117,9 +139,13 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVOldErrorPassword.text = "Password must be at least 6 characters"
                 }
+                oldPassword!=password->{
+                    binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
+                    binding.tVOldErrorPassword.text = "Password entered incorrectly"
+                }
                 newPassword.isEmpty() -> {
                     binding.eTEditNewPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
-                    binding.tVNewErrorPassword.text = "Enter the old password"
+                    binding.tVNewErrorPassword.text = "Enter the new password"
                 }
                 newPassword.length < 6 -> {
                     binding.eTEditNewPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
@@ -129,10 +155,10 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
                     binding.eTEditConfirmPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVErrorConfirmPassword.text = "Enter the confirm password"
                 }
-                oldPassword != confirmPassword -> {
+                newPassword != confirmPassword -> {
                     binding.eTEditConfirmPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVErrorConfirmPassword.text =
-                        "Confirmation password is not compatible with the password"
+                        "Confirmation password is not compatible with the new password"
                 }
             }
         }

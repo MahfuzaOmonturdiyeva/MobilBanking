@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var host: NavHostFragment
     private var isClickBackPressed = false

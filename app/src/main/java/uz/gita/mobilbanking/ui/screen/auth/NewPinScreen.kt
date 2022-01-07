@@ -72,9 +72,13 @@ class NewPinScreen : Fragment(R.layout.screen_pin) {
             3 -> {
                 pin += digit
                 binding.imgvPin4.setImageResource(R.drawable.ic_circle)
-                findNavController().navigate(NewPinScreenDirections.actionNewPinScreenToConFirmPinScreen(pin))
+                findNavController().navigate(
+                    NewPinScreenDirections.actionNewPinScreenToConFirmPinScreen(
+                        pin
+                    )
+                )
             }
-            else->{
+            else -> {
                 binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)

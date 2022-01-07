@@ -12,6 +12,4 @@ interface RegisterViewModel1 {
     val progressLiveData: LiveData<Boolean>
 
     fun register(registerRequest: RegisterRequest)
-
-
 }

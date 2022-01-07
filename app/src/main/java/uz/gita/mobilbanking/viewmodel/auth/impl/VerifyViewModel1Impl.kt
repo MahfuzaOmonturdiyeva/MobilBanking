@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VerifyViewModel1Impl @Inject constructor(
     private val verifyUseCase: VerifyUseCase
-): VerifyViewModel1, ViewModel() {
+) : VerifyViewModel1, ViewModel() {
     override val successResendLiveData = MediatorLiveData<Unit>()
     override val openNewPinLiveData = MediatorLiveData<Unit>()
     override val errorLiveData = MediatorLiveData<String>()
@@ -29,7 +29,7 @@ class VerifyViewModel1Impl @Inject constructor(
                 notConnectionLiveData.value = "Internet not connection"
             }
             progressLiveData.value = true
-                openNewPinLiveData.addSource(verifyUseCase.verify(verifyRequest)) {
+            openNewPinLiveData.addSource(verifyUseCase.verify(verifyRequest)) {
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> openNewPinLiveData.value = Unit
@@ -49,7 +49,7 @@ class VerifyViewModel1Impl @Inject constructor(
             successResendLiveData.addSource(verifyUseCase.resend(loginRequest)) {
                 progressLiveData.value = false
                 when (it) {
-                    is MyResult.Success -> openNewPinLiveData.value = Unit
+                    is MyResult.Success -> successResendLiveData.value = Unit
                     is MyResult.Message -> errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }

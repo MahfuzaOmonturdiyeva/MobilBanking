@@ -103,7 +103,7 @@ class CustomDialog private constructor(context: Context) : Dialog(context) {
     }
 
     private fun setTitle(title: String, colorText: Int) {
-        this.title.setTextColor(ContextCompat.getColor(context,colorText))
+        this.title.setTextColor(ContextCompat.getColor(context, colorText))
         setTitle(title)
     }
 
@@ -113,7 +113,7 @@ class CustomDialog private constructor(context: Context) : Dialog(context) {
     }
 
     private fun setDescription(description: String, colorText: Int) {
-        this.description.setTextColor(ContextCompat.getColor(context,colorText))
+        this.description.setTextColor(ContextCompat.getColor(context, colorText))
         setDescription(description)
     }
 
@@ -124,7 +124,7 @@ class CustomDialog private constructor(context: Context) : Dialog(context) {
 
 
     private fun setCancelBtn(color: Int) {
-        btnCancel.setTextColor(ContextCompat.getColor(context,color))
+        btnCancel.setTextColor(ContextCompat.getColor(context, color))
         btnCancel.setOnClickListener {
             this.dismiss()
         }

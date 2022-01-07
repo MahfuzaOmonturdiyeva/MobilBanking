@@ -23,16 +23,16 @@ class LoginViewModel1Impl @Inject constructor(
 
     override fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
-            if (!isConnected()){
-                notConnectionLiveData.value="Internet not connection"
+            if (!isConnected()) {
+                notConnectionLiveData.value = "Internet not connection"
             }
-            progressLiveData.value=true
-            openVerifyLiveData.addSource(loginUseCase.login(loginRequest)){
-                progressLiveData.value=false
-                when(it){
-                    is MyResult.Success -> openVerifyLiveData.value=Unit
-                    is MyResult.Message -> errorLiveData.value=it.data
-                    is MyResult.Error -> errorLiveData.value=it.error.toString()
+            progressLiveData.value = true
+            openVerifyLiveData.addSource(loginUseCase.login(loginRequest)) {
+                progressLiveData.value = false
+                when (it) {
+                    is MyResult.Success -> openVerifyLiveData.value = Unit
+                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
         }

@@ -11,15 +11,17 @@ import uz.gita.mobilbanking.domain.repository.AuthRepository
 import uz.gita.mobilbanking.domain.repository.ProfileRepository
 import uz.gita.mobilbanking.domain.repository.impl.AuthRepositoryImpl
 import uz.gita.mobilbanking.domain.repository.impl.ProfileRepositoryImpl
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
 
     @Binds
-    fun provideAuthRepository(impl:AuthRepositoryImpl): AuthRepository
+   // @Named ()
+    fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
     @Binds
-    fun provideProfileRepository(impl:ProfileRepositoryImpl): ProfileRepository
+    fun provideProfileRepository(impl: ProfileRepositoryImpl): ProfileRepository
 
 }

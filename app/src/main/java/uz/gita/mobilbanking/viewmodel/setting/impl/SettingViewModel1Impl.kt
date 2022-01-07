@@ -14,28 +14,28 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel1Impl @Inject constructor(
     private val settingsUseCase: SettingsUseCase
-): SettingViewModel1, ViewModel() {
+) : SettingViewModel1, ViewModel() {
     override val openLoginLiveData = MediatorLiveData<Unit>()
-    override val errorLiveData =MediatorLiveData<String>()
-    override val notConnectionLiveData=MediatorLiveData<String>()
-    override val progressLiveData =MediatorLiveData<Boolean>()
+    override val errorLiveData = MediatorLiveData<String>()
+    override val notConnectionLiveData = MediatorLiveData<String>()
+    override val progressLiveData = MediatorLiveData<Boolean>()
     override val phoneNumber: String
         get() = settingsUseCase.getPhoneNumber
 
     override fun logout() {
         viewModelScope.launch {
-            if (!isConnected()){
-                notConnectionLiveData.value="Internet not connection"
+            if (!isConnected()) {
+                notConnectionLiveData.value = "Internet not connection"
             }
-            progressLiveData.value=true
+            progressLiveData.value = true
             openLoginLiveData.addSource(settingsUseCase.logout()) {
-                progressLiveData.value=false
+                progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> {
-                        openLoginLiveData.value=Unit
+                        openLoginLiveData.value = Unit
                     }
                     is MyResult.Error -> {
-                            errorLiveData.value = it.error.toString()
+                        errorLiveData.value = it.error.toString()
                     }
                     is MyResult.Message -> {
                         openLoginLiveData.value = Unit

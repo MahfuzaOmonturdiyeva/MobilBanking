@@ -83,7 +83,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 mask:allowed_chars="1234567890"
-                mask:mask="## ## ##" />
+                mask:mask="### ###" />
 
             <TextView
                 android:id="@+id/t_v_error_code"
@@ -116,7 +116,8 @@
                 android:id="@+id/t_v_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:text="bxvcbnm"
                 android:textColor="@color/red_400"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

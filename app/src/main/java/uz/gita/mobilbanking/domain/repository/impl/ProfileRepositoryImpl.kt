@@ -12,7 +12,6 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class ProfileRepositoryImpl @Inject constructor(
     private val profileApi: ProfileApi
 ) : ProfileRepository {
@@ -22,11 +21,11 @@ class ProfileRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), String()::class.java)
-                    emit(MyResult.Message<Unit>(message))
-                    return@liveData
-                }
+//                response.errorBody()?.let {
+//                    val message = Gson().fromJson(it.string(), String()::class.java)
+//                    emit(MyResult.Message<Unit>(message))
+//                    return@liveData
+//                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -40,11 +39,11 @@ class ProfileRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), String()::class.java)
-                    emit(MyResult.Message<Unit>(message))
-                    return@liveData
-                }
+//                response.errorBody()?.let {
+//                    val message = Gson().fromJson(it.string(), String()::class.java)
+//                    emit(MyResult.Message<Unit>(message))
+//                    return@liveData
+//                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -52,26 +51,27 @@ class ProfileRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun setUserProfileInfo(profileRequest: ProfileRequest): LiveData<MyResult<ProfileInfoResponse>> = liveData {
-        try {
-            val response = profileApi.setUserProfileInfo(profileRequest)
-            if (response.isSuccessful) {
-                response.body()?.data?.let {
-                    emit(MyResult.Success<ProfileInfoResponse>(it))
-                    return@liveData
+    override fun setUserProfileInfo(profileRequest: ProfileRequest): LiveData<MyResult<ProfileInfoResponse>> =
+        liveData {
+            try {
+                val response = profileApi.setUserProfileInfo(profileRequest)
+                if (response.isSuccessful) {
+                    response.body()?.data?.let {
+                        emit(MyResult.Success<ProfileInfoResponse>(it))
+                        return@liveData
+                    }
+                } else {
+//                    response.errorBody()?.let {
+//                        val message = Gson().fromJson(it.string(), String()::class.java)
+//                        emit(MyResult.Message<ProfileInfoResponse>(message))
+//                        return@liveData
+//                    }
+                    emit(MyResult.Message<ProfileInfoResponse>("server bilan bog'lanishda xatolik"))
                 }
-            } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), String()::class.java)
-                    emit(MyResult.Message<ProfileInfoResponse>(message))
-                    return@liveData
-                }
-                emit(MyResult.Message<ProfileInfoResponse>("server bilan bog'lanishda xatolik"))
+            } catch (e: IOException) {
+                emit(MyResult.Error<ProfileInfoResponse>(e))
             }
-        } catch (e: IOException) {
-            emit(MyResult.Error<ProfileInfoResponse>(e))
         }
-    }
 
     override fun getUserProfileInfo(): LiveData<MyResult<ProfileInfoResponse>> = liveData {
         try {
@@ -82,11 +82,11 @@ class ProfileRepositoryImpl @Inject constructor(
                     return@liveData
                 }
             } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), String()::class.java)
-                    emit(MyResult.Message<ProfileInfoResponse>(message))
-                    return@liveData
-                }
+//                response.errorBody()?.let {
+//                    val message = Gson().fromJson(it.string(), String()::class.java)
+//                    emit(MyResult.Message<ProfileInfoResponse>(message))
+//                    return@liveData
+//                }
                 emit(MyResult.Message<ProfileInfoResponse>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {

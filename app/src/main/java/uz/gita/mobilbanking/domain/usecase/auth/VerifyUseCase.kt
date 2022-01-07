@@ -6,6 +6,8 @@ import uz.gita.mobilbanking.data.request.LoginRequest
 import uz.gita.mobilbanking.data.request.VerifyRequest
 
 interface VerifyUseCase {
+
     fun verify(verifyRequest: VerifyRequest): LiveData<MyResult<Unit>>
+
     fun resend(loginRequest: LoginRequest): LiveData<MyResult<Unit>>
 }

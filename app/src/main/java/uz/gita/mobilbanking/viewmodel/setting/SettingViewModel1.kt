@@ -8,11 +8,11 @@ import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 
 interface SettingViewModel1 {
 
-    val openLoginLiveData : LiveData<Unit>
-    val errorLiveData : LiveData<String>
-    val notConnectionLiveData : LiveData<String>
-    val progressLiveData:LiveData<Boolean>
-    val phoneNumber:String
+    val openLoginLiveData: LiveData<Unit>
+    val errorLiveData: LiveData<String>
+    val notConnectionLiveData: LiveData<String>
+    val progressLiveData: LiveData<Boolean>
+    val phoneNumber: String
 
     fun logout()
 }

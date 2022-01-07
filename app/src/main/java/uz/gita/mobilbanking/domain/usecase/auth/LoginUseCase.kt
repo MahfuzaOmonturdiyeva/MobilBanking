@@ -5,5 +5,5 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.LoginRequest
 
 interface LoginUseCase {
-    fun login(loginRequest: LoginRequest):LiveData<MyResult<Unit>>
+    fun login(loginRequest: LoginRequest): LiveData<MyResult<Unit>>
 }

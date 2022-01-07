@@ -36,7 +36,7 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
     private val openLoginObserver = Observer<Unit> {
         lottie.cancelAnimation()
-        findNavController().navigate(SplashScreenDirections.actionSplashScreenToPinScreen())
+        findNavController().navigate(SplashScreenDirections.actionSplashScreenToLoginScreen())
     }
     private val notConnectionObserver = Observer<String> {
         showToast(it)

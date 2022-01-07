@@ -1,10 +1,12 @@
 package uz.gita.mobilbanking.viewmodel.onCreated.impl
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.domain.repository.impl.InvalidTokenException
 import uz.gita.mobilbanking.domain.usecase.onCreated.SplashUseCase
@@ -27,12 +29,12 @@ class SplashViewModel1Impl @Inject constructor(
             }
             openPinLiveData.addSource(splashUseCase.check()) {
                 when (it) {
-                    is MyResult.Success -> openPinLiveData.value = Unit
-                    is MyResult.Message -> openLoginLiveData.value = Unit
+                    is MyResult.Success -> {
+                        openPinLiveData.value = Unit}
+                    is MyResult.Message -> {
+                        openLoginLiveData.value = Unit}
                     is MyResult.Error -> {
-                        if (it.error is InvalidTokenException) {
-                            openLoginLiveData.value = Unit
-                        }
+                        openLoginLiveData.value = Unit
                     }
                 }
             }

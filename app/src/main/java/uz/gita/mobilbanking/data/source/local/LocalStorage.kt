@@ -6,7 +6,6 @@ import uz.gita.mobilbanking.utils.SharedPreference
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class LocalStorage @Inject constructor(@ApplicationContext context: Context) :SharedPreference(context){
 
     var accessToken: String by StringPreference("")

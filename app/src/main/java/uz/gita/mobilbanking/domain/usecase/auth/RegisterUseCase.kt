@@ -5,5 +5,5 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.RegisterRequest
 
 interface RegisterUseCase {
-    fun register(registerRequest: RegisterRequest):LiveData<MyResult<Unit>>
+    fun register(registerRequest: RegisterRequest): LiveData<MyResult<Unit>>
 }

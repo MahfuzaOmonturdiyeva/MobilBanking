@@ -11,7 +11,7 @@ import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenMainBinding
 
 @AndroidEntryPoint
-class MainScreen : Fragment(R.layout.screen_pin) {
+class MainScreen : Fragment(R.layout.screen_main) {
     private val binding by viewBinding(ScreenMainBinding::bind)
 
     @SuppressLint("FragmentLiveDataObserve")

@@ -7,14 +7,8 @@ import dagger.hilt.android.components.ViewModelComponent
 import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.domain.repository.impl.AuthRepositoryImpl
 import uz.gita.mobilbanking.domain.repository.impl.ProfileRepositoryImpl
-import uz.gita.mobilbanking.domain.usecase.auth.LoginUseCase
-import uz.gita.mobilbanking.domain.usecase.auth.RegisterUseCase
-import uz.gita.mobilbanking.domain.usecase.auth.ResetUseCase
-import uz.gita.mobilbanking.domain.usecase.auth.VerifyUseCase
-import uz.gita.mobilbanking.domain.usecase.auth.impl.LoginUseCaseImpl
-import uz.gita.mobilbanking.domain.usecase.auth.impl.RegisterUseCaseImpl
-import uz.gita.mobilbanking.domain.usecase.auth.impl.ResetUseCaseImpl
-import uz.gita.mobilbanking.domain.usecase.auth.impl.VerifyUseCaseImpl
+import uz.gita.mobilbanking.domain.usecase.auth.*
+import uz.gita.mobilbanking.domain.usecase.auth.impl.*
 import uz.gita.mobilbanking.domain.usecase.onCreated.PinUseCase
 import uz.gita.mobilbanking.domain.usecase.onCreated.SplashUseCase
 import uz.gita.mobilbanking.domain.usecase.onCreated.impl.PinUseCaseImpl
@@ -33,9 +27,12 @@ interface UseCaseModule {
             SplashUseCase
 
     @Binds
-    fun providePinUsaCase(impl:PinUseCaseImpl):
+    fun providePinUsaCase(impl: PinUseCaseImpl):
             PinUseCase
 
+    @Binds
+    fun provideConfirmPinUsaCase(impl: ConFirmPinUseCaseImpl):
+            ConFirmPinUseCase
     @Binds
     fun provideLoginUseCase(impl: LoginUseCaseImpl):
             LoginUseCase

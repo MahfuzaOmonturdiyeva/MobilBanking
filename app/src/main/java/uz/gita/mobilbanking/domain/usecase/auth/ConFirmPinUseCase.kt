@@ -5,5 +5,5 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.LoginRequest
 
 interface ConFirmPinUseCase {
-    fun confirmPin(pin:String):LiveData<Boolean>
+    fun setPinLocal(pin: String)
 }

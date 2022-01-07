@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.data.request.RegisterRequest
 import uz.gita.mobilbanking.databinding.ScreenAuthRegisterBinding
-import uz.gita.mobilbanking.viewmodel.auth.RegisterViewModel
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.auth.impl.RegisterViewModel1Impl
 

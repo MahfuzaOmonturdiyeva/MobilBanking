@@ -13,7 +13,7 @@ interface ResetViewModel1 {
     val notConnectionLiveData: LiveData<String>
     val progressLiveData: LiveData<Boolean>
 
-    fun reset(phone:String)
+    fun reset(phone: String)
 
     fun newPassword(newPasswordRequest: NewPasswordRequest)
 }

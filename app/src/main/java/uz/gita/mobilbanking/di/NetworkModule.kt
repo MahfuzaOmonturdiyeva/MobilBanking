@@ -20,10 +20,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-
+    val BASE_URL="http://6146-185-163-27-54.ngrok.io"
     @[Singleton Provides]
     fun getRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("http://d467-185-163-27-86.ngrok.io")
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -50,7 +50,7 @@ class NetworkModule {
     class TokenAuthenticator(val localStorage: LocalStorage, val context: Context) : Authenticator {
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://d467-185-163-27-86.ngrok.io")
+            .baseUrl(BASE_URL)
             .client(
                 OkHttpClient.Builder()
                     .addInterceptor(ChuckInterceptor(context))
@@ -77,7 +77,7 @@ class NetworkModule {
                         request = refreshResponse.raw().request
                             .newBuilder()
                             .removeHeader("refresh_token")
-                            .addHeader("refresh_token", it.accessToken)
+                            .addHeader("refresh_token", it.refreshToken)
                             .build()
                     }
                 }
