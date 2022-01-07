@@ -22,3 +22,5 @@ class PersonalUseCaseImpl @Inject constructor(
     override fun setInfo(profileRequest: ProfileRequest): LiveData<MyResult<ProfileInfoResponse>> =
         profileRepository.setUserProfileInfo(profileRequest)
 }
+
+//get image from galary

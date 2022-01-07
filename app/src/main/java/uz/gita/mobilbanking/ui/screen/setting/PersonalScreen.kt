@@ -1,9 +1,12 @@
 package uz.gita.mobilbanking.ui.screen.setting
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -17,6 +20,7 @@ import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import uz.gita.mobilbanking.databinding.ScreenSettingsPersonalBinding
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.setting.impl.PersonalViewModel1Impl
+import java.io.File
 
 @AndroidEntryPoint
 class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
@@ -34,6 +38,13 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.successSetAvatarLiveData.observe(this, successSetAvatarObserver)
+
+        binding.cImgProfileImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.type = "image/*"
+            startActivityForResult(intent, 1)
+
+        }
 
         binding.btnSave.setOnClickListener {
             onSave()
@@ -69,11 +80,21 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1 && resultCode==Activity.RESULT_OK){
+            data?.data?.let {
+                val file= File(it.path)
+
+            }
+        }
+    }
+
     private val successSetAvatarObserver = Observer<Unit> { }
 
     private val joinAvatarObserver = Observer<Unit> { }
 
-    private val messageObserver= Observer<String> {
+    private val messageObserver = Observer<String> {
         showToast(it)
     }
     private val errorObserver = Observer<String> {
@@ -139,7 +160,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVOldErrorPassword.text = "Password must be at least 6 characters"
                 }
-                oldPassword!=password->{
+                oldPassword != password -> {
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVOldErrorPassword.text = "Password entered incorrectly"
                 }
