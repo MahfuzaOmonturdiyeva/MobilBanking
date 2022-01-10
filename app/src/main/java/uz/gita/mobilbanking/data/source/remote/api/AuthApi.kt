@@ -21,7 +21,7 @@ interface AuthApi {
     suspend fun userLogin(@Body request: LoginRequest): Response<ResponseData<String>>
 
     @POST("/api/v1/auth/logout")
-    suspend fun userLogout(@Header("token") token: String): Response<ResponseData<String>>
+    suspend fun userLogout(): Response<ResponseData<String>>
 
     @POST("/api/v1/auth/resend")
     suspend fun userResend(@Body request: LoginRequest): Response<ResponseData<String>>

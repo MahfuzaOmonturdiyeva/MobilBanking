@@ -8,20 +8,23 @@ import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.AuthApi
 import uz.gita.mobilbanking.data.source.remote.api.ProfileApi
 import uz.gita.mobilbanking.domain.repository.AuthRepository
+import uz.gita.mobilbanking.domain.repository.CardRepository
 import uz.gita.mobilbanking.domain.repository.ProfileRepository
 import uz.gita.mobilbanking.domain.repository.impl.AuthRepositoryImpl
+import uz.gita.mobilbanking.domain.repository.impl.CardRepositoryImpl
 import uz.gita.mobilbanking.domain.repository.impl.ProfileRepositoryImpl
 import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
-
     @Binds
-   // @Named ()
+    // @Named ()
     fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
     @Binds
     fun provideProfileRepository(impl: ProfileRepositoryImpl): ProfileRepository
 
+    @Binds
+    fun provideCardRepository(impl: CardRepositoryImpl): CardRepository
 }

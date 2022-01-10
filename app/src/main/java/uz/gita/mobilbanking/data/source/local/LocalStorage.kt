@@ -17,4 +17,8 @@ class LocalStorage @Inject constructor(@ApplicationContext context: Context) :Sh
     var fingerprint: Boolean by BooleanPreference(false)
 
     var pinCode: String by StringPreference("")
+
+    var favoriteCardId:Int by IntPreference(-1)
+
+    var ignoreTotalSum:Boolean by BooleanPreference(false)
 }

@@ -6,6 +6,7 @@ import uz.gita.mobilbanking.data.request.ProfileRequest
 import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import uz.gita.mobilbanking.domain.repository.ProfileRepository
 import uz.gita.mobilbanking.domain.usecase.setting.PersonalUseCase
+import java.io.File
 import javax.inject.Inject
 
 class PersonalUseCaseImpl @Inject constructor(
@@ -13,8 +14,8 @@ class PersonalUseCaseImpl @Inject constructor(
 ) : PersonalUseCase {
     override fun getAvatar(): LiveData<MyResult<Unit>> = profileRepository.getUserAvatar()
 
-    override fun setAvatar(formdata: String): LiveData<MyResult<Unit>> =
-        profileRepository.setUserAvatar(formdata)
+    override fun setAvatar(file: File): LiveData<MyResult<Unit>> =
+        profileRepository.setUserAvatar(file)
 
     override fun getInfo(): LiveData<MyResult<ProfileInfoResponse>> =
         profileRepository.getUserProfileInfo()

@@ -11,6 +11,7 @@ import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import uz.gita.mobilbanking.domain.usecase.setting.PersonalUseCase
 import uz.gita.mobilbanking.utils.isConnected
 import uz.gita.mobilbanking.viewmodel.setting.PersonalViewModel1
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,13 +44,13 @@ class PersonalViewModel1Impl @Inject constructor(
         }
     }
 
-    override fun setAvatar(formdata: String) {
+    override fun setAvatar(file:File) {
         viewModelScope.launch {
             if (!isConnected()) {
                 notConnectionLiveData.value = "Internet not connection"
             }
             progressLiveData.value = true
-            successSetAvatarLiveData.addSource(personalUseCase.setAvatar(formdata)) {
+            successSetAvatarLiveData.addSource(personalUseCase.setAvatar(file)) {
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> successSetAvatarLiveData.value = Unit

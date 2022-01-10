@@ -1,5 +1,6 @@
 package uz.gita.mobilbanking.domain.repository.impl
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
@@ -22,17 +23,17 @@ class AuthRepositoryImpl @Inject constructor(
         get() = localStorage.phoneNumberUser
 
     override fun setPin(pin: String) {
-        localStorage.pinCode=pin
+        localStorage.pinCode = pin
     }
 
     override fun userRegister(data: RegisterRequest): LiveData<MyResult<Unit>> = liveData {
         try {
             val response = authApi.userRegister(data)
             if (response.isSuccessful) {
-                localStorage.phoneNumberUser=data.phone
+                localStorage.phoneNumberUser = data.phone
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                if(response.code()==409)
+                if (response.code() == 409)
                     emit(MyResult.Message("Bunday foydalanuvchi allaqachon mavjud!"))
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
@@ -49,6 +50,7 @@ class AuthRepositoryImpl @Inject constructor(
                     it.data?.let {
                         localStorage.accessToken = it.accessToken
                         localStorage.refreshToken = it.refreshToken
+                        localStorage.pinCode=""
                         emit(MyResult.Success<Unit>(Unit))
                     }
                 }
@@ -64,7 +66,7 @@ class AuthRepositoryImpl @Inject constructor(
         try {
             val response = authApi.userLogin(data)
             if (response.isSuccessful) {
-                localStorage.phoneNumberUser=data.phone
+                localStorage.phoneNumberUser = data.phone
                 emit(MyResult.Success<Unit>(Unit))
             } else {
 //                if(response.code()==400){
@@ -88,7 +90,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun userLogout(): LiveData<MyResult<Unit>> = liveData {
         try {
-            val response = authApi.userLogout(localStorage.accessToken)
+            val response = authApi.userLogout()
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
@@ -156,12 +158,18 @@ class AuthRepositoryImpl @Inject constructor(
                 ResetRequest(localStorage.phoneNumberUser)
             )
             if (response.isSuccessful) {
-                emit(MyResult.Success<Unit>(Unit))
+                response?.body()?.data?.let {
+                    localStorage.accessToken = it.accessToken
+                    localStorage.refreshToken = it.refreshToken
+                    if (localStorage.pinCode!="")
+                    emit(MyResult.Success<Unit>(Unit))
+                    else emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                }
             } else {
                 if (response.code() == 401) {
                     emit(MyResult.Error<Unit>(InvalidTokenException()))
                 } else {
-                emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                    emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
                 }
             }
         } catch (e: IOException) {

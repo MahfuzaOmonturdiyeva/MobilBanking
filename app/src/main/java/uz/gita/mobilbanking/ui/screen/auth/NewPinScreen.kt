@@ -78,7 +78,7 @@ class NewPinScreen : Fragment(R.layout.screen_pin) {
                     )
                 )
             }
-            else -> {
+            else->{
                 binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)

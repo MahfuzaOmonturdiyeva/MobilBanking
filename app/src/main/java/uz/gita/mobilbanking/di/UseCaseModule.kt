@@ -4,11 +4,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import uz.gita.mobilbanking.data.source.local.LocalStorage
-import uz.gita.mobilbanking.domain.repository.impl.AuthRepositoryImpl
-import uz.gita.mobilbanking.domain.repository.impl.ProfileRepositoryImpl
 import uz.gita.mobilbanking.domain.usecase.auth.*
 import uz.gita.mobilbanking.domain.usecase.auth.impl.*
+import uz.gita.mobilbanking.domain.usecase.main.MainUseCase
+import uz.gita.mobilbanking.domain.usecase.main.impl.MainUseCaseImpl
 import uz.gita.mobilbanking.domain.usecase.onCreated.PinUseCase
 import uz.gita.mobilbanking.domain.usecase.onCreated.SplashUseCase
 import uz.gita.mobilbanking.domain.usecase.onCreated.impl.PinUseCaseImpl
@@ -56,4 +55,8 @@ interface UseCaseModule {
     @Binds
     fun provideSettingUsaCase(impl: SettingsUseCaseImpl):
             SettingsUseCase
+
+    @Binds
+    fun provideMainUsaCase(impl: MainUseCaseImpl):
+            MainUseCase
 }

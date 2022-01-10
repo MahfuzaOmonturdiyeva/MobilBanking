@@ -50,7 +50,6 @@ class VerifyScreen : Fragment(R.layout.screen_auth_verify) {
         setDownTimer()
         onPerMissionState()
 
-
         binding.btnVerify.setOnClickListener {
             onClickBtnVerify()
         }

@@ -99,15 +99,39 @@ class PinScreen : Fragment(R.layout.screen_pin) {
                 binding.imgvPin4.setImageResource(R.drawable.ic_circle)
                 if (viewModel.isCorrectPin(pin)) {
                     findNavController().navigate(PinScreenDirections.actionPinScreenToMainScreen2())
-                }else {
+                } else {
                     Handler(Looper.getMainLooper()).postDelayed({
+                        binding.imgvPin1.animate().apply {
+                            duration = 200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin2.animate().apply {
+                            duration = 200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin3.animate().apply {
+                            duration = 200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin4.animate().apply {
+                            duration = 200
+                            rotationYBy(360f)
+                        }
                         binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
                         pin = ""
+                        showToast("Pincode is wrong")
                     }, 100)
                 }
+            }
+            else -> {
+                binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
+                binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
+                binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
+                binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
+                pin = ""
             }
         }
     }

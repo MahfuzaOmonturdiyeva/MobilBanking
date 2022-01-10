@@ -138,4 +138,13 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_jetpack_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
 
+//    /**
+//     *image uploader
+//     */
+//    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    /**
+     * logging intercepter
+     */
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }

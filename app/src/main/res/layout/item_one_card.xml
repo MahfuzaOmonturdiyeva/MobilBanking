@@ -56,7 +56,6 @@
             android:layout_height="@dimen/_16sdp"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_edit"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/ed_name_card_item"
             app:layout_constraintLeft_toRightOf="@id/ed_name_card_item"
             app:layout_constraintTop_toTopOf="@id/ed_name_card_item" />

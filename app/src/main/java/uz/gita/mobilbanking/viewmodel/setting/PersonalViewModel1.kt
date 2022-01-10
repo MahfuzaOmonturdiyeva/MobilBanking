@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.ProfileRequest
 import uz.gita.mobilbanking.data.response.ProfileInfoResponse
+import java.io.File
 
 interface PersonalViewModel1 {
     val joinAvatarLiveData: LiveData<Unit>
@@ -15,7 +16,7 @@ interface PersonalViewModel1 {
     val progressLiveData: LiveData<Boolean>
 
     fun getAvatar()
-    fun setAvatar(formdata: String)
+    fun setAvatar(file:File)
     fun getInfo()
     fun setInfo(profileRequest: ProfileRequest)
     val messageLiveData: MediatorLiveData<String>

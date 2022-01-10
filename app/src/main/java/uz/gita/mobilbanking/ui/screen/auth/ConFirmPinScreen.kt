@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
+import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.auth.impl.ConfirmPinViewModel1Impl
 
 @AndroidEntryPoint
@@ -86,11 +87,28 @@ class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
                 }
                 else {
                     Handler(Looper.getMainLooper()).postDelayed({
+                        binding.imgvPin1.animate().apply {
+                            duration=200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin2.animate().apply {
+                            duration=200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin3.animate().apply {
+                            duration=200
+                            rotationYBy(360f)
+                        }
+                        binding.imgvPin4.animate().apply {
+                            duration=200
+                            rotationYBy(360f)
+                        }
                         binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
                         pin = ""
+                        showToast("Pincode is not confirm")
                     }, 100)
                 }
             }

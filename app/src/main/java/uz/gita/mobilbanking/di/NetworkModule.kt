@@ -1,6 +1,7 @@
 package uz.gita.mobilbanking.di
 
 import android.content.Context
+import android.util.Log
 import com.readystatesoftware.chuck.BuildConfig
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
@@ -9,21 +10,22 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import uz.gita.mobilbanking.BuildConfig.BASE_URL
 import uz.gita.mobilbanking.data.request.ResetRequest
 import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.AuthApi
 import javax.inject.Singleton
 
+private val BASE_URL1="http://7192-185-163-26-54.ngrok.io"
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-    val BASE_URL="http://6146-185-163-27-54.ngrok.io"
+
     @[Singleton Provides]
     fun getRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BASE_URL1)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -35,6 +37,7 @@ class NetworkModule {
     ): OkHttpClient {
         return OkHttpClient
             .Builder()
+            .addInterceptor(HttpLoggingInterceptor())
             .authenticator(TokenAuthenticator(localStorage, context))
             .addInterceptor(ChuckInterceptor(context))
             .addInterceptor {
@@ -50,7 +53,7 @@ class NetworkModule {
     class TokenAuthenticator(val localStorage: LocalStorage, val context: Context) : Authenticator {
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_URL1)
             .client(
                 OkHttpClient.Builder()
                     .addInterceptor(ChuckInterceptor(context))

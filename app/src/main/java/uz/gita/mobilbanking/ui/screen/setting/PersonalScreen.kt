@@ -3,6 +3,7 @@ package uz.gita.mobilbanking.ui.screen.setting
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,12 +22,14 @@ import uz.gita.mobilbanking.databinding.ScreenSettingsPersonalBinding
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.setting.impl.PersonalViewModel1Impl
 import java.io.File
+import java.io.IOException
 
 @AndroidEntryPoint
 class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
     private val binding by viewBinding(ScreenSettingsPersonalBinding::bind)
     private val viewModel: PersonalViewModel1Impl by viewModels()
     private var password = ""
+    private var photoFile: File?=null
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +46,13 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, 1)
-
+        }
+        binding.btnSetAvatar.setOnClickListener {
+            if (photoFile==null){
+                showToast("Upload your avatar!")
+            }else {
+                viewModel.setAvatar(photoFile!!)
+            }
         }
 
         binding.btnSave.setOnClickListener {
@@ -82,10 +91,15 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==1 && resultCode==Activity.RESULT_OK){
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
-                val file= File(it.path)
+                try {
+                    val photo = MediaStore.Images.Media.getBitmap(context?.contentResolver, it)
+                    binding.cImgProfileImage.setImageBitmap(photo)
+                } catch (e: IOException) {
 
+                }
+                photoFile = File(it.path)
             }
         }
     }

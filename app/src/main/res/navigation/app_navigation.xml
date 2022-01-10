@@ -82,10 +82,19 @@
         tools:layout="@layout/screen_settings" >
         <action
             android:id="@+id/action_settingsScreen_to_personalScreen"
-            app:destination="@id/personalScreen" />
+            app:destination="@id/personalScreen"
+
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_settingsScreen_to_securityScreen"
-            app:destination="@id/securityScreen" />
+            app:destination="@id/securityScreen"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"/>
         <action
             android:id="@+id/action_settingsScreen_to_loginScreen"
             app:destination="@id/loginScreen"
@@ -93,7 +102,11 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_settingsScreen_to_supportScreen2"
-            app:destination="@id/supportScreen2" />
+            app:destination="@id/supportScreen2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"/>
     </fragment>
     <fragment
         android:id="@+id/personalScreen"
@@ -140,7 +153,11 @@
         android:label="NewPinScreen" >
         <action
             android:id="@+id/action_newPinScreen_to_conFirmPinScreen"
-            app:destination="@id/conFirmPinScreen" />
+            app:destination="@id/conFirmPinScreen"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/supportScreen2"
@@ -154,7 +171,36 @@
         tools:layout="@layout/screen_main" >
         <action
             android:id="@+id/action_mainScreen2_to_settingsScreen"
-            app:destination="@id/settingsScreen" />
+            app:destination="@id/settingsScreen"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            />
+        <action
+            android:id="@+id/action_mainScreen2_to_transfersScreen2"
+            app:destination="@id/transfersScreen2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"/>
+        <action
+            android:id="@+id/action_mainScreen2_to_transfersHistoryScreen2"
+            app:destination="@id/transfersHistoryScreen2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"/>
     </fragment>
+    <fragment
+        android:id="@+id/transfersScreen2"
+        android:name="uz.gita.mobilbanking.ui.screen.TransfersScreen"
+        android:label="screen_transfers"
+        tools:layout="@layout/screen_transfers" />
+    <fragment
+        android:id="@+id/transfersHistoryScreen2"
+        android:name="uz.gita.mobilbanking.ui.screen.TransfersHistoryScreen"
+        android:label="screen_transfers_history"
+        tools:layout="@layout/screen_transfers_history" />
 
 </navigation>
