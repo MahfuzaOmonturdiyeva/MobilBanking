@@ -135,13 +135,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cLine_favorite_card"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_90sdp"
                         app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
@@ -183,6 +183,7 @@
                         android:layout_marginStart="@dimen/_4sdp"
                         android:layout_margin="@dimen/_4sdp"
                         android:src="@drawable/ic_star"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@id/img_card"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/img_card"
@@ -194,7 +195,7 @@
                         android:layout_height="@dimen/_16sdp"
                         android:layout_margin="@dimen/_4sdp"
                         android:src="@drawable/ic_credit_card"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_money_card"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
                         app:layout_constraintLeft_toRightOf="@id/img_star"
                         app:layout_constraintRight_toLeftOf="@id/tv_name_card"
                         app:layout_constraintTop_toTopOf="@id/tv_name_card" />
@@ -208,18 +209,18 @@
                         android:lines="1"
                         android:maxLength="22"
                         android:maxLines="1"
-                        android:text="UZCARD"
+                        android:text="Edd your card here"
                         android:textSize="14sp"
                         android:textStyle="italic"
-                        app:layout_constraintBottom_toTopOf="@id/tv_money_card"
+                        app:layout_constraintBottom_toTopOf="@id/tv_balance_card"
                         app:layout_constraintLeft_toRightOf="@id/img_card"
                         app:layout_constraintTop_toBottomOf="@id/line_card" />
 
                     <TextView
-                        android:id="@+id/tv_money_card"
+                        android:id="@+id/tv_balance_card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="190 319"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toLeftOf="@id/tv_name_card"
@@ -232,8 +233,8 @@
                         android:text="UZS"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_money_card"
-                        app:layout_constraintLeft_toRightOf="@id/tv_money_card" />
+                        app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
+                        app:layout_constraintLeft_toRightOf="@id/tv_balance_card" />
 
                     <TextView
                         android:id="@+id/tv"
@@ -241,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:text="* "
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_money_card"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
                         app:layout_constraintRight_toLeftOf="@id/tv_card_number"
                         app:layout_constraintTop_toTopOf="@id/tv_name_card" />
 
@@ -249,21 +250,23 @@
                         android:id="@+id/tv_card_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0748"
+                        android:text="0000"
                         android:textSize="12sp"
                         android:layout_marginEnd="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_money_card"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tv_name_card"
                         />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <Button
-                        android:id="@+id/btn_edd_card"
+                        android:id="@+id/btn_add_card"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_32sdp"
                         app:backgroundTint="@null"
                         android:text="Edd card"
-                        android:background="@color/teal_500"
+                        android:background="@drawable/click_effect_custom_button"
+                        app:layout_constraintTop_toBottomOf="@id/cLine_favorite_card"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

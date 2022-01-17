@@ -1,8 +1,6 @@
 package uz.gita.mobilbanking.di
 
 import android.content.Context
-import android.util.Log
-import com.readystatesoftware.chuck.BuildConfig
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
@@ -18,7 +16,7 @@ import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.AuthApi
 import javax.inject.Singleton
 
-private val BASE_URL1="http://7192-185-163-26-54.ngrok.io"
+private val BASE_URL1="http://985c-185-163-26-178.ngrok.io"
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {

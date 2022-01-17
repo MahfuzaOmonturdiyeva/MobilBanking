@@ -7,19 +7,23 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/backgound_custom_edittext.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/background_custom_edittext.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/background_custom_edittext_error.xml" value="0.1" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/backround_bottom_sheet_dialog.xml" value="0.24270833333333333" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button_for_pin.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button_for_pin1.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button_with_corners.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_text_button.xml" value="0.2578125" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_back.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_check_circle.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_cicle1.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_circle.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_circle_line.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_circle_line_grey.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_close.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_contact_support.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_copy.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_credit_card.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_delete_forever.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_edit.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_email.xml" value="0.2578125" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_eye_teal_500.xml" value="0.25833333333333336" />
@@ -27,6 +31,7 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_humo.xml" value="0.25435897435897437" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_lock.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_login.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_more_vert.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_perm_device.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_perm_identity.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_person.xml" value="0.25833333333333336" />
@@ -40,22 +45,25 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_uzcard.xml" value="0.25435897435897437" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/custom_dialog.xml" value="0.2421875" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/custom_dialog_bottom_sheet.xml" value="0.2265625" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/item_one_card.xml" value="0.2421875" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/item_stack_view_card.xml" value="0.264" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/item_stackview_card.xml" value="0.2421875" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/item_two_card.xml" value="0.2421875" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/keraksiz.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/register_fragment.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_auth_login.xml" value="0.2" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_auth_register.xml" value="0.264" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_auth_reset.xml" value="0.2" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_auth_verify.xml" value="0.2421875" />
-        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_card_add_card.xml" value="0.2006340579710145" />
-        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_card_all_cards.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_card_add_card.xml" value="0.1" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_card_all_cards.xml" value="0.264" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_card_one_card.xml" value="0.264" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_help.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_history_transfers.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_login.xml" value="0.264" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_logout.xml" value="0.2421875" />
-        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_main.xml" value="0.264" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_main.xml" value="0.4" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_main_click_version_card.xml" value="0.2421875" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_main_peyme_version.xml" value="0.2421875" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_new_password.xml" value="0.2421875" />
@@ -72,6 +80,7 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_transfers_history.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/layout/screen_verify.xml" value="0.2421875" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/menu/menu_bottom_screen_main.xml" value="0.2421875" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/menu/menu_delete_change.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/menu/menu_personal_information.xml" value="0.2421875" />
       </map>
     </option>

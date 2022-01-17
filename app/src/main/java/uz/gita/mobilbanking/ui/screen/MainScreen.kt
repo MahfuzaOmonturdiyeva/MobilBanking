@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
+import uz.gita.mobilbanking.data.response.CardInfoResponse
 import uz.gita.mobilbanking.databinding.ScreenMainBinding
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.main.impl.MainViewModelImpl
@@ -18,32 +19,29 @@ import uz.gita.mobilbanking.viewmodel.main.impl.MainViewModelImpl
 class MainScreen : Fragment(R.layout.screen_main) {
     private val binding by viewBinding(ScreenMainBinding::bind)
     private val viewModel: MainViewModelImpl by viewModels()
+    private var totalSum = 0.0
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.progress.visibility = View.GONE
-        viewModel.setTotalSumLiveData.observe(this, setTotalSumObserver)
+        viewModel.getTotalSumLiveData.observe(this, getTotalSumObserver)
+        viewModel.getFavoriteCardLiveData.observe(this, getFavoriteCardObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
 
-        if(viewModel.favoriteCardId==-1){
-            binding.cLineFavoriteCard.visibility=View.GONE
-        }else{
-            binding.cLineFavoriteCard.visibility=View.VISIBLE
-        }
-
         binding.imgBtnSettings.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToSettingsScreen())
         }
         binding.imgBtnEyeIsShowTotalSum.setOnClickListener {
-            if(!viewModel.ignoreTotalSum){
+            if (!viewModel.ignoreTotalSum) {
                 binding.imgBtnEyeIsShowTotalSum.setImageResource(R.drawable.ic_eye)
-                binding.tvTotalSum.text=""
-                viewModel.ignoreTotalSum=false
-            }else{
-                viewModel.ignoreTotalSum=true
+                binding.tvTotalSum.text = "View balance"
+                viewModel.ignoreTotalSum = true
+            } else {
+                viewModel.ignoreTotalSum = false
+                binding.tvTotalSum.text = totalSum.toString()
                 binding.imgBtnEyeIsShowTotalSum.setImageResource(R.drawable.ic_eye_teal_500)
             }
         }
@@ -53,23 +51,29 @@ class MainScreen : Fragment(R.layout.screen_main) {
         binding.lineTransfers.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToTransfersScreen2())
         }
-        binding.cLineFavoriteCard.setOnClickListener{
-
+        binding.cLineFavoriteCard.setOnClickListener {
+            findNavController().navigate(MainScreenDirections.actionMainScreen2ToAllCardsScreen())
+        }
+        binding.btnAddCard.setOnClickListener {
+            findNavController().navigate(MainScreenDirections.actionMainScreen2ToAddCardScreen())
         }
     }
+
     private val errorObserver = Observer<String> {
         showToast(it)
     }
-    private val messageObserver= Observer<String> {
+    private val messageObserver = Observer<String> {
         showToast(it)
     }
 
-    private val setTotalSumObserver = Observer<Double> {
-        if(viewModel.ignoreTotalSum){
+    private val getTotalSumObserver = Observer<Double> {
+        if (viewModel.ignoreTotalSum) {
             binding.imgBtnEyeIsShowTotalSum.setImageResource(R.drawable.ic_eye)
-            binding.tvTotalSum.text=""
-        }else{
+            binding.tvTotalSum.text = ""
+        } else {
             binding.imgBtnEyeIsShowTotalSum.setImageResource(R.drawable.ic_eye_teal_500)
+            binding.tvTotalSum.text = it.toString()
+            totalSum = it
         }
     }
     private val notConnectionObserver = Observer<String> {
@@ -79,5 +83,10 @@ class MainScreen : Fragment(R.layout.screen_main) {
         if (it) {
             binding.progress.visibility = View.VISIBLE
         } else binding.progress.visibility = View.GONE
+    }
+    private val getFavoriteCardObserver = Observer<CardInfoResponse> {
+        binding.tvNameCard.text = it.cardName
+        binding.tvBalanceCard.text = it.balance.toString()
+        binding.tvCardNumber.text = it.pan.substring(12, 16)
     }
 }

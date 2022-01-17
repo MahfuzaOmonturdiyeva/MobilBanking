@@ -147,4 +147,7 @@ dependencies {
      * logging intercepter
      */
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+    //permission
+    implementation 'com.nabinbhandari.android:permissions:3.8'
 }

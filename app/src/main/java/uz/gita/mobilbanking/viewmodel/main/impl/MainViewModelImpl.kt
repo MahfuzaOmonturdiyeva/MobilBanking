@@ -1,11 +1,13 @@
 package uz.gita.mobilbanking.viewmodel.main.impl
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import uz.gita.mobilbanking.data.common.MyResult
+import uz.gita.mobilbanking.data.response.CardInfoResponse
 import uz.gita.mobilbanking.domain.usecase.main.MainUseCase
 import uz.gita.mobilbanking.utils.isConnected
 import uz.gita.mobilbanking.viewmodel.main.MainViewModel
@@ -15,7 +17,8 @@ import javax.inject.Inject
 class MainViewModelImpl @Inject constructor(
     private val mainUseCase: MainUseCase
 ) : MainViewModel, ViewModel() {
-    override val setTotalSumLiveData = MediatorLiveData<Double>()
+    override val getTotalSumLiveData = MediatorLiveData<Double>()
+    override val getFavoriteCardLiveData = MediatorLiveData<CardInfoResponse>()
     override val messageLiveData = MediatorLiveData<String>()
     override val errorLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
@@ -37,14 +40,34 @@ class MainViewModelImpl @Inject constructor(
                 notConnectionLiveData.value = "Internet not connection"
             }
             progressLiveData.value = true
-            setTotalSumLiveData.addSource(mainUseCase.getTotalSum()) {
-                progressLiveData.value = false
+            getTotalSumLiveData.addSource(mainUseCase.getTotalSum()) {
                 when (it) {
-                    is MyResult.Success -> setTotalSumLiveData.value = it.data!!
+                    is MyResult.Success -> getTotalSumLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
+                getFavoriteCardLiveData.addSource(mainUseCase.getFavoriteCard()) {
+                    progressLiveData.value=false
+                    when (it) {
+                        is MyResult.Success -> {
+                            if(it.data.size==1){
+                                getFavoriteCardLiveData.value = it.data[0]
+                                favoriteCardId=it.data[0].id
+                                return@addSource
+                            }
+                            for (i in it.data) {
+                                if (i.id == favoriteCardId) {
+                                    getFavoriteCardLiveData.value = i
+                                    return@addSource
+                                }
+                            }
+                        }
+                        is MyResult.Message -> messageLiveData.value = it.data
+                        is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    }
+                }
+
         }
     }
 }

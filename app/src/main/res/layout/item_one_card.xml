@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv_one_card_item"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_250sdp"
-    android:layout_height="@dimen/_150sdp"
-    android:layout_margin="@dimen/_32sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_16sdp"
     android:background="@color/white"
-    android:outlineSpotShadowColor="@color/teal_100"
-    app:cardBackgroundColor="@color/teal_100"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="@dimen/_16sdp"
-    app:cardElevation="@dimen/_8sdp"
-    tools:ignore="UnusedAttribute">
+    app:cardElevation="@dimen/_8sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16sdp">
 
         <ImageView
-            android:id="@+id/img_card"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
+            android:id="@+id/img_icon_card_item"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:src="@drawable/ic_credit_card"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_card"
+            android:id="@+id/tv_bank_card_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_4sdp"
             android:text="CARD"
+            android:textSize="16sp"
             android:textColor="@color/teal_300"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/img_card"
-            app:layout_constraintTop_toTopOf="@id/img_card" />
+            app:layout_constraintLeft_toRightOf="@id/img_icon_card_item"
+            app:layout_constraintTop_toTopOf="@id/img_icon_card_item"
+            app:layout_constraintBottom_toBottomOf="@id/img_icon_card_item"/>
 
-        <EditText
-            android:id="@+id/ed_name_card_item"
+        <TextView
+            android:id="@+id/tv_name_card_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -45,74 +47,68 @@
             android:maxLength="24"
             android:maxLines="1"
             android:text="UZCARD"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@id/tv_card_number_item"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <ImageButton
-            android:id="@+id/img_btn_edit_card_name"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@id/ed_name_card_item"
-            app:layout_constraintLeft_toRightOf="@id/ed_name_card_item"
-            app:layout_constraintTop_toTopOf="@id/ed_name_card_item" />
-
+            android:editable="false"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_card_item"
+            app:layout_constraintBottom_toTopOf="@id/tv_pan_card_item"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:ignore="Deprecated" />
 
         <TextView
-            android:id="@+id/tv_card_number_item"
+            android:id="@+id/tv_pan_card_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8600 14** **** 0748"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_card_item"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageView
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:layout_marginLeft="@dimen/_8sdp"
             android:src="@drawable/ic_copy"
-            app:layout_constraintLeft_toRightOf="@id/tv_card_number_item"
-            app:layout_constraintTop_toTopOf="@id/tv_card_number_item" />
+            app:layout_constraintLeft_toRightOf="@id/tv_pan_card_item"
+            app:layout_constraintTop_toTopOf="@id/tv_pan_card_item" />
 
         <TextView
-            android:id="@+id/t_v_expiration_date_item"
+            android:id="@+id/tv_validity_date_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10/23"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_card_number_item" />
+            app:layout_constraintTop_toTopOf="@id/tv_pan_card_item" />
 
         <TextView
-            android:id="@+id/tv_sum_int"
+            android:id="@+id/tv_balance_card_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="190 319"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@id/img_uzcard"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
+            android:id="@+id/tv_text_uzs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=",19 so'm"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sum_int"
-            app:layout_constraintLeft_toRightOf="@id/tv_sum_int"
-            app:layout_constraintTop_toTopOf="@id/tv_sum_int" />
+            android:text="UZS"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/img_uzcard"
+            app:layout_constraintLeft_toRightOf="@id/tv_balance_card_item" />
 
         <ImageView
             android:id="@+id/img_uzcard"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:src="@drawable/ic_uzcard"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sum_int"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_validity_date_item"
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
@@ -120,7 +116,9 @@
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:src="@drawable/ic_humo"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sum_int"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_validity_date_item"
             app:layout_constraintRight_toLeftOf="@id/img_uzcard" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

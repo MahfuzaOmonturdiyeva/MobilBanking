@@ -1,9 +1,11 @@
 package uz.gita.mobilbanking.viewmodel.main
 
 import androidx.lifecycle.LiveData
+import uz.gita.mobilbanking.data.response.CardInfoResponse
 
 interface MainViewModel {
-    val setTotalSumLiveData: LiveData<Double>
+    val getTotalSumLiveData: LiveData<Double>
+    val getFavoriteCardLiveData:LiveData<CardInfoResponse>
     val messageLiveData: LiveData<String>
     val errorLiveData: LiveData<String>
     val notConnectionLiveData: LiveData<String>

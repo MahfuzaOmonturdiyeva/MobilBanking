@@ -5,8 +5,8 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.response.CardInfoResponse
 
 interface MainUseCase {
-    var ignoreTotalSum:Boolean
-    var favoriteCardId:Int
-//    fun getFavoriteCard():LiveData<MyResult<CardInfoResponse>>
+    var ignoreTotalSum: Boolean
+    var favoriteCardId: Int
+    fun getFavoriteCard(): LiveData<MyResult<List<CardInfoResponse>>>
     fun getTotalSum(): LiveData<MyResult<Double>>
 }

@@ -69,10 +69,6 @@ class AuthRepositoryImpl @Inject constructor(
                 localStorage.phoneNumberUser = data.phone
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-//                if(response.code()==400){
-//
-//                    emit(MyResult.Message("Parol xato!"))
-//                }
                 response.errorBody()?.let {
                     val response = Gson().fromJson(
                         it.string(),
@@ -120,11 +116,14 @@ class AuthRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-//                response.errorBody()?.let {
-//                    val message = Gson().fromJson(it.string(), String()::class.java)
-//                    emit(MyResult.Message<Unit>(message))
-//                    return@liveData
-//                }
+                response.errorBody()?.let {
+                    val response = Gson().fromJson(
+                        it.string(),
+                        ResponseData::class.java
+                    )
+                    emit(MyResult.Message<Unit>(response.message!!))
+                    return@liveData
+                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -164,7 +163,9 @@ class AuthRepositoryImpl @Inject constructor(
                     if (localStorage.pinCode!="")
                     emit(MyResult.Success<Unit>(Unit))
                     else emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                    return@liveData
                 }
+                emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             } else {
                 if (response.code() == 401) {
                     emit(MyResult.Error<Unit>(InvalidTokenException()))

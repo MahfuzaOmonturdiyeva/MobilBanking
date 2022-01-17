@@ -1,9 +1,11 @@
 package uz.gita.mobilbanking.ui.screen.setting
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,13 +25,16 @@ import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.setting.impl.PersonalViewModel1Impl
 import java.io.File
 import java.io.IOException
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
+
 
 @AndroidEntryPoint
 class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
     private val binding by viewBinding(ScreenSettingsPersonalBinding::bind)
     private val viewModel: PersonalViewModel1Impl by viewModels()
     private var password = ""
-    private var photoFile: File?=null
+    private var photoFile: File? = null
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,14 +48,23 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         viewModel.successSetAvatarLiveData.observe(this, successSetAvatarObserver)
 
         binding.cImgProfileImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
+            Permissions.check(
+                requireContext()/*context*/,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                null,
+                object : PermissionHandler() {
+                    override fun onGranted() {
+                        val intent =
+                            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        intent.type = "image/*"
+                        startActivityForResult(intent, 1)
+                    }
+                })
         }
         binding.btnSetAvatar.setOnClickListener {
-            if (photoFile==null){
+            if (photoFile == null) {
                 showToast("Upload your avatar!")
-            }else {
+            } else {
                 viewModel.setAvatar(photoFile!!)
             }
         }
@@ -94,14 +108,30 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
                 try {
-                    val photo = MediaStore.Images.Media.getBitmap(context?.contentResolver, it)
-                    binding.cImgProfileImage.setImageBitmap(photo)
+                    val path = getRealPathFromURI(it, requireActivity())
+                    if (path != null) {
+                        photoFile = File(path)
+                        val photo = MediaStore.Images.Media.getBitmap(context?.contentResolver, it)
+                        binding.cImgProfileImage.setImageBitmap(photo)
+                    } else {
+                        showToast("Qaytadan urinib ko'ring")
+                    }
                 } catch (e: IOException) {
-
+                    e.printStackTrace()
                 }
-                photoFile = File(it.path)
             }
         }
+    }
+
+    private fun getRealPathFromURI(contentURI: Uri?, context: Activity): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.managedQuery(
+            contentURI, projection, null,
+            null, null
+        ) ?: return null
+        val columnIndex = cursor
+            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        return if (cursor.moveToFirst()) cursor.getString(columnIndex) else null
     }
 
     private val successSetAvatarObserver = Observer<Unit> { }
@@ -134,6 +164,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
     private val notConnectionObserver = Observer<String> {
         showToast(it)
     }
+
     private val progressObserver = Observer<Boolean> {
         if (it) {
             binding.progress.visibility = View.VISIBLE

@@ -24,11 +24,9 @@ class ProfileRepositoryImpl @Inject constructor(
 ) : ProfileRepository {
     override fun setUserAvatar(file:File): LiveData<MyResult<Unit>> = liveData {
         try {
-
-            val file1 = File(file.parent,file.name+".jpg")
-            val requestFile=RequestBody.create("image/jpg".toMediaTypeOrNull(), file1)
+            val requestFile=RequestBody.create("image/*".toMediaTypeOrNull(), file)
             Log.d("avataruserPath",  file.parent)
-            val body=MultipartBody.Part.createFormData("avatar", file1.name, requestFile)
+            val body=MultipartBody.Part.createFormData("avatar", file.name, requestFile)
 
             val response = profileApi.setUserAvatar(body)
             Log.d("avataruserName",  file.name)

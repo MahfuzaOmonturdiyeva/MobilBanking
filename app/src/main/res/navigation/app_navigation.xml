@@ -191,6 +191,12 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left"/>
+        <action
+            android:id="@+id/action_mainScreen2_to_addCardScreen"
+            app:destination="@id/addCardScreen" />
+        <action
+            android:id="@+id/action_mainScreen2_to_allCardsScreen"
+            app:destination="@id/allCardsScreen" />
     </fragment>
     <fragment
         android:id="@+id/transfersScreen2"
@@ -202,5 +208,46 @@
         android:name="uz.gita.mobilbanking.ui.screen.TransfersHistoryScreen"
         android:label="screen_transfers_history"
         tools:layout="@layout/screen_transfers_history" />
+    <fragment
+        android:id="@+id/addCardScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.card.AddCardScreen"
+        android:label="AddCardScreen" >
+        <action
+            android:id="@+id/action_addCardScreen_to_cardVerifyScreen"
+            app:destination="@id/cardVerifyScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCardsScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.card.AllCardsScreen"
+        android:label="AllCardsScreen" >
+        <argument android:name="pan"
+            app:argType="string"
+            android:defaultValue=""/>
+        <action
+            android:id="@+id/action_allCardsScreen_to_addCardScreen"
+            app:destination="@id/addCardScreen" />
+        <action
+            android:id="@+id/action_allCardsScreen_to_mainScreen2"
+            app:destination="@id/mainScreen2"
+            app:popUpTo="@id/app_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_allCardsScreen_to_oneCardScreen"
+            app:destination="@id/oneCardScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneCardScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.card.OneCardScreen"
+        android:label="OneCardScreen" >
+        <action
+            android:id="@+id/action_oneCardScreen_to_allCardsScreen"
+            app:destination="@id/allCardsScreen"
+            app:popUpTo="@id/oneCardScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardVerifyScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.card.CardVerifyScreen"
+        android:label="CardVerifyScreen" />
 
 </navigation>

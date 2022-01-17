@@ -22,7 +22,7 @@ class MainUseCaseImpl @Inject constructor(
         get() = cardRepository.favoriteCardId
         set(value) {cardRepository.favoriteCardId}
 
-//    override fun getFavoriteCard(): LiveData<MyResult<CardInfoResponse>>
+    override fun getFavoriteCard(): LiveData<MyResult<List<CardInfoResponse>>> =cardRepository.getAllCard()
 
     override fun getTotalSum(): LiveData<MyResult<Double>> =cardRepository.getTotalSum()
 }

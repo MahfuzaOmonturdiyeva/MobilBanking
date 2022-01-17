@@ -41,8 +41,8 @@ interface CardApi {
     suspend fun ownerById(@Body ownerByIdRequest: OwnerByIdRequest): Response<ResponseData<OwnerCardResponse>>
 
     @PUT("/api/v1/card/color")
-    suspend fun colorCard(@Body colorRequest: ColorRequest): Response<ResponseData<ColorResponse>>//holi bilmiman
+    suspend fun colorCard(@Body colorRequest: ColorRequest): Response<ResponseData<ColorResponse>>
 
     @PUT("/api/v1/card/ignore-balance")
-    suspend fun ignoreBalance(@Body ignoreBalanceRequest: IgnoreBalanceRequest): Response<ResponseData<IgnoreBalanceResponse>>//holi bilmiman
+    suspend fun ignoreBalance(@Body ignoreBalanceRequest: IgnoreBalanceRequest): Response<ResponseData<IgnoreBalanceResponse>>
 }
