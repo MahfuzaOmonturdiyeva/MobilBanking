@@ -4,13 +4,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/backround_bottom_sheet_dialog"
+    android:background="@drawable/background_bottom_sheet_dialog"
     android:id="@+id/bottom_sheet_container">
     <TextView
+        android:gravity="center"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
-        android:text="Change color card"/>
+        android:text="Select color card"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,6 +98,6 @@
         android:layout_gravity="end"
         app:backgroundTint="@null"
         android:text="Set card color"
-        android:background="@drawable/click_effect_custom_button"/>
+        android:background="@drawable/click_effect_custom_button_with_top_corners"/>
 
 </LinearLayout>

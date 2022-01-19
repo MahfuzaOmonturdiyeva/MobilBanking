@@ -227,6 +227,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_name_card" />
 
                     <TextView
+                        android:id="@+id/tv_text_uzs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_3sdp"
@@ -278,7 +279,7 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
+        android:background="@color/teal_100_shadow"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone">

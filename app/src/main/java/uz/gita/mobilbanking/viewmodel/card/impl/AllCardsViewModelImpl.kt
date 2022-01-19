@@ -36,6 +36,19 @@ class AllCardsViewModelImpl @Inject constructor(
         MutableLiveData<CardInfoResponse>()
     }
 
+    override fun setValueCardInfoResponse(value:CardInfoResponse){
+       viewModelScope.launch {
+           provideCardInfoResponseLiveData.value=value
+       }
+    }
+
+    override fun getCardInfoResponse():CardInfoResponse?{
+        var cardInfoResponse:CardInfoResponse?=null
+        viewModelScope.launch {
+            cardInfoResponse= provideCardInfoResponseLiveData.value!!
+        }
+        return cardInfoResponse
+    }
     override var favoriteCardId: Int
         get() = allCardsUseCase.favoriteCardId
         set(value) {

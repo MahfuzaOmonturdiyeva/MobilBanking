@@ -16,7 +16,7 @@ import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.AuthApi
 import javax.inject.Singleton
 
-private val BASE_URL1="http://985c-185-163-26-178.ngrok.io"
+private val BASE_URL1="http://9183-185-163-27-128.ngrok.io"
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {

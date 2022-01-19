@@ -47,26 +47,34 @@ class MainViewModelImpl @Inject constructor(
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
-                getFavoriteCardLiveData.addSource(mainUseCase.getFavoriteCard()) {
-                    progressLiveData.value=false
-                    when (it) {
-                        is MyResult.Success -> {
-                            if(it.data.size==1){
-                                getFavoriteCardLiveData.value = it.data[0]
-                                favoriteCardId=it.data[0].id
+            getFavoriteCardLiveData.addSource(mainUseCase.getFavoriteCard()) {
+                when (it) {
+                    is MyResult.Success -> {
+                        if (it.data.size == 1) {
+                            getFavoriteCardLiveData.value = it.data[0]
+                            favoriteCardId = it.data[0].id
+                            progressLiveData.value = false
+                            return@addSource
+                        }
+                        for (i in it.data) {
+                            if (i.id == favoriteCardId) {
+                                getFavoriteCardLiveData.value = i
+                                progressLiveData.value = false
                                 return@addSource
                             }
-                            for (i in it.data) {
-                                if (i.id == favoriteCardId) {
-                                    getFavoriteCardLiveData.value = i
-                                    return@addSource
-                                }
-                            }
                         }
-                        is MyResult.Message -> messageLiveData.value = it.data
-                        is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    }
+                    is MyResult.Message -> {
+                        messageLiveData.value = it.data
+                        progressLiveData.value = false
+                    }
+                    is MyResult.Error -> {
+                        errorLiveData.value = it.error.toString()
+                        progressLiveData.value = false
                     }
                 }
+
+            }
 
         }
     }

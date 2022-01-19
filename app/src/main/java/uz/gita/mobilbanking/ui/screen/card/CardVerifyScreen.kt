@@ -4,58 +4,47 @@ import android.annotation.SuppressLint
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.broadcast.ReceiveSms
-import uz.gita.mobilbanking.data.request.LoginRequest
-import uz.gita.mobilbanking.data.request.VerifyRequest
+import uz.gita.mobilbanking.data.request.*
+import uz.gita.mobilbanking.data.response.CardInfoResponse
 import uz.gita.mobilbanking.databinding.ScreenAuthVerifyBinding
+import uz.gita.mobilbanking.ui.dialog.CustomDialog
 import uz.gita.mobilbanking.utils.showToast
-import uz.gita.mobilbanking.viewmodel.auth.impl.VerifyViewModel1Impl
-import java.util.*
-import java.util.concurrent.TimeUnit
+import uz.gita.mobilbanking.viewmodel.card.impl.CardVerifyViewModelImpl
 
 @AndroidEntryPoint
 class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
     private val binding by viewBinding(ScreenAuthVerifyBinding::bind)
-    private val viewModel: VerifyViewModel1Impl by viewModels()
-    private val navArgs: VerifyScreenArgs by navArgs<VerifyScreenArgs>()
-    private val navController by lazy(LazyThreadSafetyMode.NONE) { findNavController() }
-    private var timer: CountDownTimer? = null
+    private val viewModel: CardVerifyViewModelImpl by viewModels()
+    private val navArgs: CardVerifyScreenArgs by navArgs<CardVerifyScreenArgs>()
     private val myReceiveSms: ReceiveSms by lazy { ReceiveSms() }
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.errorLiveData.observe(this, errorObserver)
-        viewModel.openNewPinLiveData.observe(this, openNewPinObserver)
-        viewModel.successResendLiveData.observe(this, successResendObserver)
+        viewModel.successVerifyLiveData.observe(this, successVerifyObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         myReceiveSms.codeLiveData.observe(this, codeObserver)
         binding.progress.visibility = View.GONE
-        setDownTimer()
         onPerMissionState()
+        binding.imgBtnClose.visibility = View.VISIBLE
+        binding.tVTimer.visibility = View.INVISIBLE
+        binding.btnResend.visibility = View.INVISIBLE
 
         binding.btnVerify.setOnClickListener {
             onClickBtnVerify()
-        }
-
-        binding.btnResend.setOnClickListener {
-            viewModel.resend(LoginRequest(navArgs.phone, navArgs.password))
         }
 
         binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
@@ -66,17 +55,24 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
 //        binding.mETEditCodeUser.setOnKeyListener(this)
     }
 
+    private val successVerifyObserver = Observer<CardInfoResponse> {
+       it?.let{
+           if(navArgs.isFavorite) viewModel.favoriteCardId=it.id
+       }
+        val dialog = CustomDialog.Builder(requireContext())
+            .setTitle("The card was successfully added", R.color.teal_500)
+            .setDescription("Would you like to return to the main menu?")
+            .setCancelBtn(R.color.gold_color) {
+                findNavController().navigate(CardVerifyScreenDirections.actionCardVerifyScreenToAllCardsScreen())
+            }
+            .setOkBtn(R.color.teal_500) {
+                findNavController().navigate(CardVerifyScreenDirections.actionCardVerifyScreenToMainScreen2())
+            }
+        dialog.build().show()
+    }
+
     private val errorObserver = Observer<String> {
         showToast(it)
-    }
-    private val openNewPinObserver = Observer<Unit> {
-        lifecycleScope.launchWhenResumed {
-            navController.navigate(VerifyScreenDirections.actionVerifyScreenToNewPinScreen())
-        }
-
-    }
-    private val successResendObserver = Observer<Unit> {
-        setDownTimer()
     }
 
     private val notConnectionObserver = Observer<String> {
@@ -90,7 +86,6 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
 
     private val codeObserver = Observer<String> {
         binding.mETEditCodeUser.setText(it)
-        timer?.cancel()
         onClickBtnVerify()
     }
 
@@ -101,11 +96,11 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
         }
 
         if (code.length == 6) {
-            val data = VerifyRequest(
-                phone = navArgs.phone,
+            val data = AddCardVerifyRequest(
+                pan = navArgs.pan,
                 code = code
             )
-            viewModel.verify(data)
+            viewModel.addCardVerify(data)
         } else {
             if (code.isEmpty()) {
                 binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
@@ -118,54 +113,6 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
         }
     }
 
-    private fun setDownTimer() {
-        val duration = TimeUnit.MINUTES.toMillis(1)
-        binding.tVTimer.visibility = View.VISIBLE
-        CoroutineScope(Dispatchers.Main).launch {
-
-            timer = object : CountDownTimer(duration, 1000) {
-                override fun onTick(p0: Long) {
-                    val timer = String.format(
-                        Locale.ENGLISH, "%02d : %02d",
-                        TimeUnit.MILLISECONDS.toMinutes(p0),
-                        TimeUnit.MILLISECONDS.toSeconds(p0)
-                    )
-                    binding.tVTimer.setText(timer)
-                    binding.btnResend.isEnabled = false
-                    binding.btnResend.text = "The sms was sent to a ${navArgs.phone} number"
-                }
-
-                override fun onFinish() {
-                    binding.tVTimer.visibility = View.GONE
-                    binding.btnResend.isEnabled = true
-                    binding.btnResend.text = "send sms again"
-                }
-            }.start()
-        }
-    }
-
-    /**
-     * sms ni olish uchun
-     */
-//    private fun onDeliveredMessage(): String {
-//        val intent = Intent()
-//        val myBundle = intent.extras;
-//        var kod = ""
-//
-//        if (myBundle != null) {
-//            val pdus = myBundle.get("pdus") as Array<*>
-//            val messages = ArrayList<SmsMessage>()
-//
-//            for (i in pdus.indices) {
-//                val number = messages[i].displayOriginatingAddress;
-//                Toast.makeText(requireContext(),"number"+ number, Toast.LENGTH_SHORT).show()
-//                val body = messages[i].messageBody;
-//                val message = body.split(":")
-//                kod = message[1].substring(1, message[1].length)
-//            }
-//        }
-//        return kod
-//    }
 
     /**
      * onkeylistner uchun
@@ -178,24 +125,6 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
 //            }
 //        }
 //        return false
-//    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        timer?.cancel()
-    }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        if (requestCode == 1000) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                showToast("permission olindi")
-//            } else {
-//                showToast("permission olinmadi")
-//            }
-//        }
 //    }
 
     private fun onPerMissionState() {

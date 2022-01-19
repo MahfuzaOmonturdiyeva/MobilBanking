@@ -127,6 +127,7 @@
                         android:maxLength="5"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:textAlignment="center"
                         android:textColor="@color/teal_500"
                         app:layout_constraintLeft_toRightOf="@id/tv_validity_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card"
@@ -172,9 +173,10 @@
                         android:id="@+id/tv_favorite_card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card name"
+                        android:text="Make the card basic"
                         app:layout_constraintBottom_toBottomOf="@id/img_btn_favorite_card_checked"
-                        app:layout_constraintLeft_toLeftOf="@id/et_edit_name_card"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                       app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/img_btn_favorite_card_checked" />
 
                     <ImageButton

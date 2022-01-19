@@ -85,8 +85,13 @@ class MainScreen : Fragment(R.layout.screen_main) {
         } else binding.progress.visibility = View.GONE
     }
     private val getFavoriteCardObserver = Observer<CardInfoResponse> {
+        if (!it.ignoreBalance)
+            binding.tvBalanceCard.text = it.balance.toString()
+        else {
+            binding.tvBalanceCard.text = "Balance"
+            binding.tvTextUzs.visibility=View.INVISIBLE
+        }
         binding.tvNameCard.text = it.cardName
-        binding.tvBalanceCard.text = it.balance.toString()
         binding.tvCardNumber.text = it.pan.substring(12, 16)
     }
 }

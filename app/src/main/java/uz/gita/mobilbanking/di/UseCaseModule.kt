@@ -8,8 +8,10 @@ import uz.gita.mobilbanking.domain.usecase.auth.*
 import uz.gita.mobilbanking.domain.usecase.auth.impl.*
 import uz.gita.mobilbanking.domain.usecase.card.AddCardUseCase
 import uz.gita.mobilbanking.domain.usecase.card.AllCardsUseCase
+import uz.gita.mobilbanking.domain.usecase.card.CardVerifyUseCase
 import uz.gita.mobilbanking.domain.usecase.card.impl.AddCardUseCaseImpl
 import uz.gita.mobilbanking.domain.usecase.card.impl.AllCardsUseCaseImpl
+import uz.gita.mobilbanking.domain.usecase.card.impl.CardVerifyUseCaseImpl
 import uz.gita.mobilbanking.domain.usecase.main.MainUseCase
 import uz.gita.mobilbanking.domain.usecase.main.impl.MainUseCaseImpl
 import uz.gita.mobilbanking.domain.usecase.onCreated.PinUseCase
@@ -71,4 +73,7 @@ interface UseCaseModule {
     @Binds
     fun provideAllCardUsaCase(impl: AllCardsUseCaseImpl):
             AllCardsUseCase
+    @Binds
+    fun provideCardVerifyUsaCase(impl: CardVerifyUseCaseImpl):
+            CardVerifyUseCase
 }

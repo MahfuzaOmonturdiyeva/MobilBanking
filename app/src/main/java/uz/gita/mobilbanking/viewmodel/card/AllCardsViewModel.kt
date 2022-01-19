@@ -26,4 +26,6 @@ interface AllCardsViewModel {
     fun colorCard(colorRequest: ColorRequest)
     fun ignoreBalance(ignoreBalanceRequest: IgnoreBalanceRequest)
     fun getAllCard()
+    fun setValueCardInfoResponse(value: CardInfoResponse)
+    fun getCardInfoResponse(): CardInfoResponse?
 }

@@ -24,6 +24,7 @@ import android.content.ClipboardManager
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.gita.mobilbanking.data.request.CardNumberRequest
@@ -36,14 +37,15 @@ import uz.gita.mobilbanking.ui.dialog.CustomDialog
 @AndroidEntryPoint
 class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
     private val binding by viewBinding(ScreenCardOneCardBinding::bind)
-    private val viewModel: AllCardsViewModelImpl by viewModels()
-    private lateinit var cardInfoResponse: CardInfoResponse
+    private val viewModel: AllCardsViewModelImpl by activityViewModels<AllCardsViewModelImpl>()
+    private var cardInfoResponse: CardInfoResponse? = null
     private var isFavoriteCard = false
     private var cardColor = 0
     private var isEditCardName = false
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //binding.progress.visibility = View.VISIBLE
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.successIgnoreBalanceLiveData.observe(this, successIgnoreBalanceObserver)
@@ -53,42 +55,66 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.provideCardInfoResponseLiveData.observe(
-            viewLifecycleOwner,
-            provideCardInfoResponseObserver
-        )
-        isFavoriteCard = viewModel.favoriteCardId == cardInfoResponse.id
-        cardColor = cardInfoResponse.color
-        if (isFavoriteCard)
-            binding.imgBtnFavoriteCard.setImageResource(R.drawable.ic_star)
+            viewLifecycleOwner
+        ) {
+            binding.progress.visibility = View.GONE
+            it?.let {
+                isFavoriteCard = (viewModel.favoriteCardId == it.id)
+                if(isFavoriteCard){
+                    binding.imgBtnFavoriteCard.setImageResource(R.drawable.ic_star)
+                }
+                cardColor = it.color
+                cardInfoResponse = it
+                cardInfoResponse?.let {
+                    binding.imgHumo.visibility = View.GONE
+                    binding.etNameCardItem.setText(it.cardName)
+                    binding.tvValidityDateItem.text = it.exp
+                    var textPan = ""
+                    it.pan.forEachIndexed { index, c ->
+                        if (index <= 5 || index >= 12) {
+                            if(index%4==0)
+                                textPan+=" "
+                            textPan += c.toString()
+                        }
+                        else {
+                            if(index%4==0)
+                                textPan+=" "
+                            textPan+="*"}
+                    }
 
+                    binding.tvPanCardItem.text = textPan
+                    setColorCard(it.color)
+                    if (!it.ignoreBalance) {
+                        binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye_teal_500)
+                        binding.tvBalanceCardItem.text = it.balance.toString()
+                        binding.tvTextUzs.visibility = View.VISIBLE
+                    } else {
+                        binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye)
+                        binding.tvBalanceCardItem.text = "Balance"
+                        binding.tvTextUzs.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        }
         binding.imgBtnEditNameCard.setOnClickListener {
             isEditCardName = true
             editCardName()
         }
-
         binding.imgvCopyPan.setOnClickListener {
             copyClipBoard()
         }
         binding.imgBtnEyeIsShowBalance.setOnClickListener {
-            if (!cardInfoResponse.ignoreBalance) {
-                viewModel.ignoreBalance(IgnoreBalanceRequest(cardInfoResponse.id, true))
-            } else viewModel.ignoreBalance(IgnoreBalanceRequest(cardInfoResponse.id, false))
+            cardInfoResponse?.let {
+                if (!it.ignoreBalance) {
+                    viewModel.ignoreBalance(IgnoreBalanceRequest(it.id, true))
+                } else viewModel.ignoreBalance(IgnoreBalanceRequest(it.id, false))
+            }
         }
         binding.imgBtnFavoriteCard.setOnClickListener {
             isFavoriteCardChange()
         }
         binding.imgBtnClose.setOnClickListener {
-            if (isFavoriteCard) {
-                viewModel.favoriteCardId = cardInfoResponse.id
-            }
-            if (isEditCardName) {
-                viewModel.editCard(
-                    EditCardRequest(
-                        cardInfoResponse.pan,
-                        binding.etNameCardItem.text.toString()
-                    )
-                )
-            }
+
             findNavController().navigate(OneCardScreenDirections.actionOneCardScreenToAllCardsScreen())
         }
         binding.btnDeleteCard.setOnClickListener {
@@ -97,7 +123,8 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
                 .setDescription("Do you really want to delete your card")
                 .setCancelBtn(R.color.teal_500)
                 .setOkBtn(R.color.red_400) {
-                    viewModel.deleteCard(CardNumberRequest(cardInfoResponse.pan))
+                    if (cardInfoResponse != null)
+                        viewModel.deleteCard(CardNumberRequest(cardInfoResponse!!.pan))
                 }
             dialog.build().show()
         }
@@ -106,50 +133,79 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        cardInfoResponse?.let { cardInfoResponse ->
+            if (isFavoriteCard) {
+                viewModel.favoriteCardId = cardInfoResponse.id
+            }
+            if (isEditCardName) {
+                if (binding.etNameCardItem.text.toString().length > 3)
+                    viewModel.editCard(
+                        EditCardRequest(
+                            cardInfoResponse.pan,
+                            binding.etNameCardItem.text.toString()
+                        )
+                    )
+            }
+        }
+    }
+
     private fun changeColorCard() {
+        var isClickedSetCardColorBtn = false
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = LayoutInflater.from(requireContext()).inflate(
             R.layout.custom_dialog_bottom_sheet,
-            requireActivity().findViewById(R.id.bottom_sheet_container) as LinearLayout
+            requireActivity().findViewById(R.id.bottom_sheet_container)
         )
         view.findViewById<Button>(R.id.btn_color0).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.white)
             cardColor = 0
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color1).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color1)
             cardColor = 1
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color2).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color2)
             cardColor = 2
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color3).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color3)
             cardColor = 3
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color4).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color4)
             cardColor = 4
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color5).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color5)
             cardColor = 5
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color6).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color6)
             cardColor = 6
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_color7).setOnClickListener {
-            binding.cvOneCard.setBackgroundResource(R.color.card_color7)
             cardColor = 7
+            setColorCard(cardColor)
         }
         view.findViewById<Button>(R.id.btn_set_card_color).setOnClickListener {
-            viewModel.colorCard(ColorRequest(cardInfoResponse.id, cardColor))
-            bottomSheetDialog.dismiss()
+            isClickedSetCardColorBtn = true
+            cardInfoResponse?.let { cardInfoResponse ->
+                viewModel.colorCard(ColorRequest(cardInfoResponse.id, cardColor))
+                bottomSheetDialog.dismiss()
+            }
         }
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
+        bottomSheetDialog.setOnDismissListener {
+            if (!isClickedSetCardColorBtn) {
+                cardInfoResponse?.let {
+                    setColorCard(it.color)
+                }
+            }
+        }
     }
 
     private fun isFavoriteCardChange() {
@@ -163,7 +219,6 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
     }
 
     private fun editCardName() {
-        showToast("Edit name card")
         binding.etNameCardItem.requestFocus()
         binding.etNameCardItem.isFocusable = true
         binding.etNameCardItem.isFocusableInTouchMode = true
@@ -177,36 +232,20 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
     private fun copyClipBoard() {
         val clipboard: ClipboardManager? =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-        val clip = ClipData.newPlainText(cardInfoResponse.pan, cardInfoResponse.pan)
-        clip?.let {
-            clipboard?.setPrimaryClip(clip)
-            showToast("Card number copied")
-        }
-    }
-
-    private val provideCardInfoResponseObserver = Observer<CardInfoResponse> {
-        it?.let {
-            cardInfoResponse = it
-
-            binding.imgHumo.visibility = View.GONE
-            binding.etNameCardItem.setText(it.cardName)
-            binding.tvValidityDateItem.text = it.exp
-            var textPan = ""
-            it.pan.forEachIndexed { index, c ->
-                if (index <= 5 || index >= 12)
-                    textPan += c.toString()
-            }
-
-            binding.tvPanCardItem.text = textPan
-            setColorCard(it.color)
-            if (!it.ignoreBalance) {
-                binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye_teal_500)
-                binding.tvBalanceCardItem.text = it.balance.toString()
-                binding.tvTextUzs.visibility = View.VISIBLE
-            } else {
-                binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye)
-                binding.tvBalanceCardItem.text = "Balance not enabled"
-                binding.tvTextUzs.visibility = View.INVISIBLE
+        cardInfoResponse?.let { cardInfoResponse ->
+            val clip = ClipData.newPlainText(
+                binding.etNameCardItem.text.toString(),
+                binding.etNameCardItem.text.toString()
+            )
+            clip?.let {
+                clipboard?.setPrimaryClip(clip)
+                val clipboard: ClipboardManager? =
+                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+                val clip = ClipData.newPlainText(cardInfoResponse.pan, cardInfoResponse.pan)
+                clip?.let {
+                    clipboard?.setPrimaryClip(clip)
+                    showToast("Card number copied")
+                }
             }
         }
     }
@@ -219,31 +258,37 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
     }
     private val successColorCardObserver = Observer<ColorResponse> {
         setColorCard(it.color)
+        cardInfoResponse?.let {cardInfoResponse->
+            cardInfoResponse.color=it.color
+        }
     }
 
     private fun setColorCard(colorCard: Int) {
         when (colorCard) {
-            0 -> binding.cvOneCard.setBackgroundResource(R.color.white)
-            1 -> binding.cvOneCard.setBackgroundResource(R.color.card_color1)
-            2 -> binding.cvOneCard.setBackgroundResource(R.color.card_color2)
-            3 -> binding.cvOneCard.setBackgroundResource(R.color.card_color3)
-            4 -> binding.cvOneCard.setBackgroundResource(R.color.card_color4)
-            5 -> binding.cvOneCard.setBackgroundResource(R.color.card_color5)
-            6 -> binding.cvOneCard.setBackgroundResource(R.color.card_color6)
-            7 -> binding.cvOneCard.setBackgroundResource(R.color.card_color7)
+            0 -> binding.cvOneCard1.setBackgroundResource(R.color.white)
+            1 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color1)
+            2 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color2)
+            3 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color3)
+            4 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color4)
+            5 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color5)
+            6 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color6)
+            7 -> binding.cvOneCard1.setBackgroundResource(R.color.card_color7)
         }
     }
 
     private val successIgnoreBalanceObserver = Observer<IgnoreBalanceResponse> {
         it?.let {
-            if (!it.ignoreBalance) {
-                binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye_teal_500)
-                binding.tvBalanceCardItem.text = cardInfoResponse.balance.toString()
-                binding.tvTextUzs.visibility = View.VISIBLE
-            } else {
-                binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye)
-                binding.tvBalanceCardItem.text = "Balance not enabled"
-                binding.tvTextUzs.visibility = View.INVISIBLE
+            cardInfoResponse?.let { cardInfoResponse ->
+                cardInfoResponse.ignoreBalance = it.ignoreBalance
+                if (!it.ignoreBalance) {
+                    binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye_teal_500)
+                    binding.tvBalanceCardItem.text = cardInfoResponse.balance.toString()
+                    binding.tvTextUzs.visibility = View.VISIBLE
+                } else {
+                    binding.imgBtnEyeIsShowBalance.setImageResource(R.drawable.ic_eye)
+                    binding.tvBalanceCardItem.text = "Balance"
+                    binding.tvTextUzs.visibility = View.INVISIBLE
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ import javax.inject.Inject
 class AddCardViewModelImpl @Inject constructor(
     private val addCardUseCase: AddCardUseCase
 ): AddCardViewModel, ViewModel() {
-    override val openAllCardsLiveData =MediatorLiveData<Unit>()
+    override val openCardVerifyLiveData =MediatorLiveData<Unit>()
     override val errorLiveData=MediatorLiveData<String>()
     override val messageLiveData=MediatorLiveData<String>()
     override val notConnectionLiveData=MediatorLiveData<String>()
@@ -26,16 +26,17 @@ class AddCardViewModelImpl @Inject constructor(
         get() =addCardUseCase.favoriteCardId
         set(value) {addCardUseCase.favoriteCardId=value}
 
+
     override fun addOneCard(addCardRequest: AddCardRequest) {
         viewModelScope.launch {
             if(!isConnected()){
                 notConnectionLiveData.value="Internet not connection"
             }
             progressLiveData.value=true
-            openAllCardsLiveData.addSource(addCardUseCase.addOneCard(addCardRequest)){
+            openCardVerifyLiveData.addSource(addCardUseCase.addOneCard(addCardRequest)){
                 progressLiveData.value=false
                 when(it){
-                    is MyResult.Success-> openAllCardsLiveData.value=Unit
+                    is MyResult.Success-> openCardVerifyLiveData.value=Unit
                     is MyResult.Message-> messageLiveData.value=it.data
                     is MyResult.Error ->errorLiveData.value=it.error.toString()
                 }

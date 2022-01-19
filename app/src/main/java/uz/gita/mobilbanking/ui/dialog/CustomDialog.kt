@@ -54,6 +54,11 @@ class CustomDialog private constructor(context: Context) : Dialog(context) {
             return this
         }
 
+        fun setCancelBtn(color: Int, btnCancelListener: (Unit) -> Unit): Builder {
+            dialog.setCancelBtn(color)
+            return this
+        }
+
         fun setCancelBtn(textCancelBtn: String, color: Int): Builder {
             dialog.setCancelBtn(textCancelBtn, color)
             return this

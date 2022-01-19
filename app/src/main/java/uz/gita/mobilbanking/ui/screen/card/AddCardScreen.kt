@@ -26,7 +26,7 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card) {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.progressLiveData.observe(this, progressObserver)
-        viewModel.openAllCardsLiveData.observe(this, openAllCardsObServer)
+        viewModel.openCardVerifyLiveData.observe(this, openCardVerifyObServer)
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
@@ -51,20 +51,13 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card) {
 
     }
 
-    private val openAllCardsObServer = Observer<Unit> {
-        if (isFavorite)
-            findNavController().navigate(
-                AddCardScreenDirections.actionAddCardScreenToAllCardsScreen(
-                    pan
-                )
+    private val openCardVerifyObServer = Observer<Unit> {
+        findNavController().navigate(
+            AddCardScreenDirections.actionAddCardScreenToCardVerifyScreen(
+                pan,
+                isFavorite
             )
-        else {
-            findNavController().navigate(
-                AddCardScreenDirections.actionAddCardScreenToAllCardsScreen(
-                    ""
-                )
-            )
-        }
+        )
     }
 
     private val messageObserver = Observer<String> {
@@ -111,7 +104,9 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card) {
         }
         showToast(pan)
         if (pan.length == 16 && exp.length == 5) {
-            viewModel.addOneCard(AddCardRequest(pan, exp, cardName))
+            if(cardName=="")
+            viewModel.addOneCard(AddCardRequest(pan, exp))
+            else viewModel.addOneCard(AddCardRequest(pan, exp))
         } else {
             if (pan.isEmpty()) {
                 binding.metEditPanCard.setBackgroundResource(R.drawable.background_custom_edittext_error)
