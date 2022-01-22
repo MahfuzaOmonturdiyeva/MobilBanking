@@ -200,14 +200,14 @@
     </fragment>
     <fragment
         android:id="@+id/transfersScreen2"
-        android:name="uz.gita.mobilbanking.ui.screen.TransfersScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersScreen"
         android:label="screen_transfers"
         tools:layout="@layout/screen_transfers" />
     <fragment
         android:id="@+id/transfersHistoryScreen2"
-        android:name="uz.gita.mobilbanking.ui.screen.TransfersHistoryScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersHistoryScreen"
         android:label="screen_transfers_history"
-        tools:layout="@layout/screen_transfers_history" />
+        tools:layout="@layout/item_transfers_history_outcomes" />
     <fragment
         android:id="@+id/addCardScreen"
         android:name="uz.gita.mobilbanking.ui.screen.card.AddCardScreen"

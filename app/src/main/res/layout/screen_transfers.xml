@@ -1,22 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screen.TransfersScreen">
+    android:layout_margin="@dimen/_16sdp"
+    android:background="@color/white"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_24sdp"
+    tools:context="ui.screen.transfer.TransfersScreen">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="transfers"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_home" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/app_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:paddingTop="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingBottom="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transfer money "
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/img_btnClose"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_vertical|end"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_close" />
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/grey_700"
+                        app:layout_constraintTop_toBottomOf="@id/app_b" />
+
+                    <TextView
+                        android:id="@+id/tv_pan_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="Card nomber"
+                        app:layout_constraintLeft_toLeftOf="@id/app_b"
+                        app:layout_constraintTop_toBottomOf="@id/app_b" />
+
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
+                        android:id="@+id/met_edit_pan_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:maxLength="19"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_pan_card"
+                        app:layout_constraintRight_toLeftOf="@id/img_btn_scan_card_pan"
+                        app:layout_constraintTop_toBottomOf="@id/tv_pan_card"
+                        app:mask="#### #### #### ####"
+                        mask:allowed_chars="1234567890" />
+
+                    <ImageButton
+                        android:id="@+id/img_btn_scan_card_pan"
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_scan_card"
+                        app:layout_constraintBottom_toBottomOf="@id/met_edit_pan_card"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/met_edit_pan_card" />
+
+                    <TextView
+                        android:id="@+id/tv_error_pan_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/met_edit_pan_card"
+                        app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card" />
+
+                    <TextView
+                        android:id="@+id/tv_transfer_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="transfer amount (sum)"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card" />
+
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
+                        android:id="@+id/met_edit_transfer_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/background_custom_edittext"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textAlignment="center"
+                        android:textColor="@color/teal_500"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_transfer_amount"
+                        app:mask="### ### ### ### ### ### ### ### ### ###"
+                        mask:allowed_chars="1234567890" />
+
+                    <TextView
+                        android:id="@+id/tv_error_transfer_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textColor="@color/red_400"
+                        android:textSize="8sp"
+                        app:layout_constraintLeft_toLeftOf="@id/met_edit_transfer_amount"
+                        app:layout_constraintRight_toRightOf="@id/met_edit_transfer_amount"
+                        app:layout_constraintTop_toBottomOf="@id/met_edit_transfer_amount" />
+
+                    <LinearLayout
+                        android:id="@+id/line_my_cards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_4sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/met_edit_transfer_amount">
+
+                        <ImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:clickable="false"
+                            android:src="@drawable/ic_credit_card" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transfer to my card"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/container_money_transfer_card"
+                        layout="@layout/item_three_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_16sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/line_my_cards" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btn_add_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/click_effect_custom_button"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/next"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>

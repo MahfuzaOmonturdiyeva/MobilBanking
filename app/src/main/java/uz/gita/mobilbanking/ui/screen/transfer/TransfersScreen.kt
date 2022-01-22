@@ -1,4 +1,4 @@
-package uz.gita.mobilbanking.ui.screen
+package uz.gita.mobilbanking.ui.screen.transfer
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,5 +16,13 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+    }
+    private fun closeScreen() {
+        val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
+        if (count == 0) {
+            requireActivity().onBackPressed()
+        } else {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 }

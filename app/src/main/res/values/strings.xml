@@ -55,4 +55,7 @@
     <string name="_1">1</string>
     <string name="delete">delete</string>
     <string name="change_color">change color</string>
+    <string name="incomes">Incomes</string>
+    <string name="outcomes">outcomes</string>
+    <string name="all_history">All history</string>
 </resources>

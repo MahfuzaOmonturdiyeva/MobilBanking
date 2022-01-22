@@ -1,4 +1,4 @@
-package uz.gita.mobilbanking.data.source.remote.api
+package uz.gita.mobilbanking.data.source.remote.api.api
 
 import retrofit2.Response
 import retrofit2.http.*
@@ -35,10 +35,12 @@ interface CardApi {
     //response "data": 0.0
 
     @GET("/api/v1/card/owner-by-pan")
-    suspend fun ownerByPan(@Body ownerByPanRequest: OwnerByPanRequest): Response<ResponseData<OwnerCardResponse>>
+    suspend fun ownerByPan(
+        @Query("pan") pan: String,): Response<ResponseData<OwnerCardResponse>>
 
     @GET("/api/v1/card/owner-by-id")
-    suspend fun ownerById(@Body ownerByIdRequest: OwnerByIdRequest): Response<ResponseData<OwnerCardResponse>>
+    suspend fun ownerById(
+        @Query("id") id: Int): Response<ResponseData<OwnerCardResponse>>
 
     @PUT("/api/v1/card/color")
     suspend fun colorCard(@Body colorRequest: ColorRequest): Response<ResponseData<ColorResponse>>

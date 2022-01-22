@@ -13,10 +13,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.mobilbanking.data.request.ResetRequest
 import uz.gita.mobilbanking.data.source.local.LocalStorage
-import uz.gita.mobilbanking.data.source.remote.api.AuthApi
+import uz.gita.mobilbanking.data.source.remote.api.api.AuthApi
 import javax.inject.Singleton
 
-private val BASE_URL1="http://9183-185-163-27-128.ngrok.io"
+private val BASE_URL1="http://3e10-185-163-26-54.ngrok.io"
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {

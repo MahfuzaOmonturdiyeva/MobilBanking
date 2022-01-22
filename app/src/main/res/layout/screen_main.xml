@@ -32,7 +32,8 @@
             <FrameLayout
                 android:id="@+id/line_total_sum"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
                 android:layout_margin="@dimen/_16sdp"
                 android:background="@drawable/background_custom_edittext"
                 android:clickable="false"
@@ -40,12 +41,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total balance"
+                    android:textColor="@color/teal_300"
+                    />
+
                 <ImageButton
                     android:id="@+id/img_btn_eye_is_show_total_sum"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_24sdp"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_eye_teal_500" />
 
@@ -53,8 +62,10 @@
                     android:id="@+id/tv_total_sum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/_3sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_36sdp"
                     android:text="300.000"
                     android:textColor="@color/teal_500"
                     android:textSize="20sp" />
@@ -70,29 +81,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line_total_sum">
-
-                <LinearLayout
-                    android:id="@+id/line_reports"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/click_effect_text_button"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:src="@drawable/ic_transfers_history" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reports"
-                        android:textColor="@color/teal_300" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/line_transfers"
@@ -114,6 +102,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Transfers"
+                        android:textColor="@color/teal_300" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/line_monitoring"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/click_effect_text_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:src="@drawable/ic_transfers_history" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monitoring"
                         android:textColor="@color/teal_300" />
                 </LinearLayout>
             </LinearLayout>

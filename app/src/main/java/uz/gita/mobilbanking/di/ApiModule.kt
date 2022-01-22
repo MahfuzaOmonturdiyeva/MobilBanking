@@ -5,9 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import uz.gita.mobilbanking.data.source.remote.api.AuthApi
-import uz.gita.mobilbanking.data.source.remote.api.CardApi
-import uz.gita.mobilbanking.data.source.remote.api.ProfileApi
+import uz.gita.mobilbanking.data.source.remote.api.api.AuthApi
+import uz.gita.mobilbanking.data.source.remote.api.api.CardApi
+import uz.gita.mobilbanking.data.source.remote.api.api.ProfileApi
+import uz.gita.mobilbanking.data.source.remote.api.api.TransferApi
 import javax.inject.Singleton
 
 @Module
@@ -21,4 +22,7 @@ class ApiModule {
 
     @[Provides Singleton]
     fun getCardApi(retrofit: Retrofit): CardApi = retrofit.create(CardApi::class.java)
+
+    @[Provides Singleton]
+    fun getTransferApi(retrofit: Retrofit): TransferApi = retrofit.create(TransferApi::class.java)
 }

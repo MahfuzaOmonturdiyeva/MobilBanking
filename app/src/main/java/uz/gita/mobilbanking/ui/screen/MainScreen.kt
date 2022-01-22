@@ -45,7 +45,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
                 binding.imgBtnEyeIsShowTotalSum.setImageResource(R.drawable.ic_eye_teal_500)
             }
         }
-        binding.lineReports.setOnClickListener {
+        binding.lineMonitoring.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToTransfersHistoryScreen2())
         }
         binding.lineTransfers.setOnClickListener {

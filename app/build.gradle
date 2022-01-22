@@ -39,6 +39,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -150,4 +151,9 @@ dependencies {
 
     //permission
     implementation 'com.nabinbhandari.android:permissions:3.8'
+
+    /***
+     * paging for pagination
+     */
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
 }

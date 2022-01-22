@@ -22,6 +22,11 @@ import uz.gita.mobilbanking.domain.usecase.setting.PersonalUseCase
 import uz.gita.mobilbanking.domain.usecase.setting.SettingsUseCase
 import uz.gita.mobilbanking.domain.usecase.setting.impl.PersonalUseCaseImpl
 import uz.gita.mobilbanking.domain.usecase.setting.impl.SettingsUseCaseImpl
+import uz.gita.mobilbanking.domain.usecase.transfer.TransfersHistoryUseCase
+import uz.gita.mobilbanking.domain.usecase.transfer.TransfersUseCase
+import uz.gita.mobilbanking.domain.usecase.transfer.impl.TransfersHistoryUseCaseImpl
+import uz.gita.mobilbanking.domain.usecase.transfer.impl.TransfersUseCaseImpl
+import uz.gita.mobilbanking.ui.screen.transfer.TransfersScreen
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -76,4 +81,11 @@ interface UseCaseModule {
     @Binds
     fun provideCardVerifyUsaCase(impl: CardVerifyUseCaseImpl):
             CardVerifyUseCase
+
+    @Binds
+    fun provideTransfersUsaCase(impl: TransfersUseCaseImpl):
+            TransfersUseCase
+    @Binds
+    fun provideTransfersHistoryUsaCase(impl: TransfersHistoryUseCaseImpl):
+            TransfersHistoryUseCase
 }

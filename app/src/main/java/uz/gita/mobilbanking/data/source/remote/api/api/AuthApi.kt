@@ -1,4 +1,4 @@
-package uz.gita.mobilbanking.data.source.remote.api
+package uz.gita.mobilbanking.data.source.remote.api.api
 
 import retrofit2.Call
 import retrofit2.Response

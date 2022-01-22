@@ -7,7 +7,7 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.*
 import uz.gita.mobilbanking.data.response.*
 import uz.gita.mobilbanking.data.source.local.LocalStorage
-import uz.gita.mobilbanking.data.source.remote.api.CardApi
+import uz.gita.mobilbanking.data.source.remote.api.api.CardApi
 import uz.gita.mobilbanking.domain.repository.CardRepository
 import java.io.IOException
 import javax.inject.Inject
@@ -159,7 +159,7 @@ class CardRepositoryImpl @Inject constructor(
     override fun ownerByPan(ownerByPanRequest: OwnerByPanRequest): LiveData<MyResult<OwnerCardResponse>> =
         liveData {
             try {
-                val response = cardApi.ownerByPan(ownerByPanRequest)
+                val response = cardApi.ownerByPan(ownerByPanRequest.pan)
                 if (response.isSuccessful) {
                     response.body()?.data?.let {
                         emit(MyResult.Success<OwnerCardResponse>(it))
@@ -184,7 +184,7 @@ class CardRepositoryImpl @Inject constructor(
     override fun ownerById(ownerByIdRequest: OwnerByIdRequest): LiveData<MyResult<OwnerCardResponse>> =
         liveData {
             try {
-                val response = cardApi.ownerById(ownerByIdRequest)
+                val response = cardApi.ownerById(ownerByIdRequest.id)
                 if (response.isSuccessful) {
                     response.body()?.data?.let {
                         emit(MyResult.Success<OwnerCardResponse>(it))

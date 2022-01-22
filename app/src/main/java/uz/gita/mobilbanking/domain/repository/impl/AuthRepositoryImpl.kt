@@ -1,6 +1,5 @@
 package uz.gita.mobilbanking.domain.repository.impl
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
@@ -8,7 +7,7 @@ import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.*
 import uz.gita.mobilbanking.data.response.ResponseData
 import uz.gita.mobilbanking.data.source.local.LocalStorage
-import uz.gita.mobilbanking.data.source.remote.api.AuthApi
+import uz.gita.mobilbanking.data.source.remote.api.api.AuthApi
 import uz.gita.mobilbanking.domain.repository.AuthRepository
 import java.io.IOException
 import javax.inject.Inject

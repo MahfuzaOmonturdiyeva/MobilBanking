@@ -1,4 +1,4 @@
-package uz.gita.mobilbanking.data.source.remote.api
+package uz.gita.mobilbanking.data.source.remote.api.api
 
 import retrofit2.Response
 import retrofit2.http.*
@@ -22,8 +22,8 @@ interface ProfileApi {
 //        @Body formData: String
 //    ): Response<ResponseData<String>>
 
-    @GET("/api/v1/profile/avatar")
-    suspend fun getUserAvatar(): Response<ResponseData<String>>
+    @GET("/api/v1/profile/photo-url")
+    suspend fun getUserAvatar(): Response<String>
 
     @PUT("/api/v1/profile")
     suspend fun setUserProfileInfo(

@@ -14,10 +14,10 @@ interface PersonalViewModel1 {
     val errorLiveData: LiveData<String>
     val notConnectionLiveData: LiveData<String>
     val progressLiveData: LiveData<Boolean>
+    val messageLiveData: LiveData<String>
 
     fun getAvatar()
     fun setAvatar(file:File)
     fun getInfo()
     fun setInfo(profileRequest: ProfileRequest)
-    val messageLiveData: MediatorLiveData<String>
 }

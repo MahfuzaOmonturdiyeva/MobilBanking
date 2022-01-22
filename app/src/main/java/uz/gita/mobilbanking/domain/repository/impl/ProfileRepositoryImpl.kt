@@ -9,14 +9,11 @@ import okhttp3.RequestBody
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.ProfileRequest
 import uz.gita.mobilbanking.data.response.ProfileInfoResponse
-import uz.gita.mobilbanking.data.source.remote.api.ProfileApi
+import uz.gita.mobilbanking.data.source.remote.api.api.ProfileApi
 import uz.gita.mobilbanking.domain.repository.ProfileRepository
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
-import android.os.Environment
-
-
 
 
 class ProfileRepositoryImpl @Inject constructor(
