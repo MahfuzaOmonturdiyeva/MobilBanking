@@ -4,9 +4,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import timber.log.Timber
 import uz.gita.mobilbanking.data.response.HistoryItem
+import uz.gita.mobilbanking.data.source.remote.api.api.CardApi
 import uz.gita.mobilbanking.data.source.remote.api.api.TransferApi
 
-class HistoryDataSource(val api: TransferApi) : PagingSource<Int, HistoryItem>() {
+class HistoryDataSource(val transferApi: TransferApi, val cardApi: CardApi) :
+    PagingSource<Int, HistoryItem>() {
 
     override fun getRefreshKey(state: PagingState<Int, HistoryItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -19,8 +21,24 @@ class HistoryDataSource(val api: TransferApi) : PagingSource<Int, HistoryItem>()
         return try {
             val nextPageNumber = params.key ?: 0
             val pageSize = 10
-            val response = api.history(nextPageNumber, pageSize)
+            val response = transferApi.history(nextPageNumber, pageSize)
 
+            response.body()?.data?.data?.let {
+                for (i in it) {
+                    if (i.receiver != null) {
+                        val responseOwner = cardApi.ownerById(i.receiver)
+                        responseOwner.body()?.data?.fio?.let { it1 ->
+                            i.owner = it1
+                        }
+                    }
+                    if (i.sender != null) {
+                        val responseOwner = cardApi.ownerById(i.sender)
+                        responseOwner.body()?.data?.fio?.let { it1 ->
+                            i.owner = it1
+                        }
+                    }
+                }
+            }
             Timber.d(response.isSuccessful.toString())
             Timber.d(response.body().toString())
 
@@ -36,5 +54,4 @@ class HistoryDataSource(val api: TransferApi) : PagingSource<Int, HistoryItem>()
             LoadResult.Error(Throwable("Ulanishda xatolik bo'ldi"))
         }
     }
-
 }

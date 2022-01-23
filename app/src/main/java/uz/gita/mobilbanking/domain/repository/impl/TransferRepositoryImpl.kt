@@ -79,54 +79,57 @@ class TransferRepositoryImpl @Inject constructor(
         Pager(
             PagingConfig(10)
         ) {
-            HistoryDataSource(transferApi)
-        }.liveData.map {
-            it.map {
-                it.receiver?.let { id->
-                    val response=cardApi.ownerById(id)
-                    response.body()?.data?.let { owner->
-                        it.owner=owner.fio
-                    }
-                }
-                it.sender?.let { id->
-                    val response=cardApi.ownerById(id)
-                    response.body()?.data?.let { owner->
-                        it.owner=owner.fio
-                    }
-                }
-                it
-            }
-        }.cachedIn(scope)
+            HistoryDataSource(transferApi, cardApi)
+        }.liveData.cachedIn(scope)
+//        liveData.map {
+//            it.map {
+//                it.receiver?.let { id ->
+//                    val response = cardApi.ownerById(id)
+//                    response.body()?.data?.let { owner ->
+//                        it.owner = owner.fio
+//                    }
+//                }
+//                it.sender?.let { id ->
+//                    val response = cardApi.ownerById(id)
+//                    response.body()?.data?.let { owner ->
+//                        it.owner = owner.fio
+//                    }
+//                }
+//                it
+//            }
+//        }.cachedIn(scope)
 
     override suspend fun outcomes(scope: CoroutineScope): LiveData<PagingData<HistoryItem>> = Pager(
         PagingConfig(10)
     ) {
-        OutcomesDataSource(transferApi)
-    }.liveData.map {
-        it.map {
-            it.receiver?.let { id->
-                val response=cardApi.ownerById(id)
-                response.body()?.data?.let { owner->
-                    it.owner=owner.fio
-                }
-            }
-            it
-        }
-    }.cachedIn(scope)
+        OutcomesDataSource(transferApi, cardApi)
+    }.liveData.cachedIn(scope)
+//    liveData.map {
+//        it.map {
+//            it.receiver?.let { id ->
+//                val response = cardApi.ownerById(id)
+//                response.body()?.data?.let { owner ->
+//                    it.owner = owner.fio
+//                }
+//            }
+//            it
+//        }
+//    }.cachedIn(scope)
 
     override suspend fun incomes(scope: CoroutineScope): LiveData<PagingData<HistoryItem>> = Pager(
         PagingConfig(10)
     ) {
-        IncomesDataSource(transferApi)
-    }.liveData.map {
-        it.map {
-            it.sender?.let { id->
-                val response=cardApi.ownerById(id)
-                response.body()?.data?.let { owner->
-                    it.owner=owner.fio
-                }
-            }
-            it
-        }
-    }.cachedIn(scope)
+        IncomesDataSource(transferApi, cardApi)
+    }.liveData.cachedIn(scope)
+//    liveData.map {
+//        it.map {
+//            it.sender?.let { id ->
+//                val response = cardApi.ownerById(id)
+//                response.body()?.data?.let { owner ->
+//                    it.owner = owner.fio
+//                }
+//            }
+//            it
+//        }
+//    }.cachedIn(scope)
 }

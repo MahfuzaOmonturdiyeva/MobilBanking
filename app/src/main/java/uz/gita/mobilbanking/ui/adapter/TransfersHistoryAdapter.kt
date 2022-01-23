@@ -50,11 +50,11 @@ class TransfersHistoryAdapter :
                 // itemOutcomeBinding.tvPanReceiver.visibility=View.GONE
                 itemOutcomeBinding.tvPanReceiver.text = it.owner
                 val balance = it.amount + it.fee
-                itemOutcomeBinding.tvBalanceReceiver.text = "+$balance"
+                itemOutcomeBinding.tvBalanceReceiver.text = "-$balance"
                 val sdf = SimpleDateFormat("HH:mm:ss, MM/dd/yyyy")
                 val netDate = Date(it.time)
                 val time = sdf.format(netDate)
-                itemOutcomeBinding.time.text = "Time: ${it.time}"
+                itemOutcomeBinding.time.text = time
             }
         }
     }

@@ -8,7 +8,7 @@ import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import java.io.File
 
 interface PersonalViewModel1 {
-    val joinAvatarLiveData: LiveData<Unit>
+    val joinAvatarLiveData: LiveData<String>
     val successSetAvatarLiveData: LiveData<Unit>
     val joinInfoLiveData: LiveData<ProfileInfoResponse>
     val errorLiveData: LiveData<String>
@@ -20,4 +20,5 @@ interface PersonalViewModel1 {
     fun setAvatar(file:File)
     fun getInfo()
     fun setInfo(profileRequest: ProfileRequest)
+    val notSuccessGetAvatarLiveData: MediatorLiveData<String>
 }

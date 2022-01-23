@@ -9,7 +9,7 @@ import java.io.File
 interface ProfileRepository {
     fun setUserAvatar(file: File): LiveData<MyResult<Unit>>
 
-    fun getUserAvatar(): LiveData<MyResult<Unit>>
+    fun getUserAvatar(): LiveData<MyResult<String>>
 
     fun setUserProfileInfo(profileRequest: ProfileRequest): LiveData<MyResult<ProfileInfoResponse>>
 

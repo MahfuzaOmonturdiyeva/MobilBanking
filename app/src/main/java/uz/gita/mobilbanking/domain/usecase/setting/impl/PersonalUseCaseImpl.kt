@@ -12,7 +12,7 @@ import javax.inject.Inject
 class PersonalUseCaseImpl @Inject constructor(
     private val profileRepository: ProfileRepository
 ) : PersonalUseCase {
-    override fun getAvatar(): LiveData<MyResult<Unit>> = profileRepository.getUserAvatar()
+    override fun getAvatar(): LiveData<MyResult<String>> = profileRepository.getUserAvatar()
 
     override fun setAvatar(file: File): LiveData<MyResult<Unit>> =
         profileRepository.setUserAvatar(file)

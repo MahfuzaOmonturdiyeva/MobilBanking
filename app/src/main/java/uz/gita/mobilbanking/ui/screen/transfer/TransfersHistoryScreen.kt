@@ -30,7 +30,6 @@ class TransfersHistoryScreen : Fragment(R.layout.screen_transfers_history) {
         binding.containerItemsFragmentHistory.adapter = adapter
         binding.containerItemsFragmentHistory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        viewModel.getHistory()
         viewModel.setHistoryLiveData.observe(this) {
             lifecycleScope.launchWhenResumed {
                 adapter.submitData(it)
@@ -48,6 +47,7 @@ class TransfersHistoryScreen : Fragment(R.layout.screen_transfers_history) {
                 adapter.submitData(it)
             }
         }
+
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)

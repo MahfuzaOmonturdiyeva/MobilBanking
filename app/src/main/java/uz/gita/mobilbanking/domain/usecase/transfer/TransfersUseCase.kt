@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.FeeRequest
 import uz.gita.mobilbanking.data.request.SendMoneyRequest
+import uz.gita.mobilbanking.data.response.CardInfoResponse
 import uz.gita.mobilbanking.data.response.SendMoneyResponse
 
 interface TransfersUseCase {
+    val favoriteCardId: Int
 
-    fun sendMoney(data:SendMoneyRequest): LiveData<MyResult<SendMoneyResponse>>
+    fun getAllCards(): LiveData<MyResult<List<CardInfoResponse>>>
 
-    fun fee(feeRequest: FeeRequest):LiveData<MyResult<Double>>
+    fun sendMoney(data: SendMoneyRequest): LiveData<MyResult<SendMoneyResponse>>
+
+    fun fee(feeRequest: FeeRequest): LiveData<MyResult<Double>>
 }

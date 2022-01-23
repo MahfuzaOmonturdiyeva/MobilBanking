@@ -202,7 +202,17 @@
         android:id="@+id/transfersScreen2"
         android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersScreen"
         android:label="screen_transfers"
-        tools:layout="@layout/screen_transfers" />
+        tools:layout="@layout/screen_transfers" >
+        <action
+            android:id="@+id/action_transfersScreen2_to_mainScreen2"
+            app:destination="@id/mainScreen2" />
+        <action
+            android:id="@+id/action_transfersScreen2_to_allReceiverCardsScreen"
+            app:destination="@id/allReceiverCardsScreen" />
+        <action
+            android:id="@+id/action_transfersScreen2_to_allSenderCardsScreen"
+            app:destination="@id/allSenderCardsScreen" />
+    </fragment>
     <fragment
         android:id="@+id/transfersHistoryScreen2"
         android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersHistoryScreen"
@@ -261,6 +271,26 @@
             android:id="@+id/action_cardVerifyScreen_to_allCardsScreen"
             app:destination="@id/allCardsScreen"
             app:popUpTo="@id/cardVerifyScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/allReceiverCardsScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.transfer.AllReceiverCardsScreen"
+        android:label="AllReceiverCardsScreen" >
+        <action
+            android:id="@+id/action_allReceiverCardsScreen_to_transfersScreen2"
+            app:destination="@id/transfersScreen2"
+            app:popUpTo="@id/allReceiverCardsScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/allSenderCardsScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.transfer.AllSenderCardsScreen"
+        android:label="AllSenderCardsScreen" >
+        <action
+            android:id="@+id/action_allSenderCardsScreen_to_transfersScreen2"
+            app:destination="@id/transfersScreen2"
+            app:popUpTo="@id/allSenderCardsScreen"
             app:popUpToInclusive="true" />
     </fragment>
 

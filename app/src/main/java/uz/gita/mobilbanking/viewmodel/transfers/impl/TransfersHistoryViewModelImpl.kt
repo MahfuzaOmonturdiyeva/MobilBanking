@@ -23,6 +23,9 @@ class TransfersHistoryViewModelImpl @Inject constructor(
     override val progressLiveData = MediatorLiveData<Boolean>()
     override val messageLiveData = MediatorLiveData<String>()
 
+    init {
+        getHistory()
+    }
     override fun getHistory() {
         progressLiveData.value=true
         viewModelScope.launch {

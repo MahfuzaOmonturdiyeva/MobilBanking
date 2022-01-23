@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.data.request.ProfileRequest
@@ -38,15 +39,20 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.getInfo()
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
+        viewModel.notSuccessGetAvatarLiveData.observe(this,notSuccessGetAvatarObserver )
         viewModel.joinInfoLiveData.observe(this, joinInfoObserver)
         viewModel.joinAvatarLiveData.observe(this, joinAvatarObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.successSetAvatarLiveData.observe(this, successSetAvatarObserver)
 
+//        Glide
+//            .with(this)
+//            .load("http://127.0.0.1:8080/api/v1/profile/photo?u=9d8f296f-b034-40e2-a26d-96b0fceaa098.jpg")
+//            .centerCrop()
+//            .into(binding.cImgProfileImage);
         binding.cImgProfileImage.setOnClickListener {
             Permissions.check(
                 requireContext()/*context*/,
@@ -134,9 +140,22 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
         return if (cursor.moveToFirst()) cursor.getString(columnIndex) else null
     }
 
-    private val successSetAvatarObserver = Observer<Unit> { }
+    private val notSuccessGetAvatarObserver = Observer<String> {
 
-    private val joinAvatarObserver = Observer<Unit> { }
+    }
+
+
+    private val successSetAvatarObserver = Observer<Unit> {
+        showToast("rasm yuklandi!")
+    }
+
+    private val joinAvatarObserver = Observer<String> {
+        Glide
+            .with(this)
+            .load(it)
+            .centerCrop()
+            .into(binding.cImgProfileImage);
+    }
 
     private val messageObserver = Observer<String> {
         showToast(it)

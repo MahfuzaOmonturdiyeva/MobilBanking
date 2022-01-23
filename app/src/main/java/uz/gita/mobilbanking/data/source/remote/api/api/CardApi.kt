@@ -40,7 +40,7 @@ interface CardApi {
 
     @GET("/api/v1/card/owner-by-id")
     suspend fun ownerById(
-        @Query("id") id: Int): Response<ResponseData<OwnerCardResponse>>
+        @Query("cardId") id: Int): Response<ResponseData<OwnerCardResponse>>
 
     @PUT("/api/v1/card/color")
     suspend fun colorCard(@Body colorRequest: ColorRequest): Response<ResponseData<ColorResponse>>

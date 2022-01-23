@@ -156,7 +156,7 @@
                         app:layout_constraintTop_toBottomOf="@id/met_edit_transfer_amount" />
 
                     <LinearLayout
-                        android:id="@+id/line_my_cards"
+                        android:id="@+id/line_receiver_my_cards"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
@@ -193,12 +193,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/line_my_cards" />
+                        app:layout_constraintTop_toBottomOf="@id/line_receiver_my_cards" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 
             <Button
-                android:id="@+id/btn_add_card"
+                android:id="@+id/btn_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

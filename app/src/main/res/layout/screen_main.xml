@@ -66,7 +66,7 @@
                     android:layout_marginTop="@dimen/_24sdp"
                     android:layout_marginBottom="@dimen/_16sdp"
                     android:layout_marginStart="@dimen/_36sdp"
-                    android:text="300.000"
+                    android:text="0.0"
                     android:textColor="@color/teal_500"
                     android:textSize="20sp" />
 

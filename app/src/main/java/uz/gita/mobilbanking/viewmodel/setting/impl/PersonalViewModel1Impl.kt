@@ -19,13 +19,19 @@ class PersonalViewModel1Impl @Inject constructor(
     private val personalUseCase: PersonalUseCase
 ) : PersonalViewModel1, ViewModel() {
 
-    override val joinAvatarLiveData = MediatorLiveData<Unit>()
+    override val joinAvatarLiveData = MediatorLiveData<String>()
+    override val notSuccessGetAvatarLiveData = MediatorLiveData<String>()
     override val successSetAvatarLiveData = MediatorLiveData<Unit>()
     override val joinInfoLiveData = MediatorLiveData<ProfileInfoResponse>()
     override val errorLiveData = MediatorLiveData<String>()
     override val messageLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
+
+    init {
+        getAvatar()
+        getInfo()
+    }
 
     override fun getAvatar() {
         viewModelScope.launch {
@@ -36,15 +42,15 @@ class PersonalViewModel1Impl @Inject constructor(
             joinAvatarLiveData.addSource(personalUseCase.getAvatar()) {
                 progressLiveData.value = false
                 when (it) {
-                    is MyResult.Success -> joinAvatarLiveData.value = Unit
-                    is MyResult.Message ->errorLiveData.value = it.data
+                    is MyResult.Success -> joinAvatarLiveData.value = it.data!!
+                    is MyResult.Message -> notSuccessGetAvatarLiveData.value=it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }
         }
     }
 
-    override fun setAvatar(file:File) {
+    override fun setAvatar(file: File) {
         viewModelScope.launch {
             if (!isConnected()) {
                 notConnectionLiveData.value = "Internet not connection"
@@ -71,7 +77,7 @@ class PersonalViewModel1Impl @Inject constructor(
                 progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> joinInfoLiveData.value = it.data!!
-                    is MyResult.Message -> errorLiveData.value = it.data
+                    is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
             }

@@ -17,10 +17,6 @@ interface ProfileApi {
     suspend fun setUserAvatar(
         @Part image: MultipartBody.Part,
     ): Response<ResponseData<Unit>>
-//    @POST("/api/v1/profile/avatar")
-//    suspend fun setUserAvatar(
-//        @Body formData: String
-//    ): Response<ResponseData<String>>
 
     @GET("/api/v1/profile/photo-url")
     suspend fun getUserAvatar(): Response<String>

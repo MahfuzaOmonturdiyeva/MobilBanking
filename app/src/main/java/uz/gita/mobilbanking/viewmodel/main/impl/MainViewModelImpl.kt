@@ -39,7 +39,7 @@ class MainViewModelImpl @Inject constructor(
             if (!isConnected()) {
                 notConnectionLiveData.value = "Internet not connection"
             }
-            progressLiveData.value = true
+            //progressLiveData.value = true
             getTotalSumLiveData.addSource(mainUseCase.getTotalSum()) {
                 when (it) {
                     is MyResult.Success -> getTotalSumLiveData.value = it.data!!
@@ -54,13 +54,12 @@ class MainViewModelImpl @Inject constructor(
                             getFavoriteCardLiveData.value = it.data[0]
                             favoriteCardId = it.data[0].id
                             progressLiveData.value = false
-                            return@addSource
-                        }
-                        for (i in it.data) {
-                            if (i.id == favoriteCardId) {
-                                getFavoriteCardLiveData.value = i
-                                progressLiveData.value = false
-                                return@addSource
+                        } else {
+                            for (i in it.data) {
+                                if (i.id == favoriteCardId) {
+                                    getFavoriteCardLiveData.value = i
+                                    progressLiveData.value = false
+                                }
                             }
                         }
                     }
@@ -73,9 +72,7 @@ class MainViewModelImpl @Inject constructor(
                         progressLiveData.value = false
                     }
                 }
-
             }
-
         }
     }
 }
