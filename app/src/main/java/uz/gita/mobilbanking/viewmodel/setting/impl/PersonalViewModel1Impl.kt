@@ -29,7 +29,7 @@ class PersonalViewModel1Impl @Inject constructor(
     override val progressLiveData = MediatorLiveData<Boolean>()
 
     init {
-        getAvatar()
+      //  getAvatar()
         getInfo()
     }
 

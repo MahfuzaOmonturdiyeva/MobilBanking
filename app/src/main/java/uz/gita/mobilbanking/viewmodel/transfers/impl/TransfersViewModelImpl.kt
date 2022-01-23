@@ -20,6 +20,7 @@ import javax.inject.Inject
 class TransfersViewModelImpl @Inject constructor(
     private val transfersUseCase: TransfersUseCase
 ) : TransfersViewModel, ViewModel() {
+    private var isSenderNull=true
     override val successSendMoneyLiveData = MediatorLiveData<SendMoneyResponse>()
     override val successFeeLiveData = MediatorLiveData<Double>()
     override val errorLiveData = MediatorLiveData<String>()
@@ -33,16 +34,21 @@ class TransfersViewModelImpl @Inject constructor(
     override val allCardNotSenderLiveData=MediatorLiveData<List<CardInfoResponse>>()
 
     override fun setSenderId(id:Int){
-        senderIdLiveData.value=id
+        viewModelScope.launch {
+            isSenderNull=false
+            senderIdLiveData.value=id
+        }
     }
-    override fun setReceiverPan(pan:String){
-        receiverPanWithMyCards.value=pan
+    override fun setReceiverPan(pan:String) {
+        viewModelScope.launch {
+            receiverPanWithMyCards.value=pan
+        }
     }
-    override fun getFavoriteCardId(): Int {
+    override fun getSenderCardId(): Int {
+        if(isSenderNull)
         senderIdLiveData.value = transfersUseCase.favoriteCardId
-        return transfersUseCase.favoriteCardId
+        return senderIdLiveData.value!!
     }
-
 
     override fun getSenderCard() {
         viewModelScope.launch {

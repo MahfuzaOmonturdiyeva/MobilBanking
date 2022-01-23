@@ -25,7 +25,7 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.getFavoriteCardId()
+        viewModel.getSenderCardId()
         viewModel.getSenderCard()
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.errorLiveData.observe(this, errorObserver)
@@ -34,6 +34,9 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
         viewModel.senderIdLiveData.observe(
             viewLifecycleOwner){
             senderId=it
+        }
+        viewModel.receiverPanWithMyCards.observe(viewLifecycleOwner){
+            binding.metEditPanCard.setText(it)
         }
         viewModel.senderCardLiveData.observe(viewLifecycleOwner){
             it?.let {

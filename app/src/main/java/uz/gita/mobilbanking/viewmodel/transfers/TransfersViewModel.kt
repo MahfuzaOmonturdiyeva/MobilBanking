@@ -19,7 +19,7 @@ interface TransfersViewModel {
     val receiverPanWithMyCards:LiveData<String>
     val allCardNotSenderLiveData:LiveData<List<CardInfoResponse>>
 
-    fun getFavoriteCardId():Int
+    fun getSenderCardId():Int
     fun getSenderCard()
     fun getAllCard()
     fun getAllCardNotSender()
