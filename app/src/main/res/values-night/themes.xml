@@ -15,11 +15,12 @@
     </style>
 
     <style name="floatActionButtonStyle">
-        <item name="android:layout_width">@dimen/_56sdp</item>
-        <item name="android:layout_height">@dimen/_56sdp</item>
+        <item name="android:layout_width">@dimen/_64sdp</item>
+        <item name="android:layout_height">@dimen/_64sdp</item>
     </style>
     <style name="pinLineNumbersStyle">
-        <item name="android:layout_width">@dimen/_56sdp</item>
-        <item name="android:layout_height">@dimen/_56sdp</item>
+        <item name="android:layout_width">@dimen/_64sdp</item>
+        <item name="android:layout_height">@dimen/_64sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_8sdp</item>
     </style>
 </resources>

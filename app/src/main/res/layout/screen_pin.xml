@@ -49,8 +49,8 @@
     <FrameLayout
         android:id="@+id/line_1"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_6"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/line_2">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -78,8 +78,8 @@
         android:id="@+id/line_2"
         style="@style/pinLineNumbersStyle"
         app:layout_constraintBottom_toTopOf="@id/line_6"
-        app:layout_constraintLeft_toRightOf="@id/line_1"
-        app:layout_constraintRight_toLeftOf="@id/line_3">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_2"
@@ -106,9 +106,9 @@
     <FrameLayout
         android:id="@+id/line_3"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_6"
-        app:layout_constraintLeft_toRightOf="@id/line_2"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintLeft_toRightOf="@id/line_2">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_3"
@@ -134,8 +134,8 @@
     <FrameLayout
         android:id="@+id/line_4"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_9"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/line_5">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -163,8 +163,8 @@
         android:id="@+id/line_5"
         style="@style/pinLineNumbersStyle"
         app:layout_constraintBottom_toTopOf="@id/line_9"
-        app:layout_constraintLeft_toRightOf="@id/line_4"
-        app:layout_constraintRight_toLeftOf="@id/line_6">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_5"
@@ -191,9 +191,9 @@
     <FrameLayout
         android:id="@+id/line_6"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_9"
-        app:layout_constraintLeft_toRightOf="@id/line_5"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintLeft_toRightOf="@id/line_5">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_6"
@@ -219,8 +219,8 @@
     <FrameLayout
         android:id="@+id/line_7"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_remove"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/line_8">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -248,8 +248,8 @@
         android:id="@+id/line_8"
         style="@style/pinLineNumbersStyle"
         app:layout_constraintBottom_toTopOf="@id/line_remove"
-        app:layout_constraintLeft_toRightOf="@id/line_finger"
-        app:layout_constraintRight_toLeftOf="@id/line_remove">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_8"
@@ -276,9 +276,9 @@
     <FrameLayout
         android:id="@+id/line_9"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/line_remove"
-        app:layout_constraintLeft_toRightOf="@id/line_8"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintLeft_toRightOf="@id/line_8">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_9"
@@ -304,8 +304,8 @@
     <FrameLayout
         android:id="@+id/line_finger"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/btn_change_pin"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/line_0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -325,8 +325,8 @@
         android:id="@+id/line_0"
         style="@style/pinLineNumbersStyle"
         app:layout_constraintBottom_toTopOf="@id/btn_logout"
-        app:layout_constraintLeft_toRightOf="@id/line_finger"
-        app:layout_constraintRight_toLeftOf="@id/line_remove">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_0"
@@ -353,9 +353,9 @@
     <FrameLayout
         android:id="@+id/line_remove"
         style="@style/pinLineNumbersStyle"
+        android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/btn_logout"
-        app:layout_constraintLeft_toRightOf="@id/line_0"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintLeft_toRightOf="@id/line_0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/faBtn_remove"
@@ -375,6 +375,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_32sdp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:clickable="false"
         android:text="@string/change_pin"
@@ -382,19 +383,20 @@
         android:textSize="@dimen/_8sdp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/line_finger" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/btn_logout"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_32sdp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:text="@string/logout"
         android:textColor="@color/teal_300"
         android:textSize="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@id/line_remove" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <FrameLayout
         android:id="@+id/progress"
