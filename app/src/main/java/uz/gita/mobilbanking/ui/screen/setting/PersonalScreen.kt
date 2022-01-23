@@ -150,6 +150,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
     }
 
     private val joinAvatarObserver = Observer<String> {
+        showToast(it)
         Glide
             .with(this)
             .load(it)

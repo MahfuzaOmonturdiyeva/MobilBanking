@@ -8,6 +8,7 @@ import uz.gita.mobilbanking.data.response.ResponseData
 import okhttp3.MultipartBody
 import retrofit2.http.POST
 import retrofit2.http.Multipart
+import uz.gita.mobilbanking.data.response.AvatarResponseURL
 
 
 interface ProfileApi {
@@ -19,7 +20,7 @@ interface ProfileApi {
     ): Response<ResponseData<Unit>>
 
     @GET("/api/v1/profile/photo-url")
-    suspend fun getUserAvatar(): Response<String>
+    suspend fun getUserAvatar(): Response<AvatarResponseURL>
 
     @PUT("/api/v1/profile")
     suspend fun setUserProfileInfo(

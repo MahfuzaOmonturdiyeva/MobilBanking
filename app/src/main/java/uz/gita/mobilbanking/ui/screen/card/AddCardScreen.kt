@@ -2,6 +2,7 @@ package uz.gita.mobilbanking.ui.screen.card
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -17,7 +18,7 @@ import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.card.impl.AddCardViewModelImpl
 
 @AndroidEntryPoint
-class AddCardScreen : Fragment(R.layout.screen_card_add_card) {
+class AddCardScreen : Fragment(R.layout.screen_card_add_card),View.OnKeyListener {
     private val binding by viewBinding(ScreenCardAddCardBinding::bind)
     private val viewModel: AddCardViewModelImpl by viewModels()
     private var isFavorite: Boolean = false
@@ -48,9 +49,17 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card) {
         binding.btnAddCard.setOnClickListener {
             addCard()
         }
-
+        binding.etEditNameCard.setOnKeyListener(this)
     }
-
+    override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+        p2?.let {
+            if (it.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER) {
+                addCard()
+                return true
+            }
+        }
+        return false
+    }
     private val openCardVerifyObServer = Observer<Unit> {
         findNavController().navigate(
             AddCardScreenDirections.actionAddCardScreenToCardVerifyScreen(

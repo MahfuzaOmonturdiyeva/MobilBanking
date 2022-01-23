@@ -9,6 +9,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.ProfileRequest
+import uz.gita.mobilbanking.data.response.AvatarResponseURL
 import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import uz.gita.mobilbanking.data.response.ResponseData
 import uz.gita.mobilbanking.data.source.remote.api.api.ProfileApi
@@ -26,7 +27,6 @@ class ProfileRepositoryImpl @Inject constructor(
             val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
             Log.d("avataruserPath", file.parent)
             val body = MultipartBody.Part.createFormData("avatar", file.name, requestFile)
-
             val response = profileApi.setUserAvatar(body)
             Log.d("avataruserName", file.name)
             if (response.isSuccessful) {
@@ -50,17 +50,21 @@ class ProfileRepositoryImpl @Inject constructor(
         try {
             val response = profileApi.getUserAvatar()
             if (response.isSuccessful) {
-                response.body()?.let{
+                response.body()?.url?.let{
+                    Log.d("avataruser", "getsuccess")
                     emit(MyResult.Success<String>(it))
                     return@liveData
                 }
+                Log.d("avataruser", "message")
                 emit(MyResult.Message<String>("server bilan bog'lanishda xatolik"))
             } else {
+                Log.d("avataruser", "geterrorr")
                 response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                    val message = Gson().fromJson(it.string(), AvatarResponseURL::class.java)
                     emit(MyResult.Message<String>(message.message!!))
                     return@liveData
                 }
+                Log.d("avataruser", "not succes message")
                 emit(MyResult.Message<String>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {

@@ -314,7 +314,7 @@
             android:outlineSpotShadowColor="@color/teal_300"
             android:src="@drawable/ic_fingerprint"
             app:backgroundTint="@color/color_cream_100"
-            app:fabCustomSize="@dimen/_56sdp"
+            app:fabCustomSize="@dimen/_72sdp"
             app:rippleColor="@color/teal_100"
             app:tint="@color/teal_300"
             tools:ignore="UnusedAttribute" />
@@ -363,7 +363,7 @@
             android:outlineSpotShadowColor="@color/teal_300"
             android:src="@drawable/ic_back"
             app:backgroundTint="@color/color_cream_100"
-            app:fabCustomSize="@dimen/_56sdp"
+            app:fabCustomSize="@dimen/_72sdp"
             app:rippleColor="@color/teal_100"
             app:tint="@color/teal_300"
             tools:ignore="UnusedAttribute" />

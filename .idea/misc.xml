@@ -15,6 +15,7 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button_with_corners_Top.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_custom_button_with_top_corners.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/click_effect_text_button.xml" value="0.2578125" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_add.xml" value="0.240625" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_back.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_card.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_check_circle.xml" value="0.25833333333333336" />
@@ -28,10 +29,13 @@
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_copy.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_credit_card.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_delete_forever.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_down.xml" value="0.240625" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_edit.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_email.xml" value="0.2578125" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_eye.xml" value="0.240625" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_eye_teal_500.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_fingerprint.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_history.xml" value="0.240625" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_humo.xml" value="0.25435897435897437" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_lock.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/MobilBanking/app/src/main/res/drawable/ic_login.xml" value="0.25833333333333336" />

@@ -1,5 +1,6 @@
 package uz.gita.mobilbanking.viewmodel.setting.impl
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,7 +30,7 @@ class PersonalViewModel1Impl @Inject constructor(
     override val progressLiveData = MediatorLiveData<Boolean>()
 
     init {
-      //  getAvatar()
+        getAvatar()
         getInfo()
     }
 
@@ -42,7 +43,9 @@ class PersonalViewModel1Impl @Inject constructor(
             joinAvatarLiveData.addSource(personalUseCase.getAvatar()) {
                 progressLiveData.value = false
                 when (it) {
-                    is MyResult.Success -> joinAvatarLiveData.value = it.data!!
+                    is MyResult.Success -> {joinAvatarLiveData.value = it.data!!
+                        Log.d("personal", it.data)
+                    }
                     is MyResult.Message -> notSuccessGetAvatarLiveData.value=it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                 }
