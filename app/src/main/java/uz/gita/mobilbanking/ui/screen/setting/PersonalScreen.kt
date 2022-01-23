@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.view.KeyEvent
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -31,7 +32,7 @@ import com.nabinbhandari.android.permissions.Permissions
 
 
 @AndroidEntryPoint
-class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
+class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyListener {
     private val binding by viewBinding(ScreenSettingsPersonalBinding::bind)
     private val viewModel: PersonalViewModel1Impl by viewModels()
     private var password = ""
@@ -107,6 +108,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
             binding.eTEditNewPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVNewErrorPassword.text = ""
         }
+        binding.eTEditConfirmPasswordUser.setOnKeyListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -150,11 +152,12 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
     }
 
     private val joinAvatarObserver = Observer<String> {
-        showToast(it)
+        val split=it.replaceFirst(":8080","")
+        val url="https:"+split.substring(5)
+        showToast(url)
         Glide
             .with(this)
-            .load(it)
-            .centerCrop()
+            .load(url)
             .into(binding.cImgProfileImage);
     }
 
@@ -249,4 +252,14 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal) {
             }
         }
     }
+    override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+        p2?.let {
+            if (it.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER) {
+                onSave()
+                return true
+            }
+        }
+        return false
+    }
+
 }
