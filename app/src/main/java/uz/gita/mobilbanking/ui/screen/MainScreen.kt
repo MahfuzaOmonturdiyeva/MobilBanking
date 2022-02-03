@@ -2,7 +2,10 @@ package uz.gita.mobilbanking.ui.screen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,6 +23,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
     private val binding by viewBinding(ScreenMainBinding::bind)
     private val viewModel: MainViewModelImpl by viewModels()
     private var totalSum = 0.0
+    private var isClickedBackPressed = false
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +50,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
             }
         }
         binding.lineMonitoring.setOnClickListener {
-            findNavController().navigate(MainScreenDirections.actionMainScreen2ToTransfersHistoryScreen2())
+            findNavController().navigate(MainScreenDirections.actionMainScreen2ToTransfersHistoryScreen())
         }
         binding.lineTransfers.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToTransfersScreen2())
@@ -57,6 +61,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
         binding.btnAddCard.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToAddCardScreen())
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private val errorObserver = Observer<String> {
@@ -89,9 +94,25 @@ class MainScreen : Fragment(R.layout.screen_main) {
             binding.tvBalanceCard.text = it.balance.toString()
         else {
             binding.tvBalanceCard.text = "Balance"
-            binding.tvTextUzs.visibility=View.INVISIBLE
+            binding.tvTextUzs.visibility = View.INVISIBLE
         }
         binding.tvNameCard.text = it.cardName
         binding.tvCardNumber.text = it.pan.substring(12, 16)
+    }
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (isClickedBackPressed) {
+                requireActivity().finishAffinity()
+            } else {
+                showToast("Please click back again to exit")
+                isClickedBackPressed = true
+            }
+
+            val runnable = Runnable {
+                isClickedBackPressed = false
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed(runnable, 2000)
+        }
     }
 }

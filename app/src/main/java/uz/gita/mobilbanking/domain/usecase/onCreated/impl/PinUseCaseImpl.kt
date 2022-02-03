@@ -8,7 +8,7 @@ import uz.gita.mobilbanking.domain.usecase.onCreated.PinUseCase
 import javax.inject.Inject
 
 class PinUseCaseImpl @Inject constructor(
-    private val authRepository: AuthRepository,
+    private val authRepository: AuthRepository
 ) : PinUseCase {
 
     override fun isCorrectPin(pin: String): Boolean = authRepository.getPin == pin

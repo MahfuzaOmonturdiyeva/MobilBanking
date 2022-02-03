@@ -34,6 +34,7 @@ class ResetViewModel1Impl @Inject constructor(
                     is MyResult.Success -> visibilityNewPasswordLiveData.value = Unit
                     is MyResult.Message -> errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->{}
                 }
             }
         }
@@ -51,6 +52,7 @@ class ResetViewModel1Impl @Inject constructor(
                     is MyResult.Success -> openLoginLiveData.value = Unit
                     is MyResult.Message -> errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->{}
                 }
             }
         }

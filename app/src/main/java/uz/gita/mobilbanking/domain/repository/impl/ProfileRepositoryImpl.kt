@@ -1,6 +1,5 @@
 package uz.gita.mobilbanking.domain.repository.impl
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
@@ -12,6 +11,7 @@ import uz.gita.mobilbanking.data.request.ProfileRequest
 import uz.gita.mobilbanking.data.response.AvatarResponseURL
 import uz.gita.mobilbanking.data.response.ProfileInfoResponse
 import uz.gita.mobilbanking.data.response.ResponseData
+import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.api.ProfileApi
 import uz.gita.mobilbanking.domain.repository.ProfileRepository
 import java.io.File
@@ -20,28 +20,30 @@ import javax.inject.Inject
 
 
 class ProfileRepositoryImpl @Inject constructor(
-    private val profileApi: ProfileApi
+    private val profileApi: ProfileApi,
+    private val localStorage: LocalStorage
 ) : ProfileRepository {
+
     override fun setUserAvatar(file: File): LiveData<MyResult<Unit>> = liveData {
         try {
             val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            Log.d("avataruserPath", file.parent)
             val body = MultipartBody.Part.createFormData("avatar", file.name, requestFile)
             val response = profileApi.setUserAvatar(body)
-            Log.d("avataruserName", file.name)
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), ResponseData::class.java)
-                    emit(MyResult.Message<Unit>(message.message!!))
-                    return@liveData
+                if (response.code() == 401)
+                    emit(MyResult.Logout<Unit>())
+                else {
+                    response.errorBody()?.let {
+                        val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                        emit(MyResult.Message<Unit>(message.message!!))
+                        return@liveData
+                    }
                 }
-                emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Log.d("avataruser", e.toString())
             emit(MyResult.Error<Unit>(e))
         }
     }
@@ -50,25 +52,23 @@ class ProfileRepositoryImpl @Inject constructor(
         try {
             val response = profileApi.getUserAvatar()
             if (response.isSuccessful) {
-                response.body()?.url?.let{
-                    Log.d("avataruser", "getsuccess")
+                response.body()?.url?.let {
                     emit(MyResult.Success<String>(it))
                     return@liveData
                 }
-                Log.d("avataruser", "message")
                 emit(MyResult.Message<String>("server bilan bog'lanishda xatolik"))
             } else {
-                Log.d("avataruser", "geterrorr")
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), AvatarResponseURL::class.java)
-                    emit(MyResult.Message<String>(message.message!!))
-                    return@liveData
+                if (response.code() == 401)
+                    emit(MyResult.Logout<String>())
+                else {
+                    response.errorBody()?.let {
+                        val message = Gson().fromJson(it.string(), AvatarResponseURL::class.java)
+                        emit(MyResult.Message<String>(message.message!!))
+                        return@liveData
+                    }
                 }
-                Log.d("avataruser", "not succes message")
-                emit(MyResult.Message<String>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
-            Log.d("avataruser", e.toString())
             emit(MyResult.Error<String>(e))
         }
     }
@@ -83,12 +83,15 @@ class ProfileRepositoryImpl @Inject constructor(
                         return@liveData
                     }
                 } else {
-                    response.errorBody()?.let {
-                        val message = Gson().fromJson(it.string(), ResponseData::class.java)
-                        emit(MyResult.Message<ProfileInfoResponse>(message.message!!))
-                        return@liveData
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<ProfileInfoResponse>())
+                    else {
+                        response.errorBody()?.let {
+                            val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                            emit(MyResult.Message<ProfileInfoResponse>(message.message!!))
+                            return@liveData
+                        }
                     }
-                    emit(MyResult.Message<ProfileInfoResponse>("server bilan bog'lanishda xatolik"))
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<ProfileInfoResponse>(e))
@@ -104,12 +107,15 @@ class ProfileRepositoryImpl @Inject constructor(
                     return@liveData
                 }
             } else {
-                response.errorBody()?.let {
-                    val message = Gson().fromJson(it.string(), ResponseData::class.java)
-                    emit(MyResult.Message<ProfileInfoResponse>(message.message!!))
-                    return@liveData
+                if (response.code() == 401)
+                    emit(MyResult.Logout<ProfileInfoResponse>())
+                else {
+                    response.errorBody()?.let {
+                        val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                        emit(MyResult.Message<ProfileInfoResponse>(message.message!!))
+                        return@liveData
+                    }
                 }
-                emit(MyResult.Message<ProfileInfoResponse>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
             emit(MyResult.Error<ProfileInfoResponse>(e))

@@ -22,6 +22,7 @@ class AddCardViewModelImpl @Inject constructor(
     override val messageLiveData=MediatorLiveData<String>()
     override val notConnectionLiveData=MediatorLiveData<String>()
     override val progressLiveData=MediatorLiveData<Boolean>()
+    override val logoutLiveData=MediatorLiveData<Unit>()
     override var favoriteCardId: Int
         get() =addCardUseCase.favoriteCardId
         set(value) {addCardUseCase.favoriteCardId=value}
@@ -39,6 +40,7 @@ class AddCardViewModelImpl @Inject constructor(
                     is MyResult.Success-> openCardVerifyLiveData.value=Unit
                     is MyResult.Message-> messageLiveData.value=it.data
                     is MyResult.Error ->errorLiveData.value=it.error.toString()
+                    is MyResult.Logout->{logoutLiveData.value=Unit}
                 }
             }
         }

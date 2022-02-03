@@ -3,6 +3,7 @@ package uz.gita.mobilbanking.ui.screen.transfer
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,13 +11,13 @@ import uz.gita.mobilbanking.R
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.gita.mobilbanking.databinding.ScreenTransfersHistoryBinding
 import uz.gita.mobilbanking.ui.adapter.TransfersHistoryAdapter
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.transfers.impl.TransfersHistoryViewModelImpl
-
 
 @AndroidEntryPoint
 class TransfersHistoryScreen : Fragment(R.layout.screen_transfers_history) {
@@ -70,6 +71,7 @@ class TransfersHistoryScreen : Fragment(R.layout.screen_transfers_history) {
             }
             true
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private val messageObserver = Observer<String> {
@@ -88,11 +90,12 @@ class TransfersHistoryScreen : Fragment(R.layout.screen_transfers_history) {
     }
 
     private fun closeScreen() {
-        val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            requireActivity().onBackPressed()
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        findNavController().navigate(TransfersHistoryScreenDirections.actionGlobalMainScreen2())
+    }
+
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            closeScreen()
         }
     }
 }

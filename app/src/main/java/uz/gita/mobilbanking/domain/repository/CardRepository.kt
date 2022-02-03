@@ -11,6 +11,7 @@ import uz.gita.mobilbanking.data.response.OwnerCardResponse
 interface CardRepository {
     var favoriteCardId:Int
     var ignoreTotalSum:Boolean
+
     fun addCard(addCardRequest: AddCardRequest): LiveData<MyResult<Unit>>
 
     fun addCardVerify(addCardVerifyRequest: AddCardVerifyRequest): LiveData<MyResult<CardInfoResponse>>

@@ -21,4 +21,5 @@ class LocalStorage @Inject constructor(@ApplicationContext context: Context) :Sh
     var favoriteCardId:Int by IntPreference(-1)
 
     var ignoreTotalSum:Boolean by BooleanPreference(false)
+
 }

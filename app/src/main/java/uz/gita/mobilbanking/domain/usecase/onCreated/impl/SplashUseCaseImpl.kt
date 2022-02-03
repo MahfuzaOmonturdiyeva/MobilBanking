@@ -10,5 +10,6 @@ import javax.inject.Singleton
 class SplashUseCaseImpl @Inject constructor(
     private val authRepository: AuthRepository
 ) : SplashUseCase {
+
     override fun check(): LiveData<MyResult<Unit>> = authRepository.userRefreshToken()
 }

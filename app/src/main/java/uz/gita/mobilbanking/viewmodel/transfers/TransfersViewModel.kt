@@ -18,6 +18,7 @@ interface TransfersViewModel {
     val senderIdLiveData:LiveData<Int>
     val receiverPanWithMyCards:LiveData<String>
     val allCardNotSenderLiveData:LiveData<List<CardInfoResponse>>
+    val logoutLiveData:LiveData<Unit>
 
     fun getSenderCardId():Int
     fun getSenderCard()

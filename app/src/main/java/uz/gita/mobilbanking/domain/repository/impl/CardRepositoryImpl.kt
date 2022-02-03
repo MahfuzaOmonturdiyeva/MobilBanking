@@ -27,13 +27,14 @@ class CardRepositoryImpl @Inject constructor(
             localStorage.ignoreTotalSum = value
         }
 
-
     override fun addCard(addCardRequest: AddCardRequest): LiveData<MyResult<Unit>> = liveData {
         try {
             val response = cardApi.addCard(addCardRequest)
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
+                if (response.code() == 401)
+                    emit(MyResult.Logout<Unit>())
                 if (response.code() != 401) {
                     response.errorBody()?.let {
                         val message = Gson().fromJson(it.string(), ResponseData::class.java)
@@ -58,13 +59,14 @@ class CardRepositoryImpl @Inject constructor(
                     }
                     emit(MyResult.Message<CardInfoResponse>("Response data null"))
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<CardInfoResponse>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<CardInfoResponse>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<CardInfoResponse>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<CardInfoResponse>(e))
@@ -77,13 +79,14 @@ class CardRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                if (response.code() != 401) {
+                if (response.code() == 401)
+                    emit(MyResult.Logout<Unit>())
+                else {
                     response.errorBody()?.let {
                         val message = Gson().fromJson(it.string(), ResponseData::class.java)
                         emit(MyResult.Message<Unit>(message.message!!))
                     }
-                } else
-                    emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                }
             }
         } catch (e: IOException) {
             emit(MyResult.Error<Unit>(e))
@@ -97,13 +100,14 @@ class CardRepositoryImpl @Inject constructor(
                 if (response.isSuccessful) {
                     emit(MyResult.Success<Unit>(Unit))
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<Unit>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<Unit>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<Unit>(e))
@@ -120,13 +124,14 @@ class CardRepositoryImpl @Inject constructor(
                 }
                 emit(MyResult.Message<List<CardInfoResponse>>("Response data null"))
             } else {
-                if (response.code() != 401) {
+                if (response.code() == 401)
+                    emit(MyResult.Logout<List<CardInfoResponse>>())
+                else {
                     response.errorBody()?.let {
                         val message = Gson().fromJson(it.string(), ResponseData::class.java)
                         emit(MyResult.Message<List<CardInfoResponse>>(message.message!!))
                     }
-                } else
-                    emit(MyResult.Message<List<CardInfoResponse>>("server bilan bog'lanishda xatolik"))
+                }
             }
         } catch (e: IOException) {
             emit(MyResult.Error<List<CardInfoResponse>>(e))
@@ -143,13 +148,14 @@ class CardRepositoryImpl @Inject constructor(
                 }
                 emit(MyResult.Message<Double>("Response data null"))
             } else {
-                if (response.code() != 401) {
+                if (response.code() == 401)
+                    emit(MyResult.Logout<Double>())
+                else {
                     response.errorBody()?.let {
                         val message = Gson().fromJson(it.string(), ResponseData::class.java)
                         emit(MyResult.Message<Double>(message.message!!))
                     }
-                } else
-                    emit(MyResult.Message<Double>("server bilan bog'lanishda xatolik"))
+                }
             }
         } catch (e: IOException) {
             emit(MyResult.Error<Double>(e))
@@ -168,13 +174,14 @@ class CardRepositoryImpl @Inject constructor(
                     emit(MyResult.Message<OwnerCardResponse>("Response data null"))
 
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<OwnerCardResponse>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<OwnerCardResponse>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<OwnerCardResponse>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<OwnerCardResponse>(e))
@@ -193,13 +200,14 @@ class CardRepositoryImpl @Inject constructor(
                     emit(MyResult.Message<OwnerCardResponse>("Response data null"))
 
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<OwnerCardResponse>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<OwnerCardResponse>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<OwnerCardResponse>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<OwnerCardResponse>(e))
@@ -218,13 +226,14 @@ class CardRepositoryImpl @Inject constructor(
                     emit(MyResult.Message<ColorResponse>("Response data null"))
 
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<ColorResponse>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<ColorResponse>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<ColorResponse>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<ColorResponse>(e))
@@ -241,15 +250,15 @@ class CardRepositoryImpl @Inject constructor(
                         return@liveData
                     }
                     emit(MyResult.Message<IgnoreBalanceResponse>("Response data null"))
-
                 } else {
-                    if (response.code() != 401) {
+                    if (response.code() == 401)
+                        emit(MyResult.Logout<IgnoreBalanceResponse>())
+                    else {
                         response.errorBody()?.let {
                             val message = Gson().fromJson(it.string(), ResponseData::class.java)
                             emit(MyResult.Message<IgnoreBalanceResponse>(message.message!!))
                         }
-                    } else
-                        emit(MyResult.Message<IgnoreBalanceResponse>("server bilan bog'lanishda xatolik"))
+                    }
                 }
             } catch (e: IOException) {
                 emit(MyResult.Error<IgnoreBalanceResponse>(e))

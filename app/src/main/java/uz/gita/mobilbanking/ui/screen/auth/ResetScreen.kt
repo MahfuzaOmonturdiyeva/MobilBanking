@@ -16,6 +16,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.broadcast.ReceiveSms
 import uz.gita.mobilbanking.data.request.NewPasswordRequest
@@ -57,6 +60,18 @@ class ResetScreen : Fragment(R.layout.screen_auth_reset), View.OnKeyListener {
         binding.mETEditPhoneUser.doOnTextChanged { text, start, before, count ->
             binding.mETEditPhoneUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorPhone.text = ""
+            var phoneNumber = "+"
+            text?.let { text ->
+                if (text[0] == '+') {
+                    phoneNumber += text.filter {
+                        it.isDigit()
+                    }
+                }
+            }
+            if (phoneNumber.length == 13) {
+                phoneNumberUser = phoneNumber
+                viewModel.reset(phoneNumber)
+            }
         }
         binding.eTEditPasswordUser.doOnTextChanged { text, start, before, count ->
             binding.eTEditPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)
@@ -69,6 +84,14 @@ class ResetScreen : Fragment(R.layout.screen_auth_reset), View.OnKeyListener {
         binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
             binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorCode.text = ""
+            text?.let {txt->
+                val code = txt.filter {
+                    it.isDigit()
+                }
+                if (code.length==6) {
+                    onClickButtonNewPassword()
+                }
+            }
         }
 
         if (!isSuccessReset) {
@@ -115,11 +138,6 @@ class ResetScreen : Fragment(R.layout.screen_auth_reset), View.OnKeyListener {
         if (phoneNumber.length == 13) {
             phoneNumberUser = phoneNumber
             viewModel.reset(phoneNumber)
-
-//            binding.mETEditPhoneUser.isClickable = false
-//            binding.lineNewPassword.visibility = View.VISIBLE
-//            binding.btnReset.text = "Next"
-//            setDownTimer()
         } else {
             if (phoneNumber.length == 4) {
                 binding.mETEditPhoneUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
@@ -180,31 +198,29 @@ class ResetScreen : Fragment(R.layout.screen_auth_reset), View.OnKeyListener {
     private fun setDownTimer() {
         val duration = TimeUnit.MINUTES.toMillis(1)
         binding.tVTimer.visibility = View.VISIBLE
+        CoroutineScope(Dispatchers.Main).launch {
 
-        timer = object : CountDownTimer(duration, 1000) {
-            override fun onTick(p0: Long) {
-                val timer = String.format(
-                    Locale.ENGLISH, "%02d : %02d",
-                    TimeUnit.MILLISECONDS.toMinutes(p0),
-                    TimeUnit.MILLISECONDS.toMinutes(p0),
-                    TimeUnit.MILLISECONDS.toSeconds(p0) - TimeUnit.MINUTES.toSeconds(
-                        TimeUnit.MILLISECONDS.toMinutes(
-                            p0
-                        )
+            timer = object : CountDownTimer(duration, 1000) {
+                override fun onTick(p0: Long) {
+                    val timer = String.format(
+                        Locale.ENGLISH, "%02d : %02d",
+                        TimeUnit.MILLISECONDS.toMinutes(p0),
+                        TimeUnit.MILLISECONDS.toSeconds(p0)
                     )
-                )
-                binding.tVTimer.setText(timer)
-                binding.btnResend.isEnabled = false
-                binding.btnResend.text = "The sms was sent to a $phoneNumberUser number"
-            }
+                    binding.tVTimer.setText(timer)
+                    binding.btnResend.isEnabled = false
+                    binding.btnResend.text = "sms sent"
+                }
 
-            override fun onFinish() {
-                binding.tVTimer.visibility = View.GONE
-                binding.btnResend.isEnabled = true
-                binding.btnResend.text = "send sms again"
-            }
-        }.start()
+                override fun onFinish() {
+                    binding.tVTimer.visibility = View.GONE
+                    binding.btnResend.isEnabled = true
+                    binding.btnResend.text = "send sms again"
+                }
+            }.start()
+        }
     }
+
 
     override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
         p2?.let {

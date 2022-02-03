@@ -2,8 +2,11 @@ package uz.gita.mobilbanking.ui.screen.card
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +34,7 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card),View.OnKeyListener
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
+        viewModel.logoutLiveData.observe(this, logoutObserver)
 
         binding.metEditPanCard.doOnTextChanged { text, start, before, count ->
             binding.metEditPanCard.setBackgroundResource(R.drawable.background_custom_edittext)
@@ -50,6 +54,7 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card),View.OnKeyListener
             addCard()
         }
         binding.etEditNameCard.setOnKeyListener(this)
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
     override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
         p2?.let {
@@ -59,6 +64,9 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card),View.OnKeyListener
             }
         }
         return false
+    }
+    private val logoutObserver= Observer<Unit> {
+        findNavController().navigate(AddCardScreenDirections.actionGlobalLoginScreen())
     }
     private val openCardVerifyObServer = Observer<Unit> {
         findNavController().navigate(
@@ -85,14 +93,13 @@ class AddCardScreen : Fragment(R.layout.screen_card_add_card),View.OnKeyListener
     }
 
     private fun closeScreen() {
-        val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            requireActivity().onBackPressed()
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        findNavController().navigate(AddCardScreenDirections.actionGlobalMainScreen2())
+    }
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            closeScreen()
         }
     }
-
     private fun clickFavoriteBtn() {
         isFavorite = if (!isFavorite) {
             binding.imgBtnFavoriteCardChecked.setImageResource(R.drawable.ic_circle)

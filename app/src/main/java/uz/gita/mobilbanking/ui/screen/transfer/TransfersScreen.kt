@@ -3,6 +3,7 @@ package uz.gita.mobilbanking.ui.screen.transfer
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,6 +32,9 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
+        viewModel.logoutLiveData.observe(this){
+            findNavController().navigate(TransfersHistoryScreenDirections.actionGlobalLoginScreen())
+        }
         viewModel.senderIdLiveData.observe(
             viewLifecycleOwner){
             senderId=it
@@ -48,7 +52,7 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
         }
         viewModel.successSendMoneyLiveData.observe(this) {
             showToast("Pul o'tkazildi!")
-            findNavController().navigate(TransfersScreenDirections.actionTransfersScreen2ToMainScreen2())
+            findNavController().navigate(TransfersScreenDirections.actionGlobalMainScreen2())
         }
         binding.lineReceiverMyCards.setOnClickListener {
             findNavController().navigate(TransfersScreenDirections.actionTransfersScreen2ToAllReceiverCardsScreen())
@@ -72,6 +76,7 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
             binding.metEditTransferAmount.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tvErrorTransferAmount.text = ""
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun transferMoney(){
@@ -123,11 +128,11 @@ class TransfersScreen : Fragment(R.layout.screen_transfers) {
     }
 
     private fun closeScreen() {
-        val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-            requireActivity().onBackPressed()
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        findNavController().navigate(TransfersScreenDirections.actionGlobalMainScreen2())
+    }
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          closeScreen()
         }
     }
 }

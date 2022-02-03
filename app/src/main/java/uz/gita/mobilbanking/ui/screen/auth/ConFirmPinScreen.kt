@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
+import uz.gita.mobilbanking.ui.screen.onCreated.PinScreenDirections
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.auth.impl.ConfirmPinViewModel1Impl
 
@@ -22,6 +23,7 @@ class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
     private val viewModel: ConfirmPinViewModel1Impl by viewModels()
     private var pin = ""
     private val navArgs: ConFirmPinScreenArgs by navArgs<ConFirmPinScreenArgs>()
+    private var countUserEnteredCodes=0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.tvTitle.text = "Re-enter the PIN"
@@ -108,6 +110,15 @@ class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
                         binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)
                         binding.imgvPin4.setImageResource(R.drawable.ic_circle_line)
                         pin = ""
+                        countUserEnteredCodes++;
+                        if(countUserEnteredCodes==4){
+                            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
+                            if (count == 0) {
+                                requireActivity().onBackPressed()
+                            } else {
+                                requireActivity().supportFragmentManager.popBackStack()
+                            }
+                        }
                         showToast("Pincode is not confirm")
                     }, 100)
                 }

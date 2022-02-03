@@ -32,6 +32,7 @@ class TransfersViewModelImpl @Inject constructor(
     override val senderIdLiveData = MediatorLiveData<Int>()
     override val receiverPanWithMyCards = MediatorLiveData<String>()
     override val allCardNotSenderLiveData=MediatorLiveData<List<CardInfoResponse>>()
+    override val logoutLiveData=MediatorLiveData<Unit>()
 
     override fun setSenderId(id:Int){
         viewModelScope.launch {
@@ -73,6 +74,7 @@ class TransfersViewModelImpl @Inject constructor(
                     }
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -90,6 +92,7 @@ class TransfersViewModelImpl @Inject constructor(
                     is MyResult.Success -> allCardsLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -120,6 +123,7 @@ class TransfersViewModelImpl @Inject constructor(
                     }
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -137,6 +141,7 @@ class TransfersViewModelImpl @Inject constructor(
                     is MyResult.Success -> successSendMoneyLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -154,6 +159,7 @@ class TransfersViewModelImpl @Inject constructor(
                     is MyResult.Success -> successFeeLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

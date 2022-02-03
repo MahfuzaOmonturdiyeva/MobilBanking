@@ -13,7 +13,10 @@ class CardVerifyUseCaseImpl @Inject constructor(
 ) : CardVerifyUseCase {
     override var favoriteCardId: Int
         get() = cardRepository.favoriteCardId
-        set(value) {cardRepository.favoriteCardId=value}
+        set(value) {
+            cardRepository.favoriteCardId = value
+        }
 
-    override fun addCardVerify(addCardVerifyRequest: AddCardVerifyRequest): LiveData<MyResult<CardInfoResponse>> =cardRepository.addCardVerify(addCardVerifyRequest)
+    override fun addCardVerify(addCardVerifyRequest: AddCardVerifyRequest): LiveData<MyResult<CardInfoResponse>> =
+        cardRepository.addCardVerify(addCardVerifyRequest)
 }

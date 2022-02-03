@@ -26,39 +26,4 @@ class MainActivity : AppCompatActivity() {
         host.navController.graph = graph
 
     }
-
-//    override fun onBackPressed() {
-//        if (isClickBackPressed) {
-//            finishAffinity()
-//            exitProcess(0)
-//        } else {
-//            showToast("Please click back again to exit")
-//            isClickBackPressed = true
-//        }
-//
-//        val runnable = Runnable {
-//            isClickBackPressed = false
-//        }
-//
-//        Handler(Looper.getMainLooper()).postDelayed(runnable, 2000)
-//    }
-
-    //
-//    binding.bottomNavigationFrMain.setOnItemSelectedListener {
-//        when (it.itemId) {
-//            R.id.action_home -> {
-////                     Toast.makeText(this, "home", Toast.LENGTH_SHORT).show()
-//                presenterImpl.onReloadView(false)
-//                isFavorite = false
-//                //   binding.textNotFound.visibility = View.INVISIBLE
-//            }
-//            R.id.action_favourite -> {
-////                    Toast.makeText(this, "fav", Toast.LENGTH_SHORT).show()
-//                presenterImpl.onReloadView(true)
-//                // binding.textNotFound.visibility = View.INVISIBLE
-//                isFavorite = true
-//            }
-//        }
-//        true
-//    }
 }

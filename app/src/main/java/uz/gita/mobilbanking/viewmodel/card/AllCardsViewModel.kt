@@ -1,6 +1,7 @@
 package uz.gita.mobilbanking.viewmodel.card
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.*
@@ -20,6 +21,7 @@ interface AllCardsViewModel {
     val successIgnoreBalanceLiveData:LiveData<IgnoreBalanceResponse>
     val provideCardInfoResponseLiveData: MutableLiveData<CardInfoResponse>
     val favoriteCardId:Int
+    val logoutLiveData: LiveData<Unit>
 
     fun deleteCard(cardNumberRequest: CardNumberRequest)
     fun editCard(editCardRequest: EditCardRequest)

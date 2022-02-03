@@ -119,23 +119,4 @@ class LoginScreen : Fragment(R.layout.screen_auth_login), View.OnKeyListener {
         }
         return false
     }
-
-    private fun maskedEdittext() {
-//        MaskedTextChangedListener.installOn(
-//            binding.eT,
-//            "+998 [00] [000] [00] [00]",
-//            arrayListOf("+998 [00] [000] [00] [00]"),
-//            AffinityCalculationStrategy.PREFIX,
-//            object : MaskedTextChangedListener.ValueListener {
-//                override fun onTextChanged(
-//                    maskFilled: Boolean,
-//                    extractedValue: String,
-//                    formattedValue: String
-//                ) {
-//                    binding.nextButton.isEnabled = maskFilled
-//                }
-//
-//            }
-//        )
-    }
 }

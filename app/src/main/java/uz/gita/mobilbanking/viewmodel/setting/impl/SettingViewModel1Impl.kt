@@ -19,6 +19,7 @@ class SettingViewModel1Impl @Inject constructor(
     override val errorLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
+    override val logoutLiveData = MediatorLiveData<Unit>()
     override val phoneNumber: String
         get() = settingsUseCase.getPhoneNumber
 
@@ -40,6 +41,7 @@ class SettingViewModel1Impl @Inject constructor(
                     is MyResult.Message -> {
                         openLoginLiveData.value = Unit
                     }
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

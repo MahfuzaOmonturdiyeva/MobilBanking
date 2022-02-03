@@ -1,6 +1,5 @@
 package uz.gita.mobilbanking.viewmodel.onCreated.impl
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +20,7 @@ class PinViewModel1Impl @Inject constructor(
     override val errorLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
+    override val logoutLiveData = MediatorLiveData<Unit>()
 
     override fun logout() {
         viewModelScope.launch {
@@ -33,6 +33,7 @@ class PinViewModel1Impl @Inject constructor(
                     is MyResult.Success -> openLoginLiveData.value = Unit
                     is MyResult.Message -> errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

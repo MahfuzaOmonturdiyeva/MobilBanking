@@ -9,15 +9,20 @@ import javax.inject.Inject
 
 class MainUseCaseImpl @Inject constructor(
     private val cardRepository: CardRepository
-): MainUseCase {
+) : MainUseCase {
     override var ignoreTotalSum: Boolean
         get() = cardRepository.ignoreTotalSum
-        set(value) {cardRepository.ignoreTotalSum=value}
+        set(value) {
+            cardRepository.ignoreTotalSum = value
+        }
     override var favoriteCardId: Int
         get() = cardRepository.favoriteCardId
-        set(value) {cardRepository.favoriteCardId}
+        set(value) {
+            cardRepository.favoriteCardId
+        }
 
-    override fun getFavoriteCard(): LiveData<MyResult<List<CardInfoResponse>>> =cardRepository.getAllCard()
+    override fun getFavoriteCard(): LiveData<MyResult<List<CardInfoResponse>>> =
+        cardRepository.getAllCard()
 
-    override fun getTotalSum(): LiveData<MyResult<Double>> =cardRepository.getTotalSum()
+    override fun getTotalSum(): LiveData<MyResult<Double>> = cardRepository.getTotalSum()
 }

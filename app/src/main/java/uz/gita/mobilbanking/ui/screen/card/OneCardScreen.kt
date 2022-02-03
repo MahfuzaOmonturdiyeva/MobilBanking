@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,13 +16,10 @@ import uz.gita.mobilbanking.data.response.IgnoreBalanceResponse
 import uz.gita.mobilbanking.databinding.ScreenCardOneCardBinding
 import uz.gita.mobilbanking.viewmodel.card.impl.AllCardsViewModelImpl
 import uz.gita.mobilbanking.utils.showToast
-
-
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -32,7 +28,6 @@ import uz.gita.mobilbanking.data.request.ColorRequest
 import uz.gita.mobilbanking.data.request.EditCardRequest
 import uz.gita.mobilbanking.data.request.IgnoreBalanceRequest
 import uz.gita.mobilbanking.ui.dialog.CustomDialog
-
 
 @AndroidEntryPoint
 class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
@@ -45,7 +40,6 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //binding.progress.visibility = View.VISIBLE
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.successIgnoreBalanceLiveData.observe(this, successIgnoreBalanceObserver)
@@ -54,6 +48,9 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
         viewModel.successDeleteCardLiveData.observe(this, successDeleteCardObserver)
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
+        viewModel.logoutLiveData.observe(this){
+            findNavController().navigate(OneCardScreenDirections.actionGlobalLoginScreen())
+        }
         viewModel.provideCardInfoResponseLiveData.observe(
             viewLifecycleOwner
         ) {
@@ -114,7 +111,6 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
             isFavoriteCardChange()
         }
         binding.imgBtnClose.setOnClickListener {
-
             findNavController().navigate(OneCardScreenDirections.actionOneCardScreenToAllCardsScreen())
         }
         binding.btnDeleteCard.setOnClickListener {

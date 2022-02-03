@@ -15,18 +15,25 @@ import javax.inject.Inject
 
 class AllCardsUseCaseImpl @Inject constructor(
     private val cardRepository: CardRepository
-): AllCardsUseCase {
+) : AllCardsUseCase {
     override var favoriteCardId: Int
-        get()=cardRepository.favoriteCardId
-        set(value) {cardRepository.favoriteCardId=value}
+        get() = cardRepository.favoriteCardId
+        set(value) {
+            cardRepository.favoriteCardId = value
+        }
 
-    override fun getAllCard(): LiveData<MyResult<List<CardInfoResponse>>> =cardRepository.getAllCard()
+    override fun getAllCard(): LiveData<MyResult<List<CardInfoResponse>>> =
+        cardRepository.getAllCard()
 
-    override fun deleteCard(cardNumberRequest: CardNumberRequest): LiveData<MyResult<Unit>> =cardRepository.deleteCard(cardNumberRequest)
+    override fun deleteCard(cardNumberRequest: CardNumberRequest): LiveData<MyResult<Unit>> =
+        cardRepository.deleteCard(cardNumberRequest)
 
-    override fun editCard(editCardRequest: EditCardRequest): LiveData<MyResult<Unit>> =cardRepository.editCard(editCardRequest)
+    override fun editCard(editCardRequest: EditCardRequest): LiveData<MyResult<Unit>> =
+        cardRepository.editCard(editCardRequest)
 
-    override fun colorCard(colorRequest: ColorRequest): LiveData<MyResult<ColorResponse>> =cardRepository.colorCard(colorRequest)
+    override fun colorCard(colorRequest: ColorRequest): LiveData<MyResult<ColorResponse>> =
+        cardRepository.colorCard(colorRequest)
 
-    override fun ignoreBalance(ignoreBalanceRequest: IgnoreBalanceRequest): LiveData<MyResult<IgnoreBalanceResponse>> =cardRepository.ignoreBalance(ignoreBalanceRequest)
+    override fun ignoreBalance(ignoreBalanceRequest: IgnoreBalanceRequest): LiveData<MyResult<IgnoreBalanceResponse>> =
+        cardRepository.ignoreBalance(ignoreBalanceRequest)
 }

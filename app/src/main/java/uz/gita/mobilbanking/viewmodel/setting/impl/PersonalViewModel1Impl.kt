@@ -24,10 +24,12 @@ class PersonalViewModel1Impl @Inject constructor(
     override val notSuccessGetAvatarLiveData = MediatorLiveData<String>()
     override val successSetAvatarLiveData = MediatorLiveData<Unit>()
     override val joinInfoLiveData = MediatorLiveData<ProfileInfoResponse>()
+    override val successSetInfoLiveData = MediatorLiveData<ProfileInfoResponse>()
     override val errorLiveData = MediatorLiveData<String>()
     override val messageLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
+    override val logoutLiveData = MediatorLiveData<Unit>()
 
     init {
         getAvatar()
@@ -43,11 +45,10 @@ class PersonalViewModel1Impl @Inject constructor(
             joinAvatarLiveData.addSource(personalUseCase.getAvatar()) {
                 progressLiveData.value = false
                 when (it) {
-                    is MyResult.Success -> {joinAvatarLiveData.value = it.data!!
-                        Log.d("personal", it.data)
-                    }
+                    is MyResult.Success -> {joinAvatarLiveData.value = it.data!!}
                     is MyResult.Message -> notSuccessGetAvatarLiveData.value=it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -65,6 +66,7 @@ class PersonalViewModel1Impl @Inject constructor(
                     is MyResult.Success -> successSetAvatarLiveData.value = Unit
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -82,6 +84,7 @@ class PersonalViewModel1Impl @Inject constructor(
                     is MyResult.Success -> joinInfoLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -96,9 +99,10 @@ class PersonalViewModel1Impl @Inject constructor(
             joinInfoLiveData.addSource(personalUseCase.setInfo(profileRequest)) {
                 progressLiveData.value = false
                 when (it) {
-                    is MyResult.Success -> joinInfoLiveData.value = it.data!!
+                    is MyResult.Success -> successSetInfoLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

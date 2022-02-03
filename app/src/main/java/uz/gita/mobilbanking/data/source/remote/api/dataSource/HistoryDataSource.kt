@@ -23,32 +23,31 @@ class HistoryDataSource(val transferApi: TransferApi, val cardApi: CardApi) :
             val pageSize = 10
             val response = transferApi.history(nextPageNumber, pageSize)
 
-            response.body()?.data?.data?.let {
-                for (i in it) {
-                    if (i.receiver != null) {
-                        val responseOwner = cardApi.ownerById(i.receiver)
-                        responseOwner.body()?.data?.fio?.let { it1 ->
-                            i.owner = it1
+                response.body()?.data?.data?.let {
+                    for (i in it) {
+                        if (i.receiver != null) {
+                            val responseOwner = cardApi.ownerById(i.receiver)
+                            responseOwner.body()?.data?.fio?.let { it1 ->
+                                i.owner = it1
+                            }
                         }
-                    }
-                    if (i.sender != null) {
-                        val responseOwner = cardApi.ownerById(i.sender)
-                        responseOwner.body()?.data?.fio?.let { it1 ->
-                            i.owner = it1
+                        if (i.sender != null) {
+                            val responseOwner = cardApi.ownerById(i.sender)
+                            responseOwner.body()?.data?.fio?.let { it1 ->
+                                i.owner = it1
+                            }
                         }
                     }
                 }
-            }
-            Timber.d(response.isSuccessful.toString())
-            Timber.d(response.body().toString())
 
-            LoadResult.Page(
-                data = response.body()!!.data!!.data,
+                LoadResult.Page(
+                    data = response.body()!!.data!!.data,
 //                prevKey = null,
-                prevKey = if (nextPageNumber > 0) nextPageNumber - 1 else null,
-                nextKey = if (nextPageNumber < (response.body()!!.data!!.totalCount / response.body()!!.data!!.pageSize) + 1)
-                    nextPageNumber + 1 else null
-            )
+                    prevKey = if (nextPageNumber > 0) nextPageNumber - 1 else null,
+                    nextKey = if (nextPageNumber < (response.body()!!.data!!.totalCount / response.body()!!.data!!.pageSize) + 1)
+                        nextPageNumber + 1 else null
+                )
+
         } catch (e: Exception) {
             Timber.d("e = $e")
             LoadResult.Error(Throwable("Ulanishda xatolik bo'ldi"))

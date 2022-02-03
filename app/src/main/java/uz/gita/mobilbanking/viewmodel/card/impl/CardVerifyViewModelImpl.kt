@@ -22,6 +22,7 @@ class CardVerifyViewModelImpl @Inject constructor(
     override val messageLiveData = MediatorLiveData<String>()
     override val notConnectionLiveData = MediatorLiveData<String>()
     override val progressLiveData = MediatorLiveData<Boolean>()
+    override val logoutLiveData=MediatorLiveData<Unit>()
     override var favoriteCardId: Int
         get() = cardVerifyUseCase.favoriteCardId
         set(value) {
@@ -41,6 +42,7 @@ class CardVerifyViewModelImpl @Inject constructor(
                     is MyResult.Success -> successVerifyLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

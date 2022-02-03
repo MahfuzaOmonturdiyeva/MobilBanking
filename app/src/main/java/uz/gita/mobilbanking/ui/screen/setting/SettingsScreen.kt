@@ -3,6 +3,7 @@ package uz.gita.mobilbanking.ui.screen.setting
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenSettingsBinding
 import uz.gita.mobilbanking.ui.dialog.CustomDialog
+import uz.gita.mobilbanking.ui.screen.card.AllCardsScreenDirections
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.setting.impl.SettingViewModel1Impl
 
@@ -29,12 +31,7 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
         viewModel.progressLiveData.observe(this, progressObserver)
 
         binding.imgBtnClose.setOnClickListener {
-            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-            if (count == 0) {
-                requireActivity().onBackPressed()
-            } else {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
+            findNavController().navigate(SettingsScreenDirections.actionGlobalMainScreen2())
         }
         binding.linePersonalInformation.setOnClickListener {
             findNavController().navigate(SettingsScreenDirections.actionSettingsScreenToPersonalScreen())
@@ -55,8 +52,8 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
                 }
             dialog.build().show()
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
-
 
     private val errorObserver = Observer<String> {
         showToast(it)
@@ -71,5 +68,10 @@ class SettingsScreen : Fragment(R.layout.screen_settings) {
         if (it) {
             binding.progress.visibility = View.VISIBLE
         } else binding.progress.visibility = View.GONE
+    }
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            findNavController().navigate(SettingsScreenDirections.actionGlobalMainScreen2())
+        }
     }
 }

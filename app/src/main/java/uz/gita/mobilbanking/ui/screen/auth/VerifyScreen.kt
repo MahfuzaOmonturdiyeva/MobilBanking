@@ -61,9 +61,15 @@ class VerifyScreen : Fragment(R.layout.screen_auth_verify) {
         binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
             binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorCode.text = ""
+            text?.let {txt->
+                val code = txt.filter {
+                    it.isDigit()
+                }
+                if (code.length==6) {
+                    onClickBtnVerify()
+                }
+            }
         }
-
-//        binding.mETEditCodeUser.setOnKeyListener(this)
     }
 
     private val errorObserver = Observer<String> {
@@ -73,7 +79,6 @@ class VerifyScreen : Fragment(R.layout.screen_auth_verify) {
         lifecycleScope.launchWhenResumed {
             navController.navigate(VerifyScreenDirections.actionVerifyScreenToNewPinScreen())
         }
-
     }
     private val successResendObserver = Observer<Unit> {
         setDownTimer()
@@ -144,59 +149,10 @@ class VerifyScreen : Fragment(R.layout.screen_auth_verify) {
         }
     }
 
-    /**
-     * sms ni olish uchun
-     */
-//    private fun onDeliveredMessage(): String {
-//        val intent = Intent()
-//        val myBundle = intent.extras;
-//        var kod = ""
-//
-//        if (myBundle != null) {
-//            val pdus = myBundle.get("pdus") as Array<*>
-//            val messages = ArrayList<SmsMessage>()
-//
-//            for (i in pdus.indices) {
-//                val number = messages[i].displayOriginatingAddress;
-//                Toast.makeText(requireContext(),"number"+ number, Toast.LENGTH_SHORT).show()
-//                val body = messages[i].messageBody;
-//                val message = body.split(":")
-//                kod = message[1].substring(1, message[1].length)
-//            }
-//        }
-//        return kod
-//    }
-
-    /**
-     * onkeylistner uchun
-     */
-    //    override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
-//        p2?.let {
-//            if (it.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER) {
-//                onClickBtnVerify()
-//                return true
-//            }
-//        }
-//        return false
-//    }
     override fun onDestroyView() {
         super.onDestroyView()
         timer?.cancel()
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        if (requestCode == 1000) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                showToast("permission olindi")
-//            } else {
-//                showToast("permission olinmadi")
-//            }
-//        }
-//    }
 
     private fun onPerMissionState() {
         if (checkSelfPermission(requireContext(), android.Manifest.permission.RECEIVE_SMS)

@@ -112,12 +112,24 @@
         android:id="@+id/personalScreen"
         android:name="uz.gita.mobilbanking.ui.screen.setting.PersonalScreen"
         android:label="screen_settings_personal"
-        tools:layout="@layout/screen_settings_personal" />
+        tools:layout="@layout/screen_settings_personal" >
+        <action
+            android:id="@+id/action_personalScreen_to_settingsScreen"
+            app:destination="@id/settingsScreen"
+            app:popUpTo="@id/personalScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/securityScreen"
         android:name="uz.gita.mobilbanking.ui.screen.setting.SecurityScreen"
         android:label="screen_settings_security"
-        tools:layout="@layout/screen_settings_security" />
+        tools:layout="@layout/screen_settings_security" >
+        <action
+            android:id="@+id/action_securityScreen_to_settingsScreen"
+            app:destination="@id/settingsScreen"
+            app:popUpTo="@id/securityScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen"
         android:name="uz.gita.mobilbanking.ui.screen.onCreated.SplashScreen"
@@ -163,7 +175,13 @@
         android:id="@+id/supportScreen2"
         android:name="uz.gita.mobilbanking.ui.screen.setting.SupportScreen"
         android:label="screen_settings_support"
-        tools:layout="@layout/screen_settings_support" />
+        tools:layout="@layout/screen_settings_support" >
+        <action
+            android:id="@+id/action_supportScreen2_to_settingsScreen"
+            app:destination="@id/settingsScreen"
+            app:popUpTo="@id/supportScreen2"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreen2"
         android:name="uz.gita.mobilbanking.ui.screen.MainScreen"
@@ -185,18 +203,14 @@
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left"/>
         <action
-            android:id="@+id/action_mainScreen2_to_transfersHistoryScreen2"
-            app:destination="@id/transfersHistoryScreen2"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_right"
-            app:popExitAnim="@anim/to_left"/>
-        <action
             android:id="@+id/action_mainScreen2_to_addCardScreen"
             app:destination="@id/addCardScreen" />
         <action
             android:id="@+id/action_mainScreen2_to_allCardsScreen"
             app:destination="@id/allCardsScreen" />
+        <action
+            android:id="@+id/action_mainScreen2_to_transfersHistoryScreen"
+            app:destination="@id/transfersHistoryScreen" />
     </fragment>
     <fragment
         android:id="@+id/transfersScreen2"
@@ -204,20 +218,12 @@
         android:label="screen_transfers"
         tools:layout="@layout/screen_transfers" >
         <action
-            android:id="@+id/action_transfersScreen2_to_mainScreen2"
-            app:destination="@id/mainScreen2" />
-        <action
             android:id="@+id/action_transfersScreen2_to_allReceiverCardsScreen"
             app:destination="@id/allReceiverCardsScreen" />
         <action
             android:id="@+id/action_transfersScreen2_to_allSenderCardsScreen"
             app:destination="@id/allSenderCardsScreen" />
     </fragment>
-    <fragment
-        android:id="@+id/transfersHistoryScreen2"
-        android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersHistoryScreen"
-        android:label="screen_transfers_history"
-        tools:layout="@layout/item_transfers_history_outcomes" />
     <fragment
         android:id="@+id/addCardScreen"
         android:name="uz.gita.mobilbanking.ui.screen.card.AddCardScreen"
@@ -235,11 +241,6 @@
         <action
             android:id="@+id/action_allCardsScreen_to_addCardScreen"
             app:destination="@id/addCardScreen" />
-        <action
-            android:id="@+id/action_allCardsScreen_to_mainScreen2"
-            app:destination="@id/mainScreen2"
-            app:popUpTo="@id/app_navigation"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_allCardsScreen_to_oneCardScreen"
             app:destination="@id/oneCardScreen" />
@@ -262,11 +263,6 @@
             app:argType="string"/>
         <argument android:name="isFavorite"
             app:argType="boolean"/>
-        <action
-            android:id="@+id/action_cardVerifyScreen_to_mainScreen2"
-            app:destination="@id/mainScreen2"
-            app:popUpTo="@id/app_navigation"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_cardVerifyScreen_to_allCardsScreen"
             app:destination="@id/allCardsScreen"
@@ -293,5 +289,19 @@
             app:popUpTo="@id/allSenderCardsScreen"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/transfersHistoryScreen"
+        android:name="uz.gita.mobilbanking.ui.screen.transfer.TransfersHistoryScreen"
+        android:label="TransfersHistoryScreen" />
+    <action
+        android:id="@+id/action_global_loginScreen"
+        app:destination="@id/loginScreen"
+        app:popUpTo="@id/app_navigation"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_mainScreen2"
+        app:destination="@id/mainScreen2"
+        app:popUpTo="@id/app_navigation"
+        app:popUpToInclusive="true" />
 
 </navigation>

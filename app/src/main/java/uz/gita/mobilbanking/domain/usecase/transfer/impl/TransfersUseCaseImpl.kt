@@ -20,7 +20,9 @@ class TransfersUseCaseImpl @Inject constructor(
     override fun getAllCards() = cardRepository.getAllCard()
 
 
+    override fun sendMoney(data: SendMoneyRequest): LiveData<MyResult<SendMoneyResponse>> =
+        transferRepository.sendMoney(data)
 
-    override fun sendMoney(data: SendMoneyRequest): LiveData<MyResult<SendMoneyResponse>> =transferRepository.sendMoney(data)
-    override fun fee(feeRequest: FeeRequest): LiveData<MyResult<Double>> =transferRepository.fee(feeRequest)
+    override fun fee(feeRequest: FeeRequest): LiveData<MyResult<Double>> =
+        transferRepository.fee(feeRequest)
 }

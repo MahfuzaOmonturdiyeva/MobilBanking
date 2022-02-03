@@ -7,8 +7,9 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
-import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
+import uz.gita.mobilbanking.ui.screen.onCreated.PinScreenDirections
+import uz.gita.mobilbanking.utils.showToast
 
 @AndroidEntryPoint
 class NewPinScreen : Fragment(R.layout.screen_pin) {
@@ -78,7 +79,8 @@ class NewPinScreen : Fragment(R.layout.screen_pin) {
                     )
                 )
             }
-            else->{
+            else -> {
+
                 binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)

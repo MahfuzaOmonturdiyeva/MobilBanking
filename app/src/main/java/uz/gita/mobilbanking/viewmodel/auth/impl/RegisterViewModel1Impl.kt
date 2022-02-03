@@ -34,6 +34,7 @@ class RegisterViewModel1Impl @Inject constructor(
                     is MyResult.Success -> openVerifyLiveData.value = Unit
                     is MyResult.Message -> errorLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->{}
                 }
             }
         }

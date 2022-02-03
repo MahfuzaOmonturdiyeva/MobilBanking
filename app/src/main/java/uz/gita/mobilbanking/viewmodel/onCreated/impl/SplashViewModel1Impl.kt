@@ -1,14 +1,11 @@
 package uz.gita.mobilbanking.viewmodel.onCreated.impl
 
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import uz.gita.mobilbanking.data.common.MyResult
-import uz.gita.mobilbanking.domain.repository.impl.InvalidTokenException
 import uz.gita.mobilbanking.domain.usecase.onCreated.SplashUseCase
 import uz.gita.mobilbanking.utils.isConnected
 import uz.gita.mobilbanking.viewmodel.onCreated.SplashViewModel1
@@ -21,6 +18,7 @@ class SplashViewModel1Impl @Inject constructor(
     override val openPinLiveData = MediatorLiveData<Unit>()
     override val openLoginLiveData = MediatorLiveData<Unit>()
     override val notConnectionLiveData = MediatorLiveData<String>()
+    override val logoutLiveData = MediatorLiveData<Unit>()
 
     init {
         viewModelScope.launch {
@@ -36,6 +34,7 @@ class SplashViewModel1Impl @Inject constructor(
                     is MyResult.Error -> {
                         openLoginLiveData.value = Unit
                     }
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

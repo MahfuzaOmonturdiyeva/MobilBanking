@@ -4,18 +4,21 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,30 +33,31 @@ import java.io.IOException
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 
-
 @AndroidEntryPoint
 class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyListener {
     private val binding by viewBinding(ScreenSettingsPersonalBinding::bind)
     private val viewModel: PersonalViewModel1Impl by viewModels()
-    private var password = ""
+    private lateinit var profileInfoResponse: ProfileInfoResponse
     private var photoFile: File? = null
+    private var isEditedFirstName = false
+    private var isEditedLastName = false
+    private var isEditedNewPassword = false
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.messageLiveData.observe(this, messageObserver)
-        viewModel.notSuccessGetAvatarLiveData.observe(this,notSuccessGetAvatarObserver )
+        viewModel.notSuccessGetAvatarLiveData.observe(this, notSuccessGetAvatarObserver)
         viewModel.joinInfoLiveData.observe(this, joinInfoObserver)
         viewModel.joinAvatarLiveData.observe(this, joinAvatarObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.successSetAvatarLiveData.observe(this, successSetAvatarObserver)
+        viewModel.successSetInfoLiveData.observe(this,successSetInfoObserver )
+        viewModel.logoutLiveData.observe(this) {
+            findNavController().navigate(PersonalScreenDirections.actionGlobalLoginScreen())
+        }
 
-//        Glide
-//            .with(this)
-//            .load("http://127.0.0.1:8080/api/v1/profile/photo?u=9d8f296f-b034-40e2-a26d-96b0fceaa098.jpg")
-//            .centerCrop()
-//            .into(binding.cImgProfileImage);
         binding.cImgProfileImage.setOnClickListener {
             Permissions.check(
                 requireContext()/*context*/,
@@ -80,13 +84,59 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
             onSave()
         }
         binding.imgBtnClose.setOnClickListener {
-            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-            if (count == 0) {
-                requireActivity().onBackPressed()
-            } else {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
+            findNavController().navigate(PersonalScreenDirections.actionPersonalScreenToSettingsScreen())
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(PersonalScreenDirections.actionPersonalScreenToSettingsScreen())
+            }
+        })
+
+        binding.eTEditFirstnameUser.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                p0?.let {
+                    isEditedFirstName =
+                        it.toString() != profileInfoResponse.firstName && it.toString().length >= 3
+                }
+            }
+        })
+        binding.eTEditLastnameUser.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                p0?.let {
+                    isEditedLastName =
+                        it.toString() != profileInfoResponse.lastName && it.toString().length >= 3
+                }
+            }
+        })
+        binding.eTEditNewPasswordUser.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                p0?.let {
+                    if (it.toString().isNotEmpty() && it.toString().length < 6) {
+                        binding.eTEditNewPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)
+                        binding.tVNewErrorPassword.text = "Password must be at least 6 characters"
+                    }else{
+                        binding.tVNewErrorPassword.text = ""
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                p0?.let {
+                    isEditedNewPassword = it.toString().length >= 6
+                }
+            }
+        })
 
         binding.eTEditFirstnameUser.doOnTextChanged { text, start, before, count ->
             binding.eTEditFirstnameUser.setBackgroundResource(R.drawable.background_custom_edittext)
@@ -103,10 +153,6 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
         binding.eTEditOldPasswordUser.doOnTextChanged { text, start, before, count ->
             binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVOldErrorPassword.text = ""
-        }
-        binding.eTEditNewPasswordUser.doOnTextChanged { text, start, before, count ->
-            binding.eTEditNewPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext)
-            binding.tVNewErrorPassword.text = ""
         }
         binding.eTEditConfirmPasswordUser.setOnKeyListener(this)
     }
@@ -141,24 +187,33 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
             .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         return if (cursor.moveToFirst()) cursor.getString(columnIndex) else null
     }
-
+    private val successSetInfoObserver= Observer<ProfileInfoResponse> {
+        showToast("User information changed")
+        profileInfoResponse = it
+        binding.eTEditFirstnameUser.setText(it.firstName)
+        binding.eTEditLastnameUser.setText(it.lastName)
+        binding.eTEditConfirmPasswordUser.setText("")
+        binding.eTEditNewPasswordUser.setText("")
+        binding.eTEditOldPasswordUser.setText("")
+    }
     private val notSuccessGetAvatarObserver = Observer<String> {
 
     }
-
 
     private val successSetAvatarObserver = Observer<Unit> {
         showToast("rasm yuklandi!")
     }
 
     private val joinAvatarObserver = Observer<String> {
-        val split=it.replaceFirst(":8080","")
-        val url="https:"+split.substring(5)
-        showToast(url)
+        val split = it.replaceFirst(":8080", "")
+        val url = "https:" + split.substring(5)
+
         Glide
             .with(this)
             .load(url)
-            .into(binding.cImgProfileImage);
+            .placeholder(R.drawable.ic_person)
+            .into(binding.cImgProfileImage)
+
     }
 
     private val messageObserver = Observer<String> {
@@ -177,9 +232,9 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
 
     }
     private val joinInfoObserver = Observer<ProfileInfoResponse> {
+        profileInfoResponse = it
         binding.eTEditFirstnameUser.setText(it.firstName)
         binding.eTEditLastnameUser.setText(it.lastName)
-        password = it.password
         binding.eTEditConfirmPasswordUser.setText("")
         binding.eTEditNewPasswordUser.setText("")
         binding.eTEditOldPasswordUser.setText("")
@@ -201,24 +256,77 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
         val newPassword = binding.eTEditNewPasswordUser.text.toString()
         val confirmPassword = binding.eTEditConfirmPasswordUser.text.toString()
 
-        if (firstname.length >= 3 && lastname.length >= 3 && oldPassword == password && confirmPassword.isNotEmpty() && confirmPassword == newPassword) {
-            val data = ProfileRequest(firstname, lastname, newPassword)
-            viewModel.setInfo(data)
+        if (isEditedFirstName) {
+            if (isEditedLastName) {
+                if (isEditedNewPassword) {
+                    if (oldPassword == profileInfoResponse.password && confirmPassword.isNotEmpty() && confirmPassword == newPassword) {
+                        val data = ProfileRequest(firstname, lastname, newPassword)
+                        viewModel.setInfo(data)
+                    } else {
+                        checkedEditable()
+                    }
+                } else {
+                    val data = ProfileRequest(firstname, lastname, profileInfoResponse.password)
+                    viewModel.setInfo(data)
+                }
+            } else {
+                val data = ProfileRequest(
+                    firstname,
+                    profileInfoResponse.lastName,
+                    profileInfoResponse.password
+                )
+                viewModel.setInfo(data)
+            }
         } else {
-            if (firstname.isEmpty()) {
-                binding.eTEditFirstnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
-                binding.tVErrorFirstname.text = "Enter the firstname"
-            } else if (firstname.length < 3) {
-                binding.eTEditFirstnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
-                binding.tVErrorFirstname.text = "Firstname must be at least 3 letter"
+            if (isEditedLastName) {
+                if (isEditedNewPassword) {
+                    if (oldPassword == profileInfoResponse.password && confirmPassword.isNotEmpty() && confirmPassword == newPassword) {
+                        val data =
+                            ProfileRequest(profileInfoResponse.firstName, lastname, newPassword)
+                        viewModel.setInfo(data)
+                    } else {
+                        checkedEditable()
+                    }
+                } else {
+                    val data = ProfileRequest(
+                        profileInfoResponse.firstName,
+                        lastname,
+                        profileInfoResponse.password
+                    )
+                    viewModel.setInfo(data)
+                }
+            } else if (isEditedNewPassword) {
+                if (oldPassword == profileInfoResponse.password && confirmPassword.isNotEmpty() && confirmPassword == newPassword) {
+                    val data = ProfileRequest(profileInfoResponse.firstName, lastname, newPassword)
+                    viewModel.setInfo(data)
+                } else {
+                    checkedEditable()
+                }
             }
-            if (lastname.isEmpty()) {
-                binding.eTEditLastnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
-                binding.tVErrorLastname.text = "Enter the lastname"
-            } else if (lastname.length < 3) {
-                binding.eTEditLastnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
-                binding.tVErrorLastname.text = "Lastname must be at least 3 letter"
-            }
+        }
+    }
+
+    private fun checkedEditable() {
+        val firstname = binding.eTEditFirstnameUser.text.toString()
+        val lastname = binding.eTEditLastnameUser.text.toString()
+        val oldPassword = binding.eTEditOldPasswordUser.text.toString()
+        val newPassword = binding.eTEditNewPasswordUser.text.toString()
+        val confirmPassword = binding.eTEditConfirmPasswordUser.text.toString()
+        if (firstname.isEmpty()) {
+            binding.eTEditFirstnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
+            binding.tVErrorFirstname.text = "Enter the firstname"
+        } else if (firstname.length < 3) {
+            binding.eTEditFirstnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
+            binding.tVErrorFirstname.text = "Firstname must be at least 3 letter"
+        }
+        if (lastname.isEmpty()) {
+            binding.eTEditLastnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
+            binding.tVErrorLastname.text = "Enter the lastname"
+        } else if (lastname.length < 3) {
+            binding.eTEditLastnameUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
+            binding.tVErrorLastname.text = "Lastname must be at least 3 letter"
+        }
+        if (isEditedNewPassword) {
             when {
                 oldPassword.isEmpty() -> {
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
@@ -228,7 +336,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVOldErrorPassword.text = "Password must be at least 6 characters"
                 }
-                oldPassword != password -> {
+                oldPassword != profileInfoResponse.password -> {
                     binding.eTEditOldPasswordUser.setBackgroundResource(R.drawable.background_custom_edittext_error)
                     binding.tVOldErrorPassword.text = "Password entered incorrectly"
                 }
@@ -252,6 +360,7 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
             }
         }
     }
+
     override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
         p2?.let {
             if (it.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER) {
@@ -261,5 +370,4 @@ class PersonalScreen : Fragment(R.layout.screen_settings_personal), View.OnKeyLi
         }
         return false
     }
-
 }

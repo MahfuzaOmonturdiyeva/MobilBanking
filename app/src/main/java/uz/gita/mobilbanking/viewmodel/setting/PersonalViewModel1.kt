@@ -15,6 +15,8 @@ interface PersonalViewModel1 {
     val notConnectionLiveData: LiveData<String>
     val progressLiveData: LiveData<Boolean>
     val messageLiveData: LiveData<String>
+    val logoutLiveData: LiveData<Unit>
+    val successSetInfoLiveData: LiveData<ProfileInfoResponse>
 
     fun getAvatar()
     fun setAvatar(file:File)

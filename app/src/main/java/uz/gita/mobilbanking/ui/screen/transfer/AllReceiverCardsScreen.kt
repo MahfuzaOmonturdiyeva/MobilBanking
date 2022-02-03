@@ -2,7 +2,10 @@ package uz.gita.mobilbanking.ui.screen.transfer
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -35,6 +38,9 @@ class AllReceiverCardsScreen : Fragment(R.layout.screen_transfer_all_cards) {
 
         viewModel.progressLiveData.observe(this, progressObserver)
         viewModel.notConnectionLiveData.observe(this,notConnectionObserver)
+        viewModel.logoutLiveData.observe(this){
+            findNavController().navigate(AllSenderCardsScreenDirections.actionGlobalLoginScreen())
+        }
         viewModel.allCardNotSenderLiveData.observe(this){
             adapter.submitList(it)
         }
@@ -44,6 +50,7 @@ class AllReceiverCardsScreen : Fragment(R.layout.screen_transfer_all_cards) {
         binding.imgBtnClose.setOnClickListener {
             findNavController().navigate(AllReceiverCardsScreenDirections.actionAllReceiverCardsScreenToTransfersScreen2())
         }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private val messageObserver = Observer<String> {
@@ -59,5 +66,10 @@ class AllReceiverCardsScreen : Fragment(R.layout.screen_transfer_all_cards) {
         if (it) {
             binding.progress.visibility = View.VISIBLE
         } else binding.progress.visibility = View.GONE
+    }
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            findNavController().navigate(AllReceiverCardsScreenDirections.actionAllReceiverCardsScreenToTransfersScreen2())
+        }
     }
 }

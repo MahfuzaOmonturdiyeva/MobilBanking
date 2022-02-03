@@ -36,6 +36,7 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
         viewModel.successVerifyLiveData.observe(this, successVerifyObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
+        viewModel.logoutLiveData.observe(this, logoutObserver)
         myReceiveSms.codeLiveData.observe(this, codeObserver)
         binding.progress.visibility = View.GONE
         onPerMissionState()
@@ -50,9 +51,19 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
         binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
             binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorCode.text = ""
+            text?.let {txt->
+                val code = txt.filter {
+                    it.isDigit()
+                }
+                if (code.length==6) {
+                    onClickBtnVerify()
+                }
+            }
         }
+    }
 
-//        binding.mETEditCodeUser.setOnKeyListener(this)
+    private val logoutObserver= Observer<Unit> {
+        findNavController().navigate(CardVerifyScreenDirections.actionGlobalLoginScreen())
     }
 
     private val successVerifyObserver = Observer<CardInfoResponse> {
@@ -66,7 +77,7 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
                 findNavController().navigate(CardVerifyScreenDirections.actionCardVerifyScreenToAllCardsScreen())
             }
             .setOkBtn(R.color.teal_500) {
-                findNavController().navigate(CardVerifyScreenDirections.actionCardVerifyScreenToMainScreen2())
+                findNavController().navigate(CardVerifyScreenDirections.actionGlobalMainScreen2())
             }
         dialog.build().show()
     }

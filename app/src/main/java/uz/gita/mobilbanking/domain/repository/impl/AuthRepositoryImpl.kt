@@ -16,6 +16,7 @@ class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
     private val localStorage: LocalStorage
 ) : AuthRepository {
+
     override val getPin: String
         get() = localStorage.pinCode
     override val getPhoneNumber: String
@@ -32,8 +33,9 @@ class AuthRepositoryImpl @Inject constructor(
                 localStorage.phoneNumberUser = data.phone
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                if (response.code() == 409)
-                    emit(MyResult.Message("Bunday foydalanuvchi allaqachon mavjud!"))
+                if (response.code() == 409) {
+                    emit(MyResult.Message<Unit>("Bunday foydalanuvchi allaqachon mavjud!"))
+                }else
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -49,11 +51,14 @@ class AuthRepositoryImpl @Inject constructor(
                     it.data?.let {
                         localStorage.accessToken = it.accessToken
                         localStorage.refreshToken = it.refreshToken
-                        localStorage.pinCode=""
+                        localStorage.pinCode = ""
                         emit(MyResult.Success<Unit>(Unit))
                     }
                 }
             } else {
+                if(response.code()==400){
+                    emit(MyResult.Message<Unit>("Kod noto'g'ri"))
+                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -69,11 +74,8 @@ class AuthRepositoryImpl @Inject constructor(
                 emit(MyResult.Success<Unit>(Unit))
             } else {
                 response.errorBody()?.let {
-                    val response = Gson().fromJson(
-                        it.string(),
-                        ResponseData::class.java
-                    )
-                    emit(MyResult.Message<Unit>(response.message!!))
+                    val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                    emit(MyResult.Message<Unit>(message.message!!))
                     return@liveData
                 }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
@@ -86,10 +88,16 @@ class AuthRepositoryImpl @Inject constructor(
     override fun userLogout(): LiveData<MyResult<Unit>> = liveData {
         try {
             val response = authApi.userLogout()
-            if (response.isSuccessful) {
-                emit(MyResult.Success<Unit>(Unit))
-            } else {
-                emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+            when {
+                response.isSuccessful -> {
+                    emit(MyResult.Success<Unit>(Unit))
+                }
+                response.code() == 401 -> {
+                    emit(MyResult.Logout<Unit>())
+                }
+                else -> {
+                    emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
+                }
             }
         } catch (e: IOException) {
             emit(MyResult.Error<Unit>(e))
@@ -115,14 +123,6 @@ class AuthRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 emit(MyResult.Success<Unit>(Unit))
             } else {
-                response.errorBody()?.let {
-                    val response = Gson().fromJson(
-                        it.string(),
-                        ResponseData::class.java
-                    )
-                    emit(MyResult.Message<Unit>(response.message!!))
-                    return@liveData
-                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -142,6 +142,11 @@ class AuthRepositoryImpl @Inject constructor(
                     }
                 }
             } else {
+                response.errorBody()?.let {
+                    val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                    emit(MyResult.Message<Unit>(message.message!!))
+                    return@liveData
+                }
                 emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
             }
         } catch (e: IOException) {
@@ -159,8 +164,8 @@ class AuthRepositoryImpl @Inject constructor(
                 response?.body()?.data?.let {
                     localStorage.accessToken = it.accessToken
                     localStorage.refreshToken = it.refreshToken
-                    if (localStorage.pinCode!="")
-                    emit(MyResult.Success<Unit>(Unit))
+                    if (localStorage.pinCode != "")
+                        emit(MyResult.Success<Unit>(Unit))
                     else emit(MyResult.Message<Unit>("server bilan bog'lanishda xatolik"))
                     return@liveData
                 }

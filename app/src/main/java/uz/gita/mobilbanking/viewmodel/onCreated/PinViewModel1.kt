@@ -7,6 +7,7 @@ interface PinViewModel1 {
     val errorLiveData: LiveData<String>
     val notConnectionLiveData: LiveData<String>
     val progressLiveData: LiveData<Boolean>
+    val logoutLiveData: LiveData<Unit>
 
     fun logout()
     fun isCorrectPin(pin: String): Boolean

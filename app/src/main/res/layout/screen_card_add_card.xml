@@ -159,7 +159,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/background_custom_edittext"
-                        android:inputType="phone"
                         android:lines="1"
                         android:maxLength="5"
                         android:maxLines="1"

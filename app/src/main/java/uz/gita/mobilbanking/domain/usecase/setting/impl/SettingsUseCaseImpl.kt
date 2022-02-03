@@ -10,6 +10,7 @@ import javax.inject.Inject
 class SettingsUseCaseImpl @Inject constructor(
     private val authRepository: AuthRepository,
 ) : SettingsUseCase {
+
     override val getPhoneNumber: String
         get() = authRepository.getPhoneNumber
 

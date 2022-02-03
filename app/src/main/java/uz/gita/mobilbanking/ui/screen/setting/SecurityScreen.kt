@@ -2,7 +2,9 @@ package uz.gita.mobilbanking.ui.screen.setting
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
@@ -14,12 +16,13 @@ class SecurityScreen : Fragment(R.layout.screen_settings_security) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.imgBtnClose.setOnClickListener {
-            val count: Int = requireActivity().supportFragmentManager.backStackEntryCount
-            if (count == 0) {
-                requireActivity().onBackPressed()
-            } else {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
+            findNavController().navigate(SecurityScreenDirections.actionSecurityScreenToSettingsScreen())
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(SecurityScreenDirections.actionSecurityScreenToSettingsScreen())
+            }
+        })
     }
 }

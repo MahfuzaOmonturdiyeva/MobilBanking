@@ -32,6 +32,7 @@ class AllCardsViewModelImpl @Inject constructor(
     override val successEditCardLiveData = MediatorLiveData<Unit>()
     override val successColorCardLiveData = MediatorLiveData<ColorResponse>()
     override var successIgnoreBalanceLiveData = MediatorLiveData<IgnoreBalanceResponse>()
+    override val logoutLiveData=MediatorLiveData<Unit>()
     override val provideCardInfoResponseLiveData: MutableLiveData<CardInfoResponse> by lazy {
         MutableLiveData<CardInfoResponse>()
     }
@@ -67,6 +68,7 @@ class AllCardsViewModelImpl @Inject constructor(
                     is MyResult.Success -> joinAllCardsLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -84,6 +86,7 @@ class AllCardsViewModelImpl @Inject constructor(
                     is MyResult.Success -> successDeleteCardLiveData.value = Unit
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -99,6 +102,7 @@ class AllCardsViewModelImpl @Inject constructor(
                     is MyResult.Success -> successEditCardLiveData.value = Unit
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -116,6 +120,7 @@ class AllCardsViewModelImpl @Inject constructor(
                     is MyResult.Success -> successColorCardLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }
@@ -137,6 +142,7 @@ class AllCardsViewModelImpl @Inject constructor(
                     is MyResult.Success -> successIgnoreBalanceLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
                 }
             }
         }

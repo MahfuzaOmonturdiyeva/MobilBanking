@@ -22,6 +22,7 @@ class PinScreen : Fragment(R.layout.screen_pin) {
     private val binding by viewBinding(ScreenPinBinding::bind)
     private var pin = ""
     private val viewModel: PinViewModel1Impl by viewModels()
+    private var countUserEnteredCodes=0
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,6 +128,12 @@ class PinScreen : Fragment(R.layout.screen_pin) {
                 }
             }
             else -> {
+                countUserEnteredCodes++;
+                if(countUserEnteredCodes==4){
+                    findNavController().navigate(PinScreenDirections.actionPinScreenToLoginScreen())
+                }
+                showToast("Number of attempts ${4-countUserEnteredCodes}")
+
                 binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin3.setImageResource(R.drawable.ic_circle_line)

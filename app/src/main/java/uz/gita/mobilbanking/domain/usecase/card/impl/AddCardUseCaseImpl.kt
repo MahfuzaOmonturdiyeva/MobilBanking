@@ -10,10 +10,14 @@ import javax.inject.Inject
 
 class AddCardUseCaseImpl @Inject constructor(
     private val cardRepository: CardRepository
-): AddCardUseCase {
-    override var favoriteCardId: Int
-        get()=cardRepository.favoriteCardId
-        set(value) {cardRepository.favoriteCardId=value}
+) : AddCardUseCase {
 
-    override fun addOneCard(addCardRequest: AddCardRequest): LiveData<MyResult<Unit>> =cardRepository.addCard(addCardRequest)
+    override var favoriteCardId: Int
+        get() = cardRepository.favoriteCardId
+        set(value) {
+            cardRepository.favoriteCardId = value
+        }
+
+    override fun addOneCard(addCardRequest: AddCardRequest): LiveData<MyResult<Unit>> =
+        cardRepository.addCard(addCardRequest)
 }

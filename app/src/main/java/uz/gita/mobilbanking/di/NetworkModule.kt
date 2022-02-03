@@ -15,7 +15,9 @@ import uz.gita.mobilbanking.data.request.ResetRequest
 import uz.gita.mobilbanking.data.source.local.LocalStorage
 import uz.gita.mobilbanking.data.source.remote.api.api.AuthApi
 import javax.inject.Singleton
-private val BASE_URL1="https://22c4-185-163-26-155.ngrok.io"
+
+private val BASE_URL1 = "http://4d1a-217-30-173-145.ngrok.io"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -69,15 +71,18 @@ class NetworkModule {
             ).execute()
 
             refreshResponse.apply {
+                if(code()==401){
+                    return null
+                }
                 if (isSuccessful) {
                     body()?.data?.let {
                         localStorage.accessToken = it.accessToken
                         localStorage.refreshToken = it.refreshToken
 
-                        request = refreshResponse.raw().request
+                        request = response.request
                             .newBuilder()
-                            .removeHeader("refresh_token")
-                            .addHeader("refresh_token", it.refreshToken)
+                            .removeHeader("token")
+                            .addHeader("token", it.accessToken)
                             .build()
                     }
                 }
