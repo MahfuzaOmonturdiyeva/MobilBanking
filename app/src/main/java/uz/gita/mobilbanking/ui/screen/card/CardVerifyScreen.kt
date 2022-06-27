@@ -10,10 +10,15 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import ru.ldralighieri.corbind.widget.textChanges
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.broadcast.ReceiveSms
 import uz.gita.mobilbanking.data.request.*
@@ -40,7 +45,6 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
         myReceiveSms.codeLiveData.observe(this, codeObserver)
         binding.progress.visibility = View.GONE
         onPerMissionState()
-        binding.imgBtnClose.visibility = View.VISIBLE
         binding.tVTimer.visibility = View.INVISIBLE
         binding.btnResend.visibility = View.INVISIBLE
 
@@ -48,20 +52,19 @@ class CardVerifyScreen : Fragment(R.layout.screen_auth_verify) {
             onClickBtnVerify()
         }
 
-        binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
+        binding.mETEditCodeUser.textChanges().debounce(1000).onEach {
             binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorCode.text = ""
-            text?.let {txt->
+            it?.let { txt ->
                 val code = txt.filter {
                     it.isDigit()
                 }
-                if (code.length==6) {
+                if (code.length == 6) {
                     onClickBtnVerify()
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
-
     private val logoutObserver= Observer<Unit> {
         findNavController().navigate(CardVerifyScreenDirections.actionGlobalLoginScreen())
     }

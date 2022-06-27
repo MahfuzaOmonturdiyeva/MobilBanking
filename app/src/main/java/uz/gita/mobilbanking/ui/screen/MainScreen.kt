@@ -35,6 +35,9 @@ class MainScreen : Fragment(R.layout.screen_main) {
         viewModel.messageLiveData.observe(this, messageObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
 
+        binding.swRefresh.setOnRefreshListener {
+            viewModel.getMains()
+        }
         binding.imgBtnSettings.setOnClickListener {
             findNavController().navigate(MainScreenDirections.actionMainScreen2ToSettingsScreen())
         }
@@ -90,14 +93,16 @@ class MainScreen : Fragment(R.layout.screen_main) {
         } else binding.progress.visibility = View.GONE
     }
     private val getFavoriteCardObserver = Observer<CardInfoResponse> {
-        if (!it.ignoreBalance)
-            binding.tvBalanceCard.text = it.balance.toString()
-        else {
-            binding.tvBalanceCard.text = "Balance"
-            binding.tvTextUzs.visibility = View.INVISIBLE
+        it?.let {
+            if (!it.ignoreBalance)
+                binding.tvBalanceCard.text = it.balance.toString()
+            else {
+                binding.tvBalanceCard.text = "Balance"
+                binding.tvTextUzs.visibility = View.INVISIBLE
+            }
+            binding.tvNameCard.text = it.cardName
+            binding.tvCardNumber.text = it.pan.substring(12, 16)
         }
-        binding.tvNameCard.text = it.cardName
-        binding.tvCardNumber.text = it.pan.substring(12, 16)
     }
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {

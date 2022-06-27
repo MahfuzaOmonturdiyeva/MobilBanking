@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
-import uz.gita.mobilbanking.ui.screen.onCreated.PinScreenDirections
 import uz.gita.mobilbanking.utils.showToast
 import uz.gita.mobilbanking.viewmodel.auth.impl.ConfirmPinViewModel1Impl
 
@@ -29,6 +28,7 @@ class ConFirmPinScreen : Fragment(R.layout.screen_pin) {
         binding.tvTitle.text = "Re-enter the PIN"
         binding.btnChangePin.visibility = View.INVISIBLE
         binding.btnLogout.visibility = View.INVISIBLE
+        binding.lineFinger.visibility=View.INVISIBLE
 
         binding.faBtn0.setOnClickListener {
             onChangedNumber("0")

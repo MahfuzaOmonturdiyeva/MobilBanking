@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/_16sdp"
-    android:background="@color/white"
+    style="@style/container_all_cards"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
     tools:context=".ui.screen.auth.VerifyScreen">
@@ -21,64 +18,33 @@
 
             <FrameLayout
                 android:id="@+id/app_b"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:paddingBottom="@dimen/_8sdp"
+                style="@style/app_b"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/verify"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/img_btn_close"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_gravity="end"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_close"
-                    android:visibility="gone" />
+                    style="@style/app_b_description"
+                    android:text="@string/verify" />
             </FrameLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="@color/grey_700"
-                app:layout_constraintTop_toBottomOf="@id/app_b" />
+                style="@style/app_b_liner"
+                app:layout_constraintTop_toBottomOf="@id/app_b"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
             <TextView
                 android:id="@+id/t_v_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:text="Enter sms kod"
+                android:text="@string/enter_sms_kod"
                 app:layout_constraintBottom_toTopOf="@id/m_e_t_edit_code_user"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <br.com.sapereaude.maskedEditText.MaskedEditText
                 android:id="@+id/m_e_t_edit_code_user"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/background_custom_edittext"
-                android:lines="1"
-                android:maxLength="8"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textAlignment="center"
-                android:textColor="@color/teal_500"
+                style="@style/met_verify_code"
                 app:layout_constraintBottom_toTopOf="@id/t_v_error_code"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -87,13 +53,9 @@
 
             <TextView
                 android:id="@+id/t_v_error_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/tv_error"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:textColor="@color/red_400"
-                android:textSize="8sp"
                 app:layout_constraintBottom_toTopOf="@id/btn_resend"
                 app:layout_constraintLeft_toLeftOf="@id/m_e_t_edit_code_user" />
 
@@ -114,10 +76,8 @@
 
             <TextView
                 android:id="@+id/t_v_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:text="bxvcbnm"
                 android:textColor="@color/red_400"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -125,14 +85,11 @@
 
             <Button
                 android:id="@+id/btn_verify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/click_effect_custom_button"
-                android:padding="@dimen/_14sdp"
+                style="@style/btn_bottom"
                 android:text="@string/next"
                 app:backgroundTint="@null"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
@@ -146,8 +103,8 @@
 
             <androidx.core.widget.ContentLoadingProgressBar
                 style="?android:attr/progressBarStyleLarge"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_56sdp"
                 android:layout_gravity="center" />
         </FrameLayout>
     </FrameLayout>

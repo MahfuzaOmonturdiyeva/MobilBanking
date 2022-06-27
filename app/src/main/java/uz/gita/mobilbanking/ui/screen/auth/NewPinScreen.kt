@@ -8,8 +8,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.databinding.ScreenPinBinding
-import uz.gita.mobilbanking.ui.screen.onCreated.PinScreenDirections
-import uz.gita.mobilbanking.utils.showToast
 
 @AndroidEntryPoint
 class NewPinScreen : Fragment(R.layout.screen_pin) {
@@ -20,6 +18,7 @@ class NewPinScreen : Fragment(R.layout.screen_pin) {
         binding.tvTitle.text = "Enter a new PIN"
         binding.btnChangePin.visibility = View.INVISIBLE
         binding.btnLogout.visibility = View.INVISIBLE
+        binding.lineFinger.visibility=View.INVISIBLE
 
         binding.faBtn0.setOnClickListener {
             onChangedNumber("0")

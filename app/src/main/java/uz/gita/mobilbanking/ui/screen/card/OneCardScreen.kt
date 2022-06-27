@@ -193,6 +193,7 @@ class OneCardScreen : Fragment(R.layout.screen_card_one_card) {
                 bottomSheetDialog.dismiss()
             }
         }
+
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
         bottomSheetDialog.setOnDismissListener {

@@ -18,9 +18,7 @@
             app:destination="@id/resetScreen" />
         <action
             android:id="@+id/action_loginScreen_to_verifyScreen"
-            app:destination="@id/verifyScreen"
-            app:popUpTo="@id/app_navigation"
-            app:popUpToInclusive="true" />
+            app:destination="@id/verifyScreen" />
     </fragment>
     <fragment
         android:id="@+id/registerScreen"
@@ -64,11 +62,6 @@
         android:name="uz.gita.mobilbanking.ui.screen.onCreated.PinScreen"
         android:label="screen_pin"
         tools:layout="@layout/screen_pin" >
-        <action
-            android:id="@+id/action_pinScreen_to_loginScreen"
-            app:destination="@id/loginScreen"
-            app:popUpTo="@id/app_navigation"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_pinScreen_to_mainScreen2"
             app:destination="@id/mainScreen2"

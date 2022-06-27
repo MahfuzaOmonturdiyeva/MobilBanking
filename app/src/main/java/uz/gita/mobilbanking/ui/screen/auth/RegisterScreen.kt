@@ -29,7 +29,7 @@ class RegisterScreen : Fragment(R.layout.screen_auth_register), View.OnKeyListen
         viewModel.openVerifyLiveData.observe(this, openVerifyObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
-        binding.progress.visibility = View.GONE
+        binding.progress.root.visibility = View.GONE
 
         binding.btnRegister.setOnClickListener {
             onClickBtnRegistration()
@@ -76,8 +76,8 @@ class RegisterScreen : Fragment(R.layout.screen_auth_register), View.OnKeyListen
     }
     private val progressObserver = Observer<Boolean> {
         if (it) {
-            binding.progress.visibility = View.VISIBLE
-        } else binding.progress.visibility = View.GONE
+            binding.progress.root.visibility = View.VISIBLE
+        } else binding.progress.root.visibility = View.GONE
     }
 
     private fun onClickBtnRegistration() {

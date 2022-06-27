@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_16sdp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_margin="@dimen/_16sdp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
+            android:text=""
             android:textAlignment="center"
-            android:text="jnfjnv"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -31,37 +28,35 @@
 
         <TextView
             android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:text="dcjhjjsdhvghbjnkjbhdvbjklsdjhvgjk"
+            android:text=""
             android:textAlignment="center"
             android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/line_btns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/match_wrap">
 
             <Button
                 android:id="@+id/btn_cancel"
-                app:backgroundTint="@null"
-                android:background="@drawable/click_effect_text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/click_effect_text_button"
+                android:text="@string/cancel"
                 android:textColor="@color/black"
-                android:text="cancel"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btn_ok"
-                app:backgroundTint="@null"
-               android:background="@drawable/click_effect_text_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/click_effect_text_button"
+                android:text="@string/ok"
                 android:textColor="@color/black"
-                android:text="Ok" />
+                app:backgroundTint="@null" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

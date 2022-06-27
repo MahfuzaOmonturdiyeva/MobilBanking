@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_one_card_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:layout_margin="@dimen/_16sdp"
     android:background="@color/white"
     android:clickable="true"
@@ -14,28 +13,24 @@
 
     <LinearLayout
         android:id="@+id/cv_one_card1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/match_match">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_margin="@dimen/_16sdp">
 
             <ImageView
                 android:id="@+id/img_icon_one_card_item"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
+                style="@style/w_24_h_24"
                 android:src="@drawable/ic_credit_card"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_bank_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_4sdp"
-                android:text="CARD"
+                style="@style/wrap_wrap"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/card"
                 android:textColor="@color/teal_300"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -45,14 +40,13 @@
 
             <TextView
                 android:id="@+id/tv_name_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:editable="false"
                 android:lines="1"
                 android:maxLength="24"
                 android:maxLines="1"
-                android:text="UZCARD"
+                android:text="@string/uzcard"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@id/tv_pan_one_card_item"
@@ -62,39 +56,33 @@
 
             <TextView
                 android:id="@+id/tv_pan_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8600 14** **** 0748"
+                style="@style/wrap_wrap"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name_one_card_item" />
 
             <ImageView
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:layout_marginLeft="@dimen/_8sdp"
+                style="@style/w_16_h_16"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:clickable="true"
                 android:focusable="true"
-                android:visibility="gone"
                 android:src="@drawable/ic_copy"
+                android:visibility="gone"
                 app:layout_constraintLeft_toRightOf="@id/tv_pan_one_card_item"
                 app:layout_constraintTop_toTopOf="@id/tv_pan_one_card_item" />
 
             <TextView
                 android:id="@+id/tv_validity_date_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10/23"
+                style="@style/wrap_wrap"
                 android:textSize="16sp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_pan_one_card_item" />
 
             <TextView
                 android:id="@+id/tv_balance_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:text="190 319"
+                android:text=""
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/img_uzcard_one_card_item"
@@ -102,18 +90,16 @@
 
             <TextView
                 android:id="@+id/tv_text_uzs_one_card_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:text="UZS"
+                android:text="@string/uzs"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/img_uzcard_one_card_item"
                 app:layout_constraintLeft_toRightOf="@id/tv_balance_one_card_item" />
 
             <ImageView
                 android:id="@+id/img_uzcard_one_card_item"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
+                style="@style/w_32_h_32"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:src="@drawable/ic_uzcard"
                 app:layout_constraintRight_toRightOf="parent"
@@ -121,8 +107,7 @@
 
             <ImageView
                 android:id="@+id/img_humo_one_card_item"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
+                style="@style/w_32_h_32"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:src="@drawable/ic_humo"
                 app:layout_constraintRight_toLeftOf="@id/img_uzcard_one_card_item"

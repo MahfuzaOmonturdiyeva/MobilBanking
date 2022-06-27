@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:layout_margin="@dimen/_16sdp"
     android:background="@color/white"
     android:clickable="true"
@@ -12,124 +11,114 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_container_cards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/match_wrap">
 
 
-            <LinearLayout
-                android:id="@+id/line_card"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/line_card"
+            style="@style/match_wrap"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_weight="3"
-                    android:text="Cards"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="@dimen/_16sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:src="@drawable/ic_right_arrow" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey_200"
-                app:layout_constraintTop_toBottomOf="@id/line_card" />
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_weight="3"
+                android:text="@string/cards"
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/img_star"
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:src="@drawable/ic_star"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/img_card"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/img_card"
-                app:layout_constraintTop_toTopOf="@id/img_card" />
-
-            <ImageView
-                android:id="@+id/img_card"
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:src="@drawable/ic_credit_card"
-                app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
-                app:layout_constraintLeft_toRightOf="@id/img_star"
-                app:layout_constraintRight_toLeftOf="@id/tv_name_card"
-                app:layout_constraintTop_toTopOf="@id/tv_name_card" />
-
-            <TextView
-                android:id="@+id/tv_name_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:lines="1"
-                android:maxLength="22"
-                android:maxLines="1"
-                android:text="Edd your card here"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toTopOf="@id/tv_balance_card"
-                app:layout_constraintLeft_toRightOf="@id/img_card"
-                app:layout_constraintTop_toBottomOf="@id/line_card" />
-
-            <TextView
-                android:id="@+id/tv_balance_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/tv_name_card"
-                app:layout_constraintTop_toBottomOf="@id/tv_name_card" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:text="UZS"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
-                app:layout_constraintLeft_toRightOf="@id/tv_balance_card" />
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="* "
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
-                app:layout_constraintRight_toLeftOf="@id/tv_card_number"
-                app:layout_constraintTop_toTopOf="@id/tv_name_card" />
-
-            <TextView
-                android:id="@+id/tv_card_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/w_24_h_24"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:text="0000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_name_card" />
+                android:src="@drawable/ic_right_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_200"
+            app:layout_constraintTop_toBottomOf="@id/line_card" />
+
+        <ImageView
+            android:id="@+id/img_star"
+            style="@style/w_16_h_16"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:src="@drawable/ic_star"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/img_card"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/img_card"
+            app:layout_constraintTop_toTopOf="@id/img_card" />
+
+        <ImageView
+            android:id="@+id/img_card"
+            style="@style/w_16_h_16"
+            android:layout_margin="@dimen/_4sdp"
+            android:src="@drawable/ic_credit_card"
+            app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
+            app:layout_constraintLeft_toRightOf="@id/img_star"
+            app:layout_constraintRight_toLeftOf="@id/tv_name_card"
+            app:layout_constraintTop_toTopOf="@id/tv_name_card" />
+
+        <TextView
+            android:id="@+id/tv_name_card"
+            style="@style/wrap_wrap"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:lines="1"
+            android:maxLength="22"
+            android:maxLines="1"
+            android:text="@string/add_your_card_here"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@id/tv_balance_card"
+            app:layout_constraintLeft_toRightOf="@id/img_card"
+            app:layout_constraintTop_toBottomOf="@id/line_card" />
+
+        <TextView
+            android:id="@+id/tv_balance_card"
+            style="@style/wrap_wrap"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:text="@string/_0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tv_name_card"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_card" />
+
+        <TextView
+            style="@style/wrap_wrap"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:text="@string/uzs"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
+            app:layout_constraintLeft_toRightOf="@id/tv_balance_card" />
+
+        <TextView
+            android:id="@+id/tv"
+            style="@style/wrap_wrap"
+            android:text="@string/star_text"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
+            app:layout_constraintRight_toLeftOf="@id/tv_card_number"
+            app:layout_constraintTop_toTopOf="@id/tv_name_card" />
+
+        <TextView
+            android:id="@+id/tv_card_number"
+            style="@style/wrap_wrap"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@string/_0000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_balance_card"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_name_card" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

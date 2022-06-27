@@ -111,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_2sdp"
-                        android:textColor="@color/red_400"
+                        android:textColor="@color/teal_300"
                         android:textSize="8sp"
                         app:layout_constraintLeft_toLeftOf="@id/met_edit_pan_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card" />

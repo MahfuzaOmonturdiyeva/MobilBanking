@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:id="@+id/screen_offline">
+
+    <ImageView
+        android:layout_width="@dimen/_256sdp"
+        android:layout_height="@dimen/_256sdp"
+        android:src="@drawable/offline"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_16sdp"/>
+    <TextView
+        android:layout_margin="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPS, internet problem!\nTurn on your mobile internet or wifi"
+        android:textAlignment="center"
+        android:textColor="@color/teal_300"
+        android:textSize="24sp"/>
+
+</LinearLayout>

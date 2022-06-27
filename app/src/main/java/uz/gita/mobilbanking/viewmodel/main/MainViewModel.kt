@@ -13,4 +13,5 @@ interface MainViewModel {
     var ignoreTotalSum: Boolean
     var favoriteCardId: Int
     val logoutLiveData: LiveData<Unit>
+    fun getMains()
 }

@@ -18,7 +18,6 @@ interface TransferApi {
     @GET("/api/v1/money-transfer/fee")
     suspend fun fee(
         @Query("sender") sender: Int,
-        @Query("receiverPan") receiverPan: String,
         @Query("amount") amount:Double
     ): Response<ResponseData<Double>>
 

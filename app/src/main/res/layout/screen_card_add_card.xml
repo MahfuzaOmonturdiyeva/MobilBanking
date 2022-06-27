@@ -3,92 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/_16sdp"
-    android:background="@color/white"
+    style="@style/container_all_cards"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_24sdp"
     tools:context="ui.screen.card.AddCardScreen">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <FrameLayout style="@style/match_match">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/screen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/match_match">
 
             <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_match"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/match_wrap">
 
                     <FrameLayout
                         android:id="@+id/app_b"
-                        android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:paddingStart="@dimen/_16sdp"
-                        android:paddingTop="@dimen/_8sdp"
-                        android:paddingEnd="@dimen/_16sdp"
-                        android:paddingBottom="@dimen/_8sdp"
+                        style="@style/app_b"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Add card"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                            style="@style/app_b_description"
+                            android:text="@string/add_card" />
 
                         <ImageButton
                             android:id="@+id/img_btnClose"
-                            android:layout_width="@dimen/_24sdp"
-                            android:layout_height="@dimen/_24sdp"
-                            android:layout_gravity="center_vertical|end"
-                            android:background="@android:color/transparent"
+                            style="@style/app_b_btn_close"
                             android:src="@drawable/ic_close" />
                     </FrameLayout>
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:background="@color/grey_700"
-                        app:layout_constraintTop_toBottomOf="@id/app_b" />
+                        style="@style/app_b_liner"
+                        app:layout_constraintTop_toBottomOf="@id/app_b"
+                        tools:ignore="MissingConstraints" />
 
                     <TextView
                         android:id="@+id/tv_pan_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="Card nomber"
+                        android:text="@string/card_number"
                         app:layout_constraintLeft_toLeftOf="@id/app_b"
                         app:layout_constraintTop_toBottomOf="@id/app_b" />
 
                     <br.com.sapereaude.maskedEditText.MaskedEditText
                         android:id="@+id/met_edit_pan_card"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:background="@drawable/background_custom_edittext"
-                        android:inputType="phone"
-                        android:lines="1"
-                        android:maxLength="19"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/teal_500"
+                        style="@style/met_pan_card"
                         app:layout_constraintLeft_toLeftOf="@id/tv_pan_card"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_pan_card"
@@ -97,60 +63,40 @@
 
                     <TextView
                         android:id="@+id/tv_error_pan_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_2sdp"
-                        android:textColor="@color/red_400"
-                        android:textSize="8sp"
+                        style="@style/tv_error"
                         app:layout_constraintLeft_toLeftOf="@id/met_edit_pan_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card" />
 
                     <TextView
                         android:id="@+id/tv_validity_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Validity"
+                        style="@style/wrap_wrap"
+                        android:text="@string/validity"
+                        android:layout_marginEnd="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="@id/met_edit_validity_card"
-                        app:layout_constraintLeft_toLeftOf="@id/met_edit_pan_card"
+                        app:layout_constraintRight_toLeftOf="@id/met_edit_validity_card"
                         app:layout_constraintTop_toTopOf="@id/met_edit_validity_card" />
 
                     <br.com.sapereaude.maskedEditText.MaskedEditText
                         android:id="@+id/met_edit_validity_card"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:background="@drawable/background_custom_edittext"
-                        android:inputType="phone"
-                        android:lines="1"
-                        android:maxLength="5"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textAlignment="center"
-                        android:textColor="@color/teal_500"
-                        app:layout_constraintLeft_toRightOf="@id/tv_validity_card"
+                        style="@style/met_verify_code"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintRight_toRightOf="@id/met_edit_pan_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_pan_card"
                         app:mask="##/##"
                         mask:allowed_chars="1234567890" />
 
                     <TextView
                         android:id="@+id/tv_error_validity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_2sdp"
-                        android:textColor="@color/red_400"
-                        android:textSize="8sp"
+                        style="@style/tv_error"
                         app:layout_constraintLeft_toLeftOf="@id/met_edit_validity_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_validity_card" />
 
                     <TextView
                         android:id="@+id/tv_name_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="Card name"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_validity_card"
+                        android:text="@string/card_name"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_pan_card"
                         app:layout_constraintTop_toBottomOf="@id/met_edit_validity_card" />
 
                     <EditText
@@ -160,7 +106,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/background_custom_edittext"
                         android:lines="1"
-                        android:maxLength="5"
+                        android:maxLength="14"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@color/teal_500"
@@ -168,14 +114,15 @@
                         app:layout_constraintRight_toRightOf="@id/met_edit_pan_card"
                         app:layout_constraintTop_toBottomOf="@id/tv_name_card" />
 
+
                     <TextView
                         android:id="@+id/tv_favorite_card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Make the card basic"
+                        android:text="@string/make_the_card_basic"
                         app:layout_constraintBottom_toBottomOf="@id/img_btn_favorite_card_checked"
                         app:layout_constraintLeft_toLeftOf="parent"
-                       app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/img_btn_favorite_card_checked" />
 
                     <ImageButton
@@ -239,6 +186,6 @@
                 android:layout_height="@dimen/_56sdp"
                 android:layout_gravity="center" />
         </FrameLayout>
-    </FrameLayout>
 
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

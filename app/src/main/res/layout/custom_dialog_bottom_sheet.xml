@@ -1,103 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/bottom_sheet_container"
+    style="@style/match_wrap"
     android:background="@drawable/background_bottom_sheet_dialog"
-    android:id="@+id/bottom_sheet_container">
+    android:orientation="vertical">
+
     <TextView
-        android:gravity="center"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_margin="@dimen/_8sdp"
-        android:text="Select color card"/>
+        android:gravity="center"
+        android:text="@string/select_color_card"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/btn_color0"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/white"
-        android:layout_margin="@dimen/_4sdp"
-        />
+
+        <Button
+            android:id="@+id/btn_color0"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/white"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color1"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color1"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color2"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color2"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color3"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color3"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color4"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color4"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color5"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color5"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color6"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color6"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btn_color7"
+            style="@style/custom_bottom_sheet_btn_colors"
+            android:background="@color/card_color7"
+            app:backgroundTint="@null" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btn_color1"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color1"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color2"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color2"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color3"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color3"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color4"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color4"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color5"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color5"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color6"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color6"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    <Button
-        android:id="@+id/btn_color7"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="@dimen/_24sdp"
-        app:backgroundTint="@null"
-        android:background="@color/card_color7"
-        android:layout_margin="@dimen/_4sdp"
-        />
-    </LinearLayout>
-    <Button
         android:id="@+id/btn_set_card_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_gravity="end"
-        app:backgroundTint="@null"
-        android:text="Set card color"
-        android:background="@drawable/click_effect_custom_button_with_top_corners"/>
+        android:background="@drawable/click_effect_custom_button_with_top_corners"
+        android:text="@string/set_card_color"
+        app:backgroundTint="@null" />
 
 </LinearLayout>

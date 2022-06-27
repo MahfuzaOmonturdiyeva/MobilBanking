@@ -33,11 +33,27 @@ class TransfersViewModelImpl @Inject constructor(
     override val receiverPanWithMyCards = MediatorLiveData<String>()
     override val allCardNotSenderLiveData=MediatorLiveData<List<CardInfoResponse>>()
     override val logoutLiveData=MediatorLiveData<Unit>()
+    override val ownerCardLiveData=MediatorLiveData<String>()
+    override val notFoundOwnerCardLiveData=MediatorLiveData<String>()
+    override val notEnoughMoneyLivedata=MediatorLiveData<String>()
+    override val saverPanLiveData=MediatorLiveData<String>()
+    override val amountLiveData=MediatorLiveData<String>()
 
     override fun setSenderId(id:Int){
         viewModelScope.launch {
             isSenderNull=false
             senderIdLiveData.value=id
+        }
+    }
+    override fun setSaverPan(pan:String){
+        viewModelScope.launch {
+            saverPanLiveData.value=pan
+        }
+    }
+
+    override fun setAmount(amount:String){
+        viewModelScope.launch {
+            amountLiveData.value=amount
         }
     }
     override fun setReceiverPan(pan:String) {
@@ -91,6 +107,28 @@ class TransfersViewModelImpl @Inject constructor(
                 when (it) {
                     is MyResult.Success -> allCardsLiveData.value = it.data!!
                     is MyResult.Message -> messageLiveData.value = it.data
+                    is MyResult.Error -> errorLiveData.value = it.error.toString()
+                    is MyResult.Logout->logoutLiveData.value=Unit
+                }
+            }
+        }
+    }
+
+    override fun getCardOwnerByPan(pan:String) {
+        viewModelScope.launch {
+            if (!isConnected()) {
+                notConnectionLiveData.value = "Internet not connection"
+            }
+            progressLiveData.value = true
+            ownerCardLiveData.addSource(transfersUseCase.getCardOwnerByPan(pan)) {
+                progressLiveData.value = false
+                when (it) {
+                    is MyResult.Success -> ownerCardLiveData.value=it.data.fio
+                    is MyResult.Message -> {
+                        if(it.data=="401"){
+                            notFoundOwnerCardLiveData.value="The card is not available"
+                        }else
+                        messageLiveData.value = it.data}
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                     is MyResult.Logout->logoutLiveData.value=Unit
                 }
@@ -152,12 +190,14 @@ class TransfersViewModelImpl @Inject constructor(
             if (!isConnected()) {
                 notConnectionLiveData.value = "Internet not connection"
             }
-            progressLiveData.value = true
             successFeeLiveData.addSource(transfersUseCase.fee(feeRequest)) {
-                progressLiveData.value = false
                 when (it) {
                     is MyResult.Success -> successFeeLiveData.value = it.data!!
-                    is MyResult.Message -> messageLiveData.value = it.data
+                    is MyResult.Message -> {
+                        if(it.data=="401")
+                            notEnoughMoneyLivedata.value="Not enough money"
+                        else
+                        messageLiveData.value = it.data}
                     is MyResult.Error -> errorLiveData.value = it.error.toString()
                     is MyResult.Logout->logoutLiveData.value=Unit
                 }

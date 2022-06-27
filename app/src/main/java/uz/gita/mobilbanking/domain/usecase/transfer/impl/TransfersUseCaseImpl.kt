@@ -3,6 +3,7 @@ package uz.gita.mobilbanking.domain.usecase.transfer.impl
 import androidx.lifecycle.LiveData
 import uz.gita.mobilbanking.data.common.MyResult
 import uz.gita.mobilbanking.data.request.FeeRequest
+import uz.gita.mobilbanking.data.request.OwnerByPanRequest
 import uz.gita.mobilbanking.data.request.SendMoneyRequest
 import uz.gita.mobilbanking.data.response.SendMoneyResponse
 import uz.gita.mobilbanking.domain.repository.CardRepository
@@ -18,6 +19,8 @@ class TransfersUseCaseImpl @Inject constructor(
         get() = cardRepository.favoriteCardId
 
     override fun getAllCards() = cardRepository.getAllCard()
+
+    override fun getCardOwnerByPan(pan:String) = cardRepository.ownerByPan(OwnerByPanRequest(pan))
 
 
     override fun sendMoney(data: SendMoneyRequest): LiveData<MyResult<SendMoneyResponse>> =

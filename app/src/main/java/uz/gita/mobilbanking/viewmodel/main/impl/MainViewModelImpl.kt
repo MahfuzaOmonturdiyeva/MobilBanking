@@ -36,6 +36,9 @@ class MainViewModelImpl @Inject constructor(
         }
 
     init {
+        getMains()
+    }
+    override fun getMains(){
         viewModelScope.launch {
             if (!isConnected()) {
                 notConnectionLiveData.value = "Internet not connection"
@@ -56,9 +59,10 @@ class MainViewModelImpl @Inject constructor(
                     is MyResult.Success -> {
                         when {
                             favoriteCardId == -1 -> {
+                                if(it.data.isNotEmpty()){
                                 getFavoriteCardLiveData.value = it.data[0]
                                 isFavorite = true
-                                return@addSource
+                                return@addSource}
                             }
                             it.data.size == 1 -> {
                                 getFavoriteCardLiveData.value = it.data[0]
@@ -77,6 +81,7 @@ class MainViewModelImpl @Inject constructor(
                             }
                         }
                         if (!isFavorite) {
+                            if(it.data.isNotEmpty())
                             getFavoriteCardLiveData.value = it.data[0]
                         }
                     }

@@ -5,7 +5,6 @@ import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
 import nl.qbusict.cupboard.BuildConfig
 import timber.log.Timber
-import uz.gita.mobilbanking.data.source.local.LocalStorage
 
 @HiltAndroidApp
 class App : Application() {

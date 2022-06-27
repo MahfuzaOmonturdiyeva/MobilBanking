@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,7 +17,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import ru.ldralighieri.corbind.widget.textChanges
 import uz.gita.mobilbanking.R
 import uz.gita.mobilbanking.broadcast.ReceiveSms
 import uz.gita.mobilbanking.data.request.LoginRequest
@@ -57,19 +60,18 @@ class VerifyScreen : Fragment(R.layout.screen_auth_verify) {
         binding.btnResend.setOnClickListener {
             viewModel.resend(LoginRequest(navArgs.phone, navArgs.password))
         }
-
-        binding.mETEditCodeUser.doOnTextChanged { text, start, before, count ->
+        binding.mETEditCodeUser.textChanges().debounce(1000).onEach {
             binding.mETEditCodeUser.setBackgroundResource(R.drawable.background_custom_edittext)
             binding.tVErrorCode.text = ""
-            text?.let {txt->
+            it?.let { txt ->
                 val code = txt.filter {
                     it.isDigit()
                 }
-                if (code.length==6) {
+                if (code.length == 6) {
                     onClickBtnVerify()
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private val errorObserver = Observer<String> {

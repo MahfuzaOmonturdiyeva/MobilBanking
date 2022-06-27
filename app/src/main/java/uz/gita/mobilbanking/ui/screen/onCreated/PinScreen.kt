@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,13 +25,19 @@ class PinScreen : Fragment(R.layout.screen_pin) {
     private val binding by viewBinding(ScreenPinBinding::bind)
     private var pin = ""
     private val viewModel: PinViewModel1Impl by viewModels()
-    private var countUserEnteredCodes=0
+    private var countUserEnteredCodes = 0
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        callBiometricFinger()
         binding.tvTitle.text = "Enter the PIN"
         binding.btnChangePin.setOnClickListener {
             //       findNavController().navigate(PinScreenDirections.actionPinScreenToNewPinScreen())
+        }
+
+        binding.lineFinger.visibility = View.VISIBLE
+        binding.faBtnFinger.setOnClickListener {
+            callBiometricFinger()
         }
         binding.btnLogout.setOnClickListener {
             val dialog = CustomDialog.Builder(requireContext())
@@ -129,10 +138,10 @@ class PinScreen : Fragment(R.layout.screen_pin) {
             }
             else -> {
                 countUserEnteredCodes++;
-                if(countUserEnteredCodes==4){
-                    findNavController().navigate(PinScreenDirections.actionPinScreenToLoginScreen())
+                if (countUserEnteredCodes == 4) {
+                    findNavController().navigate(PinScreenDirections.actionGlobalLoginScreen())
                 }
-                showToast("Number of attempts ${4-countUserEnteredCodes}")
+                showToast("Number of attempts ${4 - countUserEnteredCodes}")
 
                 binding.imgvPin1.setImageResource(R.drawable.ic_circle_line)
                 binding.imgvPin2.setImageResource(R.drawable.ic_circle_line)
@@ -168,7 +177,7 @@ class PinScreen : Fragment(R.layout.screen_pin) {
         showToast(it)
     }
     private val openLoginLiveDataObserver = Observer<Unit> {
-        findNavController().navigate(PinScreenDirections.actionPinScreenToLoginScreen())
+        findNavController().navigate(PinScreenDirections.actionGlobalLoginScreen())
     }
     private val notConnectionObserver = Observer<String> {
         showToast(it)
@@ -177,5 +186,51 @@ class PinScreen : Fragment(R.layout.screen_pin) {
         if (it) {
             binding.progress.visibility = View.VISIBLE
         } else binding.progress.visibility = View.GONE
+    }
+
+    private fun callBiometricFinger() {
+        val biometricManager = BiometricManager.from(requireContext())
+        when (biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                showToast("Success!")
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE->{
+                showToast("The device don't have a fingerprint sensor!")
+            }
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE->{
+                showToast("The biometric sensors is currently unavailable!")
+            }
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED->{
+                showToast("Your device don't have fingerprint saved")
+            }
+            else->{showToast("not success")}
+        }
+
+        val executor= ContextCompat.getMainExecutor(requireContext())
+        val biometricPrompt=BiometricPrompt(this, executor,object : BiometricPrompt.AuthenticationCallback(){
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                showToast("Login error!")
+            }
+
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                showToast("Login Success!")
+                findNavController().navigate(PinScreenDirections.actionPinScreenToMainScreen2())
+            }
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                showToast("Login failed!")
+            }
+        })
+
+        val promptInfo=BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Login")
+            .setDescription("User your fingerprint to login your app")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 }

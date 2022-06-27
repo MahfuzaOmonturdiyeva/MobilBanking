@@ -88,7 +88,7 @@ class CustomDialog private constructor(context: Context) : Dialog(context) {
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
             this.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            this.attributes.gravity = Gravity.BOTTOM
+            this.attributes.gravity = Gravity.CENTER
         }
         dialog = this
         title = dialog.findViewById(R.id.tv_title)

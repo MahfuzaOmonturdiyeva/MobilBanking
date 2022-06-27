@@ -1,6 +1,7 @@
 package uz.gita.mobilbanking.viewmodel.transfers
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import uz.gita.mobilbanking.data.request.FeeRequest
 import uz.gita.mobilbanking.data.request.SendMoneyRequest
 import uz.gita.mobilbanking.data.response.CardInfoResponse
@@ -28,4 +29,12 @@ interface TransfersViewModel {
     fun fee(feeRequest: FeeRequest)
     fun setReceiverPan(pan: String)
     fun setSenderId(id: Int)
+    val ownerCardLiveData: LiveData<String>
+    fun getCardOwnerByPan(pan: String)
+    val notEnoughMoneyLivedata: LiveData<String>
+    val saverPanLiveData: LiveData<String>
+    val amountLiveData: LiveData<String>
+    fun setAmount(pan: String)
+    fun setSaverPan(pan: String)
+    val notFoundOwnerCardLiveData: LiveData<String>
 }

@@ -29,8 +29,8 @@ class LoginScreen : Fragment(R.layout.screen_auth_login), View.OnKeyListener {
         viewModel.errorLiveData.observe(this, errorObserver)
         viewModel.notConnectionLiveData.observe(this, notConnectionObserver)
         viewModel.progressLiveData.observe(this, progressObserver)
-        binding.progress.visibility = View.GONE
 
+       
         binding.btnForgotPassword.setOnClickListener {
             findNavController().navigate(LoginScreenDirections.actionLoginScreenToResetScreen())
         }
@@ -71,9 +71,9 @@ class LoginScreen : Fragment(R.layout.screen_auth_login), View.OnKeyListener {
     }
     private val progressObserver = Observer<Boolean> {
         if (it) {
-            binding.progress.visibility = View.VISIBLE
+            binding.progress.root.visibility = View.VISIBLE
         } else {
-            binding.progress.visibility = View.GONE
+            binding.progress.root.visibility = View.GONE
         }
     }
 

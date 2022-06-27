@@ -44,12 +44,3 @@ interface AuthApi {
         @Body phone: ResetRequest
     ): Call<ResponseData<TokenResponse>>
 }
-/**
-
-BASE_URL = "http://bd1a-82-215-100-195.ngrok.io"
-
- * register->(resend)->verify
- * login->(resend)->verify
- * reset->newpassword
- * logoutda headerda token berish kk
- * */

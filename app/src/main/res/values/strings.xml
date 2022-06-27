@@ -58,4 +58,21 @@
     <string name="incomes">Incomes</string>
     <string name="outcomes">outcomes</string>
     <string name="all_history">All history</string>
+    <string name="cancel">cancel</string>
+    <string name="select_color_card">Select color card</string>
+    <string name="set_card_color">Set card color</string>
+    <string name="card">CARD</string>
+    <string name="uzcard">UZCARD</string>
+    <string name="uzs">UZS</string>
+    <string name="add_your_card_here">Add your card here</string>
+    <string name="_0000">0000</string>
+    <string name="star_text">*</string>
+    <string name="cards">Cards</string>
+    <string name="your_bank">Your bank</string>
+    <string name="enter_sms_kod">Enter sms kod</string>
+    <string name="add_card">Add card</string>
+    <string name="card_number">Card number</string>
+    <string name="validity">Validity</string>
+    <string name="card_name">Card name</string>
+    <string name="make_the_card_basic">Make the card basic</string>
 </resources>

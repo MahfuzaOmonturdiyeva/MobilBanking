@@ -174,12 +174,16 @@ class CardRepositoryImpl @Inject constructor(
                     emit(MyResult.Message<OwnerCardResponse>("Response data null"))
 
                 } else {
-                    if (response.code() == 401)
-                        emit(MyResult.Logout<OwnerCardResponse>())
-                    else {
-                        response.errorBody()?.let {
-                            val message = Gson().fromJson(it.string(), ResponseData::class.java)
-                            emit(MyResult.Message<OwnerCardResponse>(message.message!!))
+                    when {
+                        response.code() == 401 -> emit(MyResult.Logout<OwnerCardResponse>())
+                        response.code()==400 -> {
+                            emit(MyResult.Message<OwnerCardResponse>("401"))
+                        }
+                        else -> {
+                            response.errorBody()?.let {
+                                val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                                emit(MyResult.Message<OwnerCardResponse>(message.message!!))
+                            }
                         }
                     }
                 }

@@ -56,7 +56,7 @@ class TransferRepositoryImpl @Inject constructor(
     override fun fee(feeRequest: FeeRequest): LiveData<MyResult<Double>> = liveData {
         try {
             val response =
-                transferApi.fee(feeRequest.sender, feeRequest.receiverPan, feeRequest.amount)
+                transferApi.fee(feeRequest.sender, feeRequest.amount)
             if (response.isSuccessful) {
                 response.body()?.data?.let {
                     emit(MyResult.Success<Double>(it))
@@ -65,12 +65,19 @@ class TransferRepositoryImpl @Inject constructor(
                 emit(MyResult.Message<Double>("server bilan bog'lanishda xatolik"))
                 return@liveData
             } else {
-                if (response.code() == 401)
-                    emit(MyResult.Logout<Double>())
-                else {
-                    response.errorBody()?.let {
-                        val message = Gson().fromJson(it.string(), ResponseData::class.java)
-                        emit(MyResult.Message<Double>(message.message!!))
+                when {
+                    response.code() == 401 -> emit(MyResult.Logout<Double>())
+                    response.code()==400 -> {
+                        response.errorBody()?.let {
+                            val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                            emit(MyResult.Message<Double>("401"))
+                        }
+                    }
+                    else -> {
+                        response.errorBody()?.let {
+                            val message = Gson().fromJson(it.string(), ResponseData::class.java)
+                            emit(MyResult.Message<Double>(message.message!!))
+                        }
                     }
                 }
             }
